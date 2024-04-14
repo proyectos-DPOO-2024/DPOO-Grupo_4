@@ -8,7 +8,7 @@ public class Video extends Pieza {
 	
 	public Video(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion, Boolean paraVentafijo,
 			Boolean Bloqueada, Boolean Comprada, float duracion, Boolean color, Double memoria) {
-		super(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada);
+		super(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada, Pieza.VIDEO);
 		this.Duracion = duracion;
 		this.Color = color;
 		this.Memoria = memoria;

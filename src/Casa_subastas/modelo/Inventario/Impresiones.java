@@ -9,7 +9,7 @@ public class Impresiones extends Pieza {
 
 	public Impresiones(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion,
 			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, String original, String metodocreacion, float alto, float ancho) {
-		super(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada);
+		super(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada, Pieza.IMPRESIONES);
 		this.Original = original;
 		this.metodoCreacion = metodocreacion;
 		this.Alto = alto;

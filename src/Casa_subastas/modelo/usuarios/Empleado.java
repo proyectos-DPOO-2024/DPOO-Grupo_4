@@ -7,6 +7,7 @@ public class Empleado extends Usuario {
 	public static final String Cajero = "cajero";
 	public static final String Operador = "operador";
 	private String rol;
+	private String nombre;
 	
 	private static Map<String, Empleado> Empleados;
 	
@@ -15,11 +16,12 @@ public class Empleado extends Usuario {
 		return Empleados.get(login);
 	}
 	
-	public Empleado (String login, String password, String rol, int cellphone) {
+	public Empleado (String login, String password, String rol, String nombre, int cellphone) {
 		
 		super(login, password, cellphone);
 		
 		this.rol = rol;
+		this.nombre = nombre;
 		
 		Empleados.put(login, this);
 	}
@@ -38,6 +40,10 @@ public class Empleado extends Usuario {
 
 	public String getRol() {
 		return rol;
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 	
 }
