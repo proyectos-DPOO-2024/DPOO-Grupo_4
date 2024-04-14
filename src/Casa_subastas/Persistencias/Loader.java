@@ -46,6 +46,13 @@ public class Loader {
             	System.out.println(e.getMessage());
             	e.getStackTrace();
             }
+        try {
+            cargarOfertas( galeria, raiz.getJSONArray( "ofertas" ) );
+            }
+            catch (Exception e) {
+            	System.out.println(e.getMessage());
+            	e.getStackTrace();
+            }
     }
 	
 	
@@ -63,7 +70,7 @@ public class Loader {
             int cellphone = empleado.getInt( "cellphone" );
             
             if (rol.equals(Empleado.Administrador) || rol.equals(Empleado.Cajero) || rol.equals(Empleado.Operador)) {
-            	Empleado administrador = new Empleado(login, password, rol, nombre, cellphone);
+            	Empleado empleadoObj = new Empleado(login, password, rol, nombre, cellphone);
             }
             else {
             	Exception e = new Exception("Un empleado en el archivo no tiene un rol válido.");
@@ -73,8 +80,45 @@ public class Loader {
     }
 	
 	
+	private void cargarClientes( Galeria galeria, JSONArray jClientes ) throws Exception
+    {
+        int numClientes = jClientes.length( );
+        for( int i = 0; i < numClientes; i++ )
+        {
+            JSONObject cliente = jClientes.getJSONObject( i );
+            
+            String login = cliente.getString( "login" );
+            String password = cliente.getString( "password" );
+            boolean esComprador = cliente.getBoolean( "esComprador" );
+            boolean esPropietario = cliente.getBoolean( "esPropietario" );
+            int cellphone = cliente.getInt( "cellphone" );
+            long valorMaximoCompras = cliente.getLong( "valorMaximoCompras" );
+            boolean esVerificado = cliente.getBoolean( "esVerificado" );
+            
+            galeria.agregarCliente(login, password, esComprador, esPropietario, cellphone, valorMaximoCompras, esVerificado);
+        }
+
+    }
 	
-	
+	private void cargarOfertas( Galeria galeria, JSONArray jOfertas ) throws Exception
+    {
+        int numOfertas = jOfertas.length( );
+        for( int i = 0; i < numOfertas; i++ )
+        {
+            JSONObject oferta = jOfertas.getJSONObject( i );
+            
+            String login = cliente.getString( "login" );
+            String password = cliente.getString( "password" );
+            boolean esComprador = cliente.getBoolean( "esComprador" );
+            boolean esPropietario = cliente.getBoolean( "esPropietario" );
+            int cellphone = cliente.getInt( "cellphone" );
+            long valorMaximoCompras = cliente.getLong( "valorMaximoCompras" );
+            boolean esVerificado = cliente.getBoolean( "esVerificado" );
+            
+            galeria.agregarCliente(login, password, esComprador, esPropietario, cellphone, valorMaximoCompras, esVerificado);
+        }
+
+    }
 
 }
 

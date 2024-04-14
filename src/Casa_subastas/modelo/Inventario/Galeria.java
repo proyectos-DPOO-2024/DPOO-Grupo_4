@@ -11,6 +11,7 @@ import Casa_subastas.modelo.Centro_compras.Oferta;
 import Casa_subastas.modelo.Centro_compras.Pago;
 import Casa_subastas.modelo.Centro_compras.Subasta;
 import Casa_subastas.modelo.usuarios.Cliente;
+import Casa_subastas.modelo.usuarios.Empleado;
 
 
 public class Galeria 
@@ -54,9 +55,19 @@ public class Galeria
 		this.piezasPropietarios.put(propietario, piezas);
 	}
 	
-	public void agregarCliente(String login, String password, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximo, boolean isVerificado ) {
-		Cliente cliente = new Cliente(login, password, esComprador, esPropietario, cellphone, valorMaximo, isVerificado );
-		mapaClientes.put(login, cliente);
+	public void agregarCliente(String login, String password, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximo, boolean isVerificado ) throws Exception {
+		Cliente existeLoginCliente = Cliente.getCliente(login);
+		Empleado existeLoginEmpleado = Empleado.getEmpleado(login);
+		
+		if (existeLoginCliente == null && existeLoginEmpleado == null) {
+			Cliente cliente = new Cliente(login, password, esComprador, esPropietario, cellphone, valorMaximo, isVerificado );
+			mapaClientes.put(login, cliente);
+		}
+		else {
+			Exception e = new Exception("El login ingresado ya está en uso.");
+			throw e;
+		}
+		
 	}
 	
 	
@@ -119,7 +130,7 @@ public class Galeria
 		Cliente comprador = oferta.getComprador();
 		Pieza pieza = oferta.getPieza();
 		
-		Pago pago = new pago(metodoPago, valorPagado, comprador, pieza);
+		Pago pago = new Pago(metodoPago, valorPagado, comprador, pieza);
 		pagos.add(pago);
 		
 		oferta.pagar();
@@ -159,7 +170,7 @@ public class Galeria
 		Cliente cliente = mapaClientes.get(nombreCliente);
 		Subasta subasta = mapaSubastas.get(nombrePieza);
 		
-		if((cliente.getValorMaximoCompras() > valor) && (valor > subasta.getValorInicial())) {
+		if((cliente.getValorMaximoCompras() > valor) && (valor > subasta.getValorActual())) {
 			if(cliente.isVerificado()) {
 				Oferta oferta = new Oferta(pieza, valor ,cliente);
 				subasta.añadirOferta(oferta);
