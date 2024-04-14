@@ -18,10 +18,10 @@ public class Oferta {
 	
 	//constructor\\
 
-	public Oferta(Pieza pieza, long precio, Cliente comprador) {
+	public Oferta(Pieza pieza, long valor, Cliente comprador) {
 		super();
 		this.pieza = pieza;
-		this.precio = precio;
+		this.precio = valor;
 		this.Comprador = comprador;
 		this.ofertaVerificada = false;
 	}
@@ -58,3 +58,4 @@ public class Oferta {
 	
 	
 }
+
