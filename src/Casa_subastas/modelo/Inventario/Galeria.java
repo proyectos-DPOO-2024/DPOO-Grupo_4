@@ -55,13 +55,13 @@ public class Galeria
 	}
 	
 	public void agregarCliente(String login, String pasword, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximo, boolean isVerificado ) {
-		Cliente cliente = new Cliente(login, pasword, esComprador, esPropietario, cellphone, valorMaximo, isVerificado );
+		Cliente cliente = new Cliente(login, pasword, esComprador, esPropietario, cellphone,isVerificado ,valorMaximo );
 		mapaClientes.put(login, cliente);
 	}
 	
 	
 	public void asignarMaximo (Cliente propietario, long valor) {
-		propietario.extenderValorMaximoCompras(valor);
+		propietario.setValorMaximoCompras(valor);
 	}
 	
 	/*
@@ -119,7 +119,7 @@ public class Galeria
 		Cliente comprador = oferta.getComprador();
 		Pieza pieza = oferta.getPieza();
 		
-		Pago pago = new pago(metodoPago, valorPagado, comprador, pieza);
+		Pago pago = new Pago(metodoPago, valorPagado, comprador, pieza);
 		pagos.add(pago);
 		
 		oferta.pagar();
@@ -159,7 +159,7 @@ public class Galeria
 		Cliente cliente = mapaClientes.get(nombreCliente);
 		Subasta subasta = mapaSubastas.get(nombrePieza);
 		
-		if((cliente.getValorMaximoCompras() > valor) && (valor > subasta.getValorInicial())) {
+		if((cliente.getValorMaximoCompras() > valor) && (valor > subasta.getValorActual())) {
 			if(cliente.isVerificado()) {
 				Oferta oferta = new Oferta(pieza, valor ,cliente);
 				subasta.añadirOferta(oferta);
