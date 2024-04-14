@@ -159,7 +159,7 @@ public class Galeria
 		Cliente cliente = mapaClientes.get(nombreCliente);
 		Subasta subasta = mapaSubastas.get(nombrePieza);
 		
-		if((cliente.getValorMaximoCompras() > valor) && (valor > subasta.getValorInicial())) {
+		if((cliente.getValorMaximoCompras() > valor) && (valor > subasta.getValorActual())) {
 			if(cliente.isVerificado()) {
 				Oferta oferta = new Oferta(pieza, valor ,cliente);
 				subasta.añadirOferta(oferta);
