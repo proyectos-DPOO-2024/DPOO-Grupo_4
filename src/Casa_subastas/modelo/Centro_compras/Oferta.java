@@ -14,6 +14,8 @@ public class Oferta {
 	
 	private boolean ofertaVerificada;
 	
+	private boolean pagada;
+	
 	///metodos\\\
 	
 	//constructor\\
@@ -57,6 +59,10 @@ public class Oferta {
 		return valor;
 	}
 	
+	public void pagar()
+	{
+		pagada = true;
+	}
 	
 	
 	
