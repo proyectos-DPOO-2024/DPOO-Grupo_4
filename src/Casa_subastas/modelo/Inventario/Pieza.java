@@ -26,8 +26,8 @@ public abstract class Pieza {
 	public String getNombrepieza() {
 		return this.nombrePieza;
 	}
-	public Cliente getPropietario() {
-		return null;
+	public String getPropietario() {
+		return nombrePropietario;
 	}
 	public boolean getParaVentaValorFijo() {
 		return this.paraVentafijo;

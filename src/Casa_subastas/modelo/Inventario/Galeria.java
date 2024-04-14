@@ -132,7 +132,8 @@ public class Galeria
 		
 		Cliente clienteNuevo = mapaClientes.get(nombreClienteNuevo);
 		Pieza pieza = mapaPiezas.get(nombrePieza);
-		Cliente clienteAntiguo = pieza.getPropietario(); 
+		String nombreClienteAntiguo = pieza.getPropietario(); 
+		Cliente clienteAntiguo = mapaClientes.get(nombreClienteAntiguo);
 		
 		clienteAntiguo.registrarVenta(pieza, clienteNuevo );
 		
