@@ -119,7 +119,7 @@ public class Galeria
 		Cliente comprador = oferta.getComprador();
 		Pieza pieza = oferta.getPieza();
 		
-		Pago pago = new pago(metodoPago, valorPagado, comprador, pieza);
+		Pago pago = new Pago(metodoPago, valorPagado, comprador, pieza);
 		pagos.add(pago);
 		
 		oferta.pagar();
