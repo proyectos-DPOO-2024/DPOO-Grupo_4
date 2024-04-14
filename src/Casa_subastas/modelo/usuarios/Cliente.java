@@ -17,7 +17,6 @@ public class Cliente extends Usuario {
 	private boolean propietario;
 	private List<Pieza> compras;
 	private long valorMaximoCompras;
-	private long valorComprasActuales;
 	private List<Pieza> propiedadesActuales;
 	private Map<Pieza, List> propiedadesPasadas;
 	
@@ -47,7 +46,6 @@ public void otorgarPermisosComprador () {
 	
 	comprador = true;
 	compras = new ArrayList<Pieza>();
-	valorComprasActuales = 0;
 }
 
 public void otorgarPermisosPropietario() {
@@ -73,7 +71,7 @@ public void extenderValorMaximoCompras(long nuevoTope) {
 public void registrarCompra (Pieza piezaComprada, long valorPagado) {
 	
 	compras.add(piezaComprada);
-	valorComprasActuales = valorComprasActuales + valorPagado;
+	valorMaximoCompras = valorMaximoCompras - valorPagado;
 	
 }
 
@@ -112,9 +110,6 @@ public long getValorMaximoCompras() {
 	return valorMaximoCompras;
 }
 
-public long getValorComprasActuales() {
-	return valorComprasActuales;
-}
 
 public List getPropiedadesActuales() {
 	return propiedadesActuales;
