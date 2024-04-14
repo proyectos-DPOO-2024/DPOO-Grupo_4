@@ -21,7 +21,7 @@ public class Cliente extends Usuario {
 	private List<Pieza> propiedadesActuales;
 	private Map<Pieza, List> propiedadesPasadas;
 	
-public Cliente (String login, String password, int cellphone, boolean esComprador, boolean esPropietario) {
+public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone) {
 		
 		super(login, password, cellphone);
 		

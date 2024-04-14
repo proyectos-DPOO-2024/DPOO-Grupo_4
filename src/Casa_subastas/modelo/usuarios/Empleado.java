@@ -30,5 +30,4 @@ public class Empleado extends Usuario {
 		return rol;
 	}
 	
-	
 }

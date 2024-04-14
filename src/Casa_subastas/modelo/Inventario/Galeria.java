@@ -1,11 +1,13 @@
 package Casa_subastas.modelo.Inventario;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import Casa_subastas.modelo.Centro_compras.Oferta;
+import Casa_subastas.modelo.Centro_compras.Pago;
 import Casa_subastas.modelo.usuarios.Cliente;
 
 
