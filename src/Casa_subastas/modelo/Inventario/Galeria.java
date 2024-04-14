@@ -5,12 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+
 public class Galeria {
-	public List<Piezas> piezas;
-	public List<Piezas> piezasVendidas;
-	public Map<String, List<Piezas>> piezasPropietarios;
-	public Map<String, List<Piezas>> piezasPasadospropietarios;
-	public Map<String, Piezas> mapaPiezas;
+	public List<Pieza> piezas;
+	public List<Pieza> piezasVendidas;
+	public Map<String, List<Pieza>> piezasPropietarios;
+	public Map<String, List<Pieza>> piezasPasadospropietarios;
+	public Map<String, Pieza> mapaPiezas;
 
 	public Galeria () {
 		this.piezas = new LinkedList<>();
@@ -19,24 +20,32 @@ public class Galeria {
 		this.piezasPasadospropietarios = new HashMap<>();
 		this.mapaPiezas = new HashMap<>();
 	}
-	public void agregarPieza (Piezas pieza, String propietario) {
+	
+	
+	public void agregarPieza (Pieza pieza, String propietario) {
 		this.piezas.add(pieza);
 		this.mapaPiezas.put(pieza.getNombrepieza(), pieza);
 		 if (piezasPropietarios.containsKey(propietario)) {
-			 List<Piezas> piezasDelCliente = piezasPropietarios.get(propietario);
+			 List<Pieza> piezasDelCliente = piezasPropietarios.get(propietario);
 			 piezasDelCliente.add(pieza);
 			 piezasPropietarios.put(propietario, piezasDelCliente);
 		 }
 		 else {
-			 List<Piezas> piezasDelCliente = new LinkedList<>();
+			 List<Pieza> piezasDelCliente = new LinkedList<>();
 			 piezasDelCliente.add(pieza);
 			 piezasPropietarios.put(propietario, piezasDelCliente);
 		 }
 		this.piezasPropietarios.put(propietario, piezas);
 	}
+	
 	public void asignarMaximo (Cliente propietario, int valor) {
-		propietario.getValorMaximoCompras(valor);
-		
-		
+		propietario.setValorMaximoCompras(valor);
 	}
+	
+	public void crearOfertaValorFijo(Cliente cliente, Pieza pieza);
+	
+	
+	
+	
+	
 }
