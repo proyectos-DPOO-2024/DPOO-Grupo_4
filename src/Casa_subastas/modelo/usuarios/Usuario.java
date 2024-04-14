@@ -1,12 +1,14 @@
 package Casa_subastas.modelo.usuarios;
 
+import java.util.Map;
+
 public abstract class Usuario {
 
 	private String login;
 	private String password;
 	private int cellphone;
 	
-	public Usuario (String login, String password, int cellphone) {
+	public Usuario(String login, String password, int cellphone) {
 		
 		this.login = login;
 		this.password = password;

@@ -15,7 +15,8 @@ public class MenuPrincipal extends ConsolaBasica {
 		try
         {
             String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galería " );
-            Loader.cargarGaleria(archivo);
+            Loader cargador = new Loader();
+            cargador.cargarGaleria("./datos/" + archivo);
         }
         catch( Exception e )
 		{

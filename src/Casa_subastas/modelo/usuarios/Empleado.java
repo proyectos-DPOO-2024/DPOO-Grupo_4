@@ -1,17 +1,27 @@
 package Casa_subastas.modelo.usuarios;
 
+import java.util.Map;
+
 public class Empleado extends Usuario {
 	public static final String Administrador = "administrador";
 	public static final String Cajero = "cajero";
 	public static final String Operador = "operador";
-	
 	private String rol;
+	
+	private static Map<String, Empleado> Empleados;
+	
+	public static Empleado getEmpleado(String login) {
+		
+		return Empleados.get(login);
+	}
 	
 	public Empleado (String login, String password, String rol, int cellphone) {
 		
 		super(login, password, cellphone);
 		
 		this.rol = rol;
+		
+		Empleados.put(login, this);
 	}
 
 	public static String getAdministrador() {
