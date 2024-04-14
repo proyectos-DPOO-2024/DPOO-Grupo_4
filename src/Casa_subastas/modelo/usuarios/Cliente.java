@@ -27,7 +27,7 @@ public static Cliente getCliente(String login) {
 	return Clientes.get(login);
 }
 	
-public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone, boolean esVerificado, long valorMaximoCompras) {
+public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximoCompras, boolean esVerificado) {
 		
 		super(login, password, cellphone);
 		
@@ -72,7 +72,7 @@ public void verificar(long valorMaximoCompras) {
 	
 }
 
-public void setValorMaximoCompras(long nuevoTope) {
+public void extenderValorMaximoCompras(long nuevoTope) {
 	
 	this.valorMaximoCompras = nuevoTope;
 	

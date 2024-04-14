@@ -54,8 +54,8 @@ public class Galeria
 		this.piezasPropietarios.put(propietario, piezas);
 	}
 	
-	public void agregarCliente(String login, String pasword, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximo, boolean isVerificado ) {
-		Cliente cliente = new Cliente(login, pasword, esComprador, esPropietario, cellphone, valorMaximo, isVerificado );
+	public void agregarCliente(String login, String password, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximo, boolean isVerificado ) {
+		Cliente cliente = new Cliente(login, password, esComprador, esPropietario, cellphone, valorMaximo, isVerificado );
 		mapaClientes.put(login, cliente);
 	}
 	
