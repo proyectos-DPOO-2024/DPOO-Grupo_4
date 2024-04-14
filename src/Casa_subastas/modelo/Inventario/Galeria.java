@@ -16,6 +16,8 @@ public class Galeria
 	public Map<String, List<Pieza>> piezasPropietarios;
 	public Map<String, List<Pieza>> piezasPasadospropietarios;
 	public Map<String, Pieza> mapaPiezas;
+	public Map<String, Oferta> mapaOfertas;
+	public List<Pago> pagos;
 
 	public Galeria () {
 		this.piezas = new LinkedList<>();
@@ -23,17 +25,10 @@ public class Galeria
 		this.piezasPropietarios = new HashMap<>();
 		this.piezasPasadospropietarios = new HashMap<>();
 		this.mapaPiezas = new HashMap<>();
+		this.mapaOfertas = new HashMap<>();
+		this.pagos = new ArrayList<>();
 	}
 	
-	/**
-	 * 
-	 * @param pieza
-	 * @param propietario
-	 * Añade un nuevo elemento a la lista y al mapa de piezas. 
-	 * Verifica si en el mapa de propietarios ya se encuentra el cliente.
-	 * Si esta modifica la lista de las piezas del cliente.
-	 * Si no añade una nueva llave con el nombre de el cliente con una nueva lista que incluye la nueva pieza.
-	 */
 	
 	public void agregarPieza (Pieza pieza, String propietario) {
 		this.piezas.add(pieza);
@@ -61,14 +56,35 @@ public class Galeria
 	
 	public void crearOfertaValorFijo(Cliente cliente, Pieza pieza){
 		Oferta oferta = new Oferta(pieza, cliente, false);
+		this.mapaOfertas.put(pieza.getNombrepieza(), oferta);
 	}
 	
 	/*
 	 * Verifica una oferta de valor fijo
 	 */
-	public void verificarOfertaValorFijo(Oferta)
+	public void verificarOfertaValorFijo(String nombrePieza)
 	{
-		
+		Oferta oferta = mapaOfertas.get(nombrePieza);
+		oferta.confirmarOferta();
 	}
 		
+	/*
+	 * realiza el pago dada una oferta ya verificada
+	 */
+	
+	public void realizarPago(String metodoPago, String nombrePieza) {
+		Oferta oferta = mapaOfertas.get(nombrePieza);
+		
+		
+	}
+	
+	public void cambiarPropietarioPieza() {
+		
+	}
+	
 }
+	
+	
+	
+	
+	
