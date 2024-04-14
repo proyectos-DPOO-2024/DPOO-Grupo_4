@@ -10,7 +10,7 @@ public class Oferta {
 	
 	private Cliente Comprador;
 	
-	private int precio;
+	private long valor;
 	
 	private boolean ofertaVerificada;
 	
@@ -21,7 +21,7 @@ public class Oferta {
 	public Oferta(Pieza pieza, long valor, Cliente comprador) {
 		super();
 		this.pieza = pieza;
-		this.precio = valor;
+		this.valor = valor;
 		this.Comprador = comprador;
 		this.ofertaVerificada = false;
 	}
@@ -29,7 +29,7 @@ public class Oferta {
 	public Oferta(Pieza pieza, Cliente comprador, boolean ofertaVerificada) {
 		super();
 		this.pieza = pieza;
-		this.precio = pieza.getCosto();
+		this.valor = pieza.getCosto();
 		this.Comprador = comprador;
 		this.ofertaVerificada = false;
 	}
@@ -51,6 +51,10 @@ public class Oferta {
 	public boolean esConfirmada()
 	{
 		return ofertaVerificada;
+	}
+	public long getValorPieza()
+	{
+		return valor;
 	}
 	
 	
