@@ -13,7 +13,7 @@ public abstract class Pieza {
 	public static final int VIDEO = 4;
 	
 	private String nombrePieza;
-	private int Tipo;
+	private int tipo;
 	private int precio;
 	private String nombrePropietario;
 	private int diasConsignacion;
@@ -29,7 +29,7 @@ public abstract class Pieza {
 		this.nombrePropietario = nombrePropietario;
 		this.diasConsignacion = diasConsignacion;
 		this.paraVentafijo = paraVentafijo;
-		this.Tipo = Tipo;
+		this.tipo = Tipo;
 		this.bloqueada = Bloqueada;
 		this.comprada = Comprada;
 	}
