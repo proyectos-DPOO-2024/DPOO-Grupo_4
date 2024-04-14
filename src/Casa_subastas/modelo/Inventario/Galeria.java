@@ -25,6 +25,15 @@ public class Galeria
 		this.mapaPiezas = new HashMap<>();
 	}
 	
+	/**
+	 * 
+	 * @param pieza
+	 * @param propietario
+	 * Añade un nuevo elemento a la lista y al mapa de piezas. 
+	 * Verifica si en el mapa de propietarios ya se encuentra el cliente.
+	 * Si esta modifica la lista de las piezas del cliente.
+	 * Si no añade una nueva llave con el nombre de el cliente con una nueva lista que incluye la nueva pieza.
+	 */
 	
 	public void agregarPieza (Pieza pieza, String propietario) {
 		this.piezas.add(pieza);
