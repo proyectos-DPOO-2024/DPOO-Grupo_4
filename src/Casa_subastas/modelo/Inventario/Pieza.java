@@ -2,9 +2,18 @@ package Casa_subastas.modelo.Inventario;
 
 import javax.swing.Spring;
 
+import Casa_subastas.modelo.usuarios.Cliente;
+
 public abstract class Pieza {
 
+	public static final int PINTURA = 0;
+	public static final int IMPRESIONES = 1;
+	public static final int ESCULTURA = 2;
+	public static final int FOTOGRAFIA = 3;
+	public static final int VIDEO = 4;
+	
 	private String nombrePieza;
+	private int Tipo;
 	private int precio;
 	private String nombrePropietario;
 	private int diasConsignacion;
@@ -14,12 +23,13 @@ public abstract class Pieza {
 	
 	public Pieza (String nombrePieza, int Precio, 
 			String nombrePropietario, int diasConsignacion, 
-			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada) {
+			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, int Tipo) {
 		this.nombrePieza = nombrePieza;
 		this.precio = Precio;
 		this.nombrePropietario = nombrePropietario;
 		this.diasConsignacion = diasConsignacion;
 		this.paraVentafijo = paraVentafijo;
+		this.Tipo = Tipo;
 		this.bloqueada = Bloqueada;
 		this.comprada = Comprada;
 	}

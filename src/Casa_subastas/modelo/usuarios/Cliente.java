@@ -27,12 +27,12 @@ public static Cliente getCliente(String login) {
 	return Clientes.get(login);
 }
 	
-public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone) {
+public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone, boolean esVerificado, long valorMaximoCompras) {
 		
 		super(login, password, cellphone);
 		
 		if (esComprador) {
-			otorgarPermisosComprador();
+			otorgarPermisosComprador(valorMaximoCompras);
 		}
 		else {
 			comprador = false;
@@ -46,13 +46,16 @@ public Cliente (String login, String password, boolean esComprador, boolean esPr
 			propietario = false;
 		}
 		
+		verificado = esVerificado;
+		
 		Clientes.put(login, this);
 	}
 
-public void otorgarPermisosComprador () {
+public void otorgarPermisosComprador (long valorMaximoCompras) {
 	
 	comprador = true;
 	compras = new ArrayList<Pieza>();
+	this.valorMaximoCompras = valorMaximoCompras;
 }
 
 public void otorgarPermisosPropietario() {
@@ -69,7 +72,7 @@ public void verificar(long valorMaximoCompras) {
 	
 }
 
-public void extenderValorMaximoCompras(long nuevoTope) {
+public void setValorMaximoCompras(long nuevoTope) {
 	
 	this.valorMaximoCompras = nuevoTope;
 	
