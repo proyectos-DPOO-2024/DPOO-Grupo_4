@@ -2,7 +2,7 @@ package Casa_subastas.modelo.Inventario;
 
 import javax.swing.Spring;
 
-public abstract class Piezas {
+public abstract class Pieza {
 
 	private String nombrePieza;
 	private int Precio;
@@ -12,7 +12,7 @@ public abstract class Piezas {
 	private Boolean Bloqueada;
 	private Boolean Comprada;
 	
-	public Piezas (String nombrePieza, int Precio, 
+	public Pieza (String nombrePieza, int Precio, 
 			String nombrePropietario, int diasConsignacion, 
 			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada) {
 		this.nombrePieza = nombrePieza;
