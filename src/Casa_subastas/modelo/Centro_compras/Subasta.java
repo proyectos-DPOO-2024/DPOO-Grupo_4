@@ -12,7 +12,7 @@ public class Subasta {
 	
 	private int valorMinimo;
 	
-	private int valorInicial;
+	private int valorActual;
 	
 	private Pieza piezaSubastar;
 	
@@ -26,10 +26,10 @@ public class Subasta {
 	
 	///constructor\\\
 
-	public Subasta(int valorMinimo, int valorInicial, Pieza piezaSubastar)
+	public Subasta(int valorMinimo, int valorActual, Pieza piezaSubastar)
 	{
 		this.valorMinimo = valorMinimo;
-		this.valorInicial = valorInicial;
+		this.valorActual = valorActual;
 		this.piezaSubastar = piezaSubastar;
 		this.trazaOfertas = new LinkedList<Oferta>();
 		this.finalizada = false;
@@ -54,8 +54,12 @@ public class Subasta {
 		return valorMinimo;
 	}
 
-	public int getValorInicial() {
-		return valorInicial;
+	public int getValorActual() {
+		return valorActual;
+	}
+
+	public void setValorActual(valor){
+		valorActual = valor;
 	}
 
 	public Pieza getPiezaSubastar() {
