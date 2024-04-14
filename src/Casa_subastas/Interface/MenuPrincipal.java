@@ -6,6 +6,7 @@ public class MenuPrincipal extends ConsolaBasica {
     private final String[] opcionesMenuPrincipal = new String[]{"Iniciar sesión", "Salir"};
     private Map<String, String> usuariosRegistrados;
 
+<<<<<<< HEAD
     public MenuPrincipal() {
         usuariosRegistrados = new HashMap<>();
         // Simulación de usuarios registrados
@@ -25,6 +26,19 @@ public class MenuPrincipal extends ConsolaBasica {
                 System.out.println("Saliendo ...");
                 System.exit(0);
                 break;
+=======
+	public static void main() {
+		MenuPrincipal me = new MenuPrincipal( );
+        me.empezarAplicacion( );
+	}
+	
+	private void empezarAplicacion() {
+		try
+        {
+            String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galería " );
+            Loader cargador = new Loader();
+            cargador.cargarGaleria("./datos/" + archivo);
+>>>>>>> branch 'main' of https://github.com/proyectos-DPOO-2024/Proyecto_1_entrega_2.git
         }
         mostrarMenuPrincipal();
     }

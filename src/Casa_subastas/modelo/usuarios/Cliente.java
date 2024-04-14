@@ -17,15 +17,19 @@ public class Cliente extends Usuario {
 	private boolean propietario;
 	private List<Pieza> compras;
 	private long valorMaximoCompras;
-	private long valorComprasActuales;
 	private List<Pieza> propiedadesActuales;
-	private Map<Pieza, List> propiedadesPasadas;
+	private List<Pieza> propiedadesPasadas;
+	
+	private static Map<String, Cliente> Clientes;
+	
+public static Cliente getCliente(String login) {
+	
+	return Clientes.get(login);
+}
 	
 public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone) {
 		
 		super(login, password, cellphone);
-		
-
 		
 		if (esComprador) {
 			otorgarPermisosComprador();
@@ -41,20 +45,21 @@ public Cliente (String login, String password, boolean esComprador, boolean esPr
 		else {
 			propietario = false;
 		}
+		
+		Clientes.put(login, this);
 	}
 
 public void otorgarPermisosComprador () {
 	
 	comprador = true;
 	compras = new ArrayList<Pieza>();
-	valorComprasActuales = 0;
 }
 
 public void otorgarPermisosPropietario() {
 	
 	propietario = true;
 	propiedadesActuales = new ArrayList<Pieza>();
-	propiedadesPasadas = new HashMap<Pieza, List>();
+	propiedadesPasadas = new ArrayList<Pieza>();
 }
 
 public void verificar(long valorMaximoCompras) {
@@ -73,7 +78,7 @@ public void extenderValorMaximoCompras(long nuevoTope) {
 public void registrarCompra (Pieza piezaComprada, long valorPagado) {
 	
 	compras.add(piezaComprada);
-	valorComprasActuales = valorComprasActuales + valorPagado;
+	valorMaximoCompras = valorMaximoCompras - valorPagado;
 	
 }
 
@@ -82,13 +87,7 @@ public void registrarVenta (Pieza piezaVendida, Cliente nuevoPropietario) {
 	propiedadesActuales.remove(piezaVendida);
 	List<Cliente> Clientes = new ArrayList<Cliente>();
 	Clientes.add(nuevoPropietario);
-	propiedadesPasadas.put(piezaVendida, Clientes);
-	
-}
-
-public void actualizarHistorialPiezaPasada (Pieza pieza, Cliente nuevoPropietario) {
-	
-	propiedadesPasadas.get(pieza).add(nuevoPropietario);
+	propiedadesPasadas.add(piezaVendida);
 	
 }
 
@@ -112,18 +111,13 @@ public long getValorMaximoCompras() {
 	return valorMaximoCompras;
 }
 
-public long getValorComprasActuales() {
-	return valorComprasActuales;
-}
 
 public List getPropiedadesActuales() {
 	return propiedadesActuales;
 }
 
-public Set getPropiedadesPasadas() {
-	return propiedadesPasadas.keySet();
+public List getPropiedadesPasadas() {
+	return propiedadesPasadas;
 }
-
-
 
 }

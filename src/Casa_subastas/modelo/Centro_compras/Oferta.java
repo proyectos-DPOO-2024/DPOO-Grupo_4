@@ -18,7 +18,7 @@ public class Oferta {
 	
 	//constructor\\
 
-	public Oferta(Pieza pieza, int precio, Cliente comprador) {
+	public Oferta(Pieza pieza, long precio, Cliente comprador) {
 		super();
 		this.pieza = pieza;
 		this.precio = precio;
