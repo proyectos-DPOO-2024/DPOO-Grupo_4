@@ -57,5 +57,7 @@ public abstract class Pieza {
 	public void desbloquear() {
 		this.bloqueada = false;
 	}
-	public abstract int getCosto();
+	public int getCosto() {
+		return precio;
+	}
 }
