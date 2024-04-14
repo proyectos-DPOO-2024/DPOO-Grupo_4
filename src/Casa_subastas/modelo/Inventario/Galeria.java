@@ -10,15 +10,18 @@ public class Galeria {
 	public List<Piezas> piezasVendidas;
 	public Map<String, List<Piezas>> piezasPropietarios;
 	public Map<String, List<Piezas>> piezasPasadospropietarios;
+	public Map<String, Piezas> mapaPiezas;
 
 	public Galeria () {
 		this.piezas = new LinkedList<>();
 		this.piezasVendidas = new LinkedList<>();
 		this.piezasPropietarios = new HashMap<>();
 		this.piezasPasadospropietarios = new HashMap<>();
+		this.mapaPiezas = new HashMap<>();
 	}
 	public void agregarPieza (Piezas pieza, String propietario) {
 		this.piezas.add(pieza);
+		this.mapaPiezas.put(pieza.getNombrepieza(), pieza);
 		 if (piezasPropietarios.containsKey(propietario)) {
 			 List<Piezas> piezasDelCliente = piezasPropietarios.get(propietario);
 			 piezasDelCliente.add(pieza);
@@ -31,7 +34,9 @@ public class Galeria {
 		 }
 		this.piezasPropietarios.put(propietario, piezas);
 	}
-	public void asignarMaximo (Cliente propietario) {
+	public void asignarMaximo (Cliente propietario, int valor) {
+		propietario.getValorMaximoCompras(valor);
+		
 		
 	}
 }
