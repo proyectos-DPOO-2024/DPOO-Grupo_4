@@ -50,11 +50,11 @@ public class Subasta {
 		this.compradorGanador = compradorGanador;
 	}
 
-	public int getValorMinimo() {
+	public long getValorMinimo() {
 		return valorMinimo;
 	}
 
-	public int getValorActual() {
+	public long getValorActual() {
 		return valorActual;
 	}
 
