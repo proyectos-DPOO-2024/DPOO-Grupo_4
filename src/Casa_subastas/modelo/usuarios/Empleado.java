@@ -6,14 +6,12 @@ public class Empleado extends Usuario {
 	public static final String Operador = "operador";
 	
 	private String rol;
-	private int cellphone;
 	
 	public Empleado (String login, String password, String rol, int cellphone) {
 		
-		super(login, password);
+		super(login, password, cellphone);
 		
 		this.rol = rol;
-		this.cellphone = cellphone;
 	}
 
 	public static String getAdministrador() {
@@ -30,10 +28,6 @@ public class Empleado extends Usuario {
 
 	public String getRol() {
 		return rol;
-	}
-
-	public int getCellphone() {
-		return cellphone;
 	}
 	
 	

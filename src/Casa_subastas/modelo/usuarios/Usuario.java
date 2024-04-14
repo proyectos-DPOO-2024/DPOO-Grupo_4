@@ -4,11 +4,13 @@ public abstract class Usuario {
 
 	private String login;
 	private String password;
+	private int cellphone;
 	
-	public Usuario (String login, String password) {
+	public Usuario (String login, String password, int cellphone) {
 		
 		this.login = login;
 		this.password = password;
+		this.cellphone = cellphone;
 	}
 
 	public String getLogin() {
@@ -17,6 +19,10 @@ public abstract class Usuario {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public int getCellphone() {
+		return cellphone;
 	}
 	
 	

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import Casa_subastas.modelo.Inventario.Piezas;
+import Casa_subastas.modelo.Inventario.Pieza;
 
 public class Cliente extends Usuario {
 	
@@ -15,15 +15,15 @@ public class Cliente extends Usuario {
 	private boolean verificado;
 	private boolean comprador;
 	private boolean propietario;
-	private List<Piezas> compras;
+	private List<Pieza> compras;
 	private long valorMaximoCompras;
 	private long valorComprasActuales;
-	private List<Piezas> propiedadesActuales;
-	private Map<Piezas, List> propiedadesPasadas;
+	private List<Pieza> propiedadesActuales;
+	private Map<Pieza, List> propiedadesPasadas;
 	
-public Cliente (String login, String password, boolean esComprador, boolean esPropietario) {
+public Cliente (String login, String password, int cellphone, boolean esComprador, boolean esPropietario) {
 		
-		super(login, password);
+		super(login, password, cellphone);
 		
 
 		
@@ -46,15 +46,15 @@ public Cliente (String login, String password, boolean esComprador, boolean esPr
 public void otorgarPermisosComprador () {
 	
 	comprador = true;
-	compras = new ArrayList<Piezas>();
+	compras = new ArrayList<Pieza>();
 	valorComprasActuales = 0;
 }
 
 public void otorgarPermisosPropietario() {
 	
 	propietario = true;
-	propiedadesActuales = new ArrayList<Piezas>();
-	propiedadesPasadas = new HashMap<Piezas, List>();
+	propiedadesActuales = new ArrayList<Pieza>();
+	propiedadesPasadas = new HashMap<Pieza, List>();
 }
 
 public void verificar(long valorMaximoCompras) {
@@ -70,14 +70,14 @@ public void extenderValorMaximoCompras(long nuevoTope) {
 	
 }
 
-public void registrarCompra (Piezas piezaComprada, long valorPagado) {
+public void registrarCompra (Pieza piezaComprada, long valorPagado) {
 	
 	compras.add(piezaComprada);
 	valorComprasActuales = valorComprasActuales + valorPagado;
 	
 }
 
-public void registrarVenta (Piezas piezaVendida, Cliente nuevoPropietario) {
+public void registrarVenta (Pieza piezaVendida, Cliente nuevoPropietario) {
 	
 	propiedadesActuales.remove(piezaVendida);
 	List<Cliente> Clientes = new ArrayList<Cliente>();
@@ -86,7 +86,7 @@ public void registrarVenta (Piezas piezaVendida, Cliente nuevoPropietario) {
 	
 }
 
-public void actualizarHistorialPiezaPasada (Piezas pieza, Cliente nuevoPropietario) {
+public void actualizarHistorialPiezaPasada (Pieza pieza, Cliente nuevoPropietario) {
 	
 	propiedadesPasadas.get(pieza).add(nuevoPropietario);
 	
