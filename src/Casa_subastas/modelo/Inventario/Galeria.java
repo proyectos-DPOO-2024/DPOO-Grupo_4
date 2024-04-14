@@ -5,8 +5,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import Casa_subastas.modelo.Centro_compras.Oferta;
+import Casa_subastas.modelo.usuarios.Cliente;
 
-public class Galeria {
+
+public class Galeria 
+{
 	public List<Pieza> piezas;
 	public List<Pieza> piezasVendidas;
 	public Map<String, List<Pieza>> piezasPropietarios;
@@ -42,10 +46,20 @@ public class Galeria {
 		propietario.setValorMaximoCompras(valor);
 	}
 	
-	public void crearOfertaValorFijo(Cliente cliente, Pieza pieza);
+	/*
+	 * Crea una oferta de valor fijo
+	 */
 	
+	public void crearOfertaValorFijo(Cliente cliente, Pieza pieza){
+		Oferta oferta = new Oferta(pieza, cliente, false);
+	}
 	
-	
-	
-	
+	/*
+	 * Verifica una oferta de valor fijo
+	 */
+	public void verificarOfertaValorFijo(Oferta)
+	{
+		
+	}
+		
 }

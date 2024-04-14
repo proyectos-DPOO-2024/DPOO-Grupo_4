@@ -1,4 +1,4 @@
-package Interface;
+package Casa_subastas.Interface;
 
 public class MenuAdministrador {
 
