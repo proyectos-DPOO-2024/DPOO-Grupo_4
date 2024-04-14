@@ -39,7 +39,11 @@ public class Galeria
 	}
 	
 	
-	public void agregarPieza (Pieza pieza, String propietario) {
+	public void agregarPieza (String nombrePieza, String propietario) {
+		
+		Pieza pieza = mapaPiezas.get(nombrePieza);
+		
+		
 		this.piezas.add(pieza);
 		this.mapaPiezas.put(pieza.getNombrepieza(), pieza);
 		 if (piezasPropietarios.containsKey(propietario)) {
