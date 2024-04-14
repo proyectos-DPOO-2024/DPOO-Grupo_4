@@ -10,9 +10,9 @@ public class Subasta {
 
 	///Atributos\\\
 	
-	private int valorMinimo;
+	private long valorMinimo;
 	
-	private int valorActual;
+	private long valorActual;
 	
 	private Pieza piezaSubastar;
 	
@@ -26,7 +26,7 @@ public class Subasta {
 	
 	///constructor\\\
 
-	public Subasta(int valorMinimo, int valorActual, Pieza piezaSubastar)
+	public Subasta(long valorMinimo, long valorActual, Pieza piezaSubastar)
 	{
 		this.valorMinimo = valorMinimo;
 		this.valorActual = valorActual;
@@ -58,7 +58,7 @@ public class Subasta {
 		return valorActual;
 	}
 
-	public void setValorActual(valor){
+	public void setValorActual(long valor){
 		valorActual = valor;
 	}
 
