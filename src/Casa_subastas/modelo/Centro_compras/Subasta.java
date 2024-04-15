@@ -82,13 +82,13 @@ public class Subasta {
 	 */
 	public Oferta finalizarSubasta() { 
 		this.finalizada = true;
-		Oferta ofertaGanadora = trazaOfertas.getLast();
+		Oferta ofertaGanadora = trazaOfertas.get(0);
 		return ofertaGanadora;
 		
 	}
 	
 	public void añadirOferta(Oferta oferta) {
-		trazaOfertas.add(oferta);
+		trazaOfertas.add(0, oferta);
 	}
 	
 	
