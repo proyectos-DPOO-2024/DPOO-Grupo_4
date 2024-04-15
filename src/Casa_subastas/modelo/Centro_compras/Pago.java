@@ -21,6 +21,22 @@ public class Pago {
 		this.comprador = comprador;
 		this.pieza = pieza;
 	}
+
+	public String getMetodoPago() {
+		return metodoPago;
+	}
+
+	public long getValorPagado() {
+		return valorPagado;
+	}
+
+	public Cliente getComprador() {
+		return comprador;
+	}
+
+	public Pieza getPieza() {
+		return pieza;
+	}
 	
 	///\\\
 	

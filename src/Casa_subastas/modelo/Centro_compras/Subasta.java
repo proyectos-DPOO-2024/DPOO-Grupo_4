@@ -62,6 +62,10 @@ public class Subasta {
 	public long getValorMinimo() {
 		return valorMinimo;
 	}
+	
+	public long getValorInicial() {
+		return valorInicial;
+	}
 
 	public long getValorActual() {
 		return valorActual;
@@ -73,6 +77,10 @@ public class Subasta {
 
 	public Pieza getPiezaSubastar() {
 		return piezaSubastar;
+	}
+	
+	public List<Oferta> getTrazaOfertas() {
+		return trazaOfertas;
 	}
 	
 	///Metodos importantes\\\
@@ -90,7 +98,6 @@ public class Subasta {
 	public void añadirOferta(Oferta oferta) {
 		trazaOfertas.add(oferta);
 	}
-	
 	
 	
 	
