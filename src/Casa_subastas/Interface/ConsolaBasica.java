@@ -60,7 +60,7 @@ public abstract class ConsolaBasica {
         }
     }
 
-    protected abstract void mostrarMenuPrincipal();
+    protected abstract void mostrarMenuPrincipal() throws IOException, Exception;
     
     protected int pedirEnteroAlUsuario(String mensaje) {
         int valorResultado = Integer.MIN_VALUE;

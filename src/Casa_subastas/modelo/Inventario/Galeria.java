@@ -2,6 +2,7 @@
 package Casa_subastas.modelo.Inventario;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -261,6 +262,10 @@ public class Galeria
 	
 	public Map<String,Subasta> getMapaSubastas(){
 		return mapaSubastas;
+	}
+	
+	public Collection<Oferta> getOfertas(){
+		return mapaOfertas.values();
 	}
 }
 

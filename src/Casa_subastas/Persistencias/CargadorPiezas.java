@@ -13,7 +13,7 @@ import Casa_subastas.modelo.Inventario.Video;
 
 public class CargadorPiezas {
 
-	public void cargarPiezas( Galeria galeria, JSONArray jPiezas ) throws Exception
+	protected void cargarPiezas( Galeria galeria, JSONArray jPiezas ) throws Exception
     {
         int numPiezas = jPiezas.length( );
         for( int i = 0; i < numPiezas; i++ )

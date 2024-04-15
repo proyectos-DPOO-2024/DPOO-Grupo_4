@@ -1,7 +1,6 @@
 package Casa_subastas.Persistencias;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.LinkedList;
@@ -20,17 +19,20 @@ import Casa_subastas.modelo.usuarios.Empleado;
 
 public class Saver {
 
-	public void salvarGaleria( String archivo, Galeria galeria ) throws IOException
+	public void salvarGaleria( String archivo, Galeria galeria ) throws Exception
     {
         JSONObject jobject = new JSONObject( );
 
         salvarEmpleados( galeria, jobject );
         
-        SalvadorPiezas salvadorPiezas = new SalvadorPiezas;
+        SalvadorPiezas salvadorPiezas = new SalvadorPiezas();
+        salvadorPiezas.salvarPiezas( galeria, jobject );
         
-       
+        salvarClientes( galeria, jobject );
+        
+        salvarOfertas( galeria, jobject );
 
-        // Escribir la estructura JSON en un archivo
+        
         PrintWriter pw = new PrintWriter( archivo );
         jobject.write( pw, 2, 0 );
         pw.close( );
@@ -53,5 +55,43 @@ public class Saver {
         }
 
         jobject.put( "empleados", jEmpleados );
+    }
+	
+	private void salvarClientes( Galeria galeria, JSONObject jobject )
+    {
+        JSONArray jClientes = new JSONArray( );
+        for( Cliente cliente : Cliente.getClientes() )
+        {
+        	JSONObject jCliente = new JSONObject( );
+        	
+        	jCliente.put( "login", cliente.getLogin() );
+        	jCliente.put( "password", cliente.getPassword() );
+        	jCliente.put( "esComprador", cliente.isComprador() );
+        	jCliente.put( "esPropietario", cliente.getLogin() );
+        	jCliente.put( "cellphone", cliente.getCellphone() );
+        	jCliente.put( "valorMaximoCompras", cliente.getValorMaximoCompras() );
+        	jCliente.put( "esVerificado", cliente.isVerificado() );
+        	
+        	jClientes.put( jCliente );
+        }
+
+        jobject.put( "clientes", jClientes );
+    }
+	
+	private void salvarOfertas( Galeria galeria, JSONObject jobject )
+    {
+        JSONArray jOfertas = new JSONArray( );
+        for( Oferta oferta : galeria.getOfertas() )
+        {
+        	JSONObject jOferta = new JSONObject( );
+        	
+        	jOferta.put( "loginCliente", oferta.getComprador().getLogin() );
+        	jOferta.put( "nombrePieza", oferta.getPieza().getNombrepieza() );
+        	jOferta.put( "ofertaVerificada", oferta.esConfirmada() );
+        	
+        	jOfertas.put( jOferta );
+        }
+
+        jobject.put( "ofertas", jOfertas );
     }
 }

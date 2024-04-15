@@ -1,6 +1,7 @@
 package Casa_subastas.modelo.usuarios;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,11 @@ public class Cliente extends Usuario {
 public static Cliente getCliente(String login) {
 	
 	return Clientes.get(login);
+}
+
+public static Collection<Cliente> getClientes() {
+	
+	return Clientes.values();
 }
 	
 public Cliente (String login, String password, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximoCompras, boolean esVerificado) {

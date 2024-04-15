@@ -60,4 +60,13 @@ public abstract class Pieza {
 	public int getCosto() {
 		return precio;
 	}
+	public int getDiasConsignacion() {
+		return diasConsignacion;
+	}
+	public boolean isComprada() {
+		return comprada;
+	}
+	public int getTipo() {
+		return tipo;
+	}
 }

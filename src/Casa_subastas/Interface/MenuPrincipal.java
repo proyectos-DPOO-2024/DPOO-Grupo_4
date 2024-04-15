@@ -1,5 +1,4 @@
 package Casa_subastas.Interface;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,21 +20,26 @@ public class MenuPrincipal extends ConsolaBasica {
         usuariosRegistrados.put("usuario3", "contraseña3");
     }
     
-    protected void mostrarMenuPrincipal() {
+    protected void mostrarMenuPrincipal() throws Exception {
         int opcionSeleccionada = mostrarMenu("Menú principal", opcionesMenuPrincipal);
-        switch (opcionSeleccionada) {
-            case 1:
-                iniciarSesion();
-                break;
-            case 2:
-                System.out.println("Saliendo ...");
-                System.exit(0);
-                break;
-        }
+        try {
+			switch (opcionSeleccionada) {
+			    case 1:
+			        iniciarSesion();
+			        break;
+			    case 2:
+			        System.out.println("Saliendo ...");
+			        this.guardar();
+			        System.exit(0);
+			        break;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         mostrarMenuPrincipal();
     }
 
-    private void iniciarSesion() {
+    private void iniciarSesion() throws Exception {
         System.out.println("Iniciar sesión");
         String usuario = pedirUsuario();
         String contraseña = pedirContraseña();
@@ -47,7 +51,7 @@ public class MenuPrincipal extends ConsolaBasica {
         }
     }
 
-    private void mostrarMenuSesion() {
+    private void mostrarMenuSesion() throws Exception {
         String[] opcionesMenuSesion = new String[]{"Cliente", "Cajero", "Operador", "Administrador", "Salir"};
         int opcionSeleccionada = mostrarMenu("¿Cómo desea iniciar sesión?", opcionesMenuSesion);
         switch (opcionSeleccionada) {
@@ -73,6 +77,7 @@ public class MenuPrincipal extends ConsolaBasica {
                 break;
             case 5:
                 System.out.println("Saliendo ...");
+                this.guardar();
                 System.exit(0);
                 break;
         }
@@ -81,18 +86,18 @@ public class MenuPrincipal extends ConsolaBasica {
     private Galeria cargar() throws Exception{
         
     	
-        //String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galeria (sin la extensión) " );
+        //String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galeria (sin la extensión). Debe estar guardado en la carpeta datos " );
     	String archivo = "galeria";
         Loader cargador = new Loader();
 
         return cargador.cargarGaleria("./datos/" + archivo + ".json");
     }
     
-    private void guardar() throws IOException{
+    private void guardar() throws Exception{
         
         Saver salvador = new Saver();
 
-        salvador.salvarGaleria("./datos/" + "nuevaGaleria", galeria);
+        salvador.salvarGaleria("./datos/" + "nuevaGaleria" + ".json", galeria);
     }
 
     public static void main(String[] args) throws Exception {
