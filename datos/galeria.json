@@ -1,21 +1,21 @@
 {
 	"empleados": [
 		{
-			"rol": "Administrador",
+			"rol": "administrador",
 			"login": "admin",
 			"password": "a",
 			"nombre": "Alice",
 			"cellphone": 111
 		},
 		{
-			"rol": "Cajero",
+			"rol": "cajero",
 			"login": "caj",
 			"password": "b",
 			"nombre": "Bob",
 			"cellphone": 222
 		},
 		{
-			"rol": "Operador",
+			"rol": "operador",
 			"login": "op",
 			"password": "c",
 			"nombre": "Carlos",
