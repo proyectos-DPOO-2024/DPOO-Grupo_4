@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -155,7 +156,9 @@ public class Loader {
             
             galeria.crearSubasta(nombrePieza, valorMinimo, valorInicial);
             
-            Subasta subastaObj = galeria.mapaSubastas.get(nombrePieza);
+            Map<String, Subasta> mapaSubastas = galeria.getMapaSubastas();
+            
+            Subasta subastaObj = mapaSubastas.get(nombrePieza);
             
             JSONArray trazaDeOfertas = subasta.getJSONArray( "trazaDeOfertas" );
             
@@ -182,7 +185,7 @@ public class Loader {
             
             String loginCliente = oferta.getString( "loginCliente" );
             String nombrePieza = oferta.getString( "nombrePieza" );
-            long valor = oferta.getLong( "valor" );
+            int valor = oferta.getInt( "valor" );
             
             galeria.crearOfertaSubasta(nombrePieza, loginCliente, valor);
         }

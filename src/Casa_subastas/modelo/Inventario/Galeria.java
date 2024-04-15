@@ -252,13 +252,17 @@ public class Galeria
 		return ofertaGanadora;
 		
 	}
-	public List<Pago> darPagos()
+	public List<Pago> getPagos()
 	{
 		return pagos;
 	}
 	
-	public List<Pieza> darPiezas(){
+	public List<Pieza> getPiezas(){
 		return piezas;
+	}
+	
+	public Map<String,Subasta> getMapaSubastas(){
+		return mapaSubastas;
 	}
 }
 

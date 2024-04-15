@@ -81,7 +81,8 @@ public class MenuPrincipal extends ConsolaBasica {
     private Galeria cargar() throws Exception{
         
     	
-        String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galeria" );
+        //String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galeria" );
+    	String archivo = "galeria";
         Loader cargador = new Loader();
 
         return cargador.cargarGaleria("./datos/" + archivo);
@@ -96,7 +97,7 @@ public class MenuPrincipal extends ConsolaBasica {
 
     public static void main(String[] args) throws Exception {
         MenuPrincipal c = new MenuPrincipal();
-        //galeria = c.cargar();
+        galeria = c.cargar();
         c.mostrarMenuPrincipal();
     }
 }
