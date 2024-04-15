@@ -42,10 +42,11 @@ public class MenuCliente extends ConsolaBasica {
 
     private void hacerOfertaValorFijo() {
         System.out.println("Haciendo oferta con valor fijo...");
-        
-    }
+        String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
+        String nombreCliente = pedirCadenaAlUsuario("Ingrese el nombre del ofertante:");
+        galeria.crearOfertaValorFijo(nombreCliente, nombrePieza);
+        System.out.println("Oferta realizada");
 
-    private void hacerOfertaSubasta() {
-        System.out.println("Haciendo oferta en subasta...");
     }
+    
 }
