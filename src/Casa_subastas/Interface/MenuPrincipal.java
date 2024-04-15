@@ -87,7 +87,7 @@ public class MenuPrincipal extends ConsolaBasica {
 
     public static void main(String[] args) throws Exception {
         MenuPrincipal c = new MenuPrincipal();
-        galeria = c.cargar();
+        //galeria = c.cargar();
         c.mostrarMenuPrincipal();
     }
 }
