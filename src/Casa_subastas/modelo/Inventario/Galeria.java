@@ -39,9 +39,10 @@ public class Galeria
 	}
 	
 	
-	public void agregarPieza (String nombrePieza, String propietario) {
+	public void agregarPieza (String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion, Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, int Tipo) {
 		
-		Pieza pieza = mapaPiezas.get(nombrePieza);
+		if 
+		Pieza pieza = new Pieza(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada);
 		
 		
 		this.piezas.add(pieza);
