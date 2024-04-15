@@ -6,8 +6,11 @@ import Casa_subastas.Persistencias.Loader;
 import Casa_subastas.modelo.Inventario.Galeria;
 
 public class MenuPrincipal extends ConsolaBasica {
+	
     private final String[] opcionesMenuPrincipal = new String[]{"Iniciar sesión", "Salir"};
     private Map<String, String> usuariosRegistrados;
+    
+    public static Galeria galeria;
 
     public MenuPrincipal() {
         usuariosRegistrados = new HashMap<>();
@@ -16,39 +19,34 @@ public class MenuPrincipal extends ConsolaBasica {
         usuariosRegistrados.put("usuario3", "contraseña3");
     }
     
-    protected void mostrarMenuPrincipal(Galeria galeria) {
+    protected void mostrarMenuPrincipal() {
         int opcionSeleccionada = mostrarMenu("Menú principal", opcionesMenuPrincipal);
         switch (opcionSeleccionada) {
             case 1:
-                iniciarSesion(galeria);
+                iniciarSesion();
                 break;
             case 2:
                 System.out.println("Saliendo ...");
                 System.exit(0);
                 break;
         }
-        mostrarMenuPrincipal(galeria);
+        mostrarMenuPrincipal();
     }
 
-    private void iniciarSesion(Galeria galeria) {
+    private void iniciarSesion() {
         System.out.println("Iniciar sesión");
         String usuario = pedirUsuario();
         String contraseña = pedirContraseña();
         if (usuariosRegistrados.containsKey(usuario) && usuariosRegistrados.get(usuario).equals(contraseña)) {
             System.out.println("Inicio de sesión exitoso. ¡Bienvenido, " + usuario + "!");
-            mostrarMenuSesion(galeria);
+            mostrarMenuSesion();
         } else {
             System.out.println("Credenciales incorrectas. Inténtalo de nuevo.");
         }
     }
 
-<<<<<<< Updated upstream
     private void mostrarMenuSesion() {
         String[] opcionesMenuSesion = new String[]{"Cliente", "Cajero", "Operador", "Administrador", "Salir"};
-=======
-    private void mostrarMenuSesion(Galeria galeria) {
-        String[] opcionesMenuSesion = new String[]{"Cliente", "Empleado", "Salir"};
->>>>>>> Stashed changes
         int opcionSeleccionada = mostrarMenu("¿Cómo desea iniciar sesión?", opcionesMenuSesion);
         switch (opcionSeleccionada) {
             case 1:
@@ -89,6 +87,7 @@ public class MenuPrincipal extends ConsolaBasica {
 
     public static void main(String[] args) throws Exception {
         MenuPrincipal c = new MenuPrincipal();
-        c.mostrarMenuPrincipal(c.cargar());
+        galeria = c.cargar();
+        c.mostrarMenuPrincipal();
     }
 }
