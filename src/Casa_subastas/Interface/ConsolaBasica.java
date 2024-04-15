@@ -2,6 +2,7 @@ package Casa_subastas.Interface;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Collection;
 
 public abstract class ConsolaBasica {
 
@@ -59,4 +60,41 @@ public abstract class ConsolaBasica {
         }
     }
 
+    protected abstract void mostrarMenuPrincipal();
+    
+    protected int pedirEnteroAlUsuario(String mensaje) {
+        int valorResultado = Integer.MIN_VALUE;
+        while (valorResultado == Integer.MIN_VALUE) {
+            try {
+                System.out.print(mensaje);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+                String input = reader.readLine();
+                int numero = Integer.parseInt(input);
+                valorResultado = numero;
+            } catch (NumberFormatException nfe) {
+                System.out.println("El valor digitado no es un entero");
+            } catch (IOException e) {
+                System.out.println("Error leyendo de la consola");
+            }
+        }
+        return valorResultado;
+    }
+
+    /**
+     * Le pide al usuario que seleccione una de las opciones que se le presenten
+     * @param coleccionOpciones La colección de opciones disponibles
+     * @return La opción seleccionada por el usuario
+     */
+    protected String pedirOpcionAlUsuario(String mensaje, String[] opciones) {
+        System.out.println(mensaje);
+        for (int i = 0; i < opciones.length; i++) {
+            System.out.println((i + 1) + ". " + opciones[i]);
+        }
+        int opcionSeleccionada = pedirEnteroAlUsuario("Seleccione una opción: ");
+        while (opcionSeleccionada < 1 || opcionSeleccionada > opciones.length) {
+            System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+            opcionSeleccionada = pedirEnteroAlUsuario("Seleccione una opción: ");
+        }
+        return opciones[opcionSeleccionada - 1];
+    }
 }

@@ -1,5 +1,7 @@
 package Casa_subastas.Interface;
 
+import java.util.Arrays;
+
 import Casa_subastas.modelo.Inventario.Galeria;
 import Casa_subastas.modelo.Inventario.Pieza;
 
@@ -31,20 +33,44 @@ public class MenuAdministrador extends ConsolaBasica {
 
     private void ingresoPieza(Galeria galeria) {
         System.out.println("Ingresando nueva pieza...");
+        String[] opcionesTipoPieza = {"Pintura", "Escultura", "Fotografía", "Impresión", "Video"};
+        String tipoPieza = pedirOpcionAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
         String propietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
-        galeria.agregarPieza(String nombrePieza, String propietario);
-       
+        int precio = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el precio:"));
+        String nombrePropietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
+        int diasConsignacion = Integer.parseInt(pedirCadenaAlUsuario("Ingrese los dias de consignación:"));
+        boolean paraVentaFijo = Boolean.parseBoolean(pedirCadenaAlUsuario("Es para venta por valor fija?:"));
+        boolean bloqueada = false;
+        boolean comprada = false;
+        
+
+        
+        if(tipoPieza == "Pintura")
+        {
+            double alto = Double.parseDouble(pedirCadenaAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
+            double ancho = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
+            String estilo = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
+ 
+        	Pieza pieza = galeria.crearPintura(nombrePieza, precio, nombrePropietario, diasConsignacion, paraVentaFijo, bloqueada , comprada, alto, ancho, estilo );
+        }
+        
+        
+        
+        galeria.agregarPieza(pieza, propietario);
+        
+        // Lógica para agregar la nueva pieza a la galería
     }
+
+  
 
     private void asignarMaximo(Galeria galeria) {
         System.out.println("Asignando máximo a subasta...");
-        Galeria.as
     }
 
     private void confirmarOferta(Galeria galeria) {
         System.out.println("Confirmando oferta...");
     }
     
-    private 
+
 }
