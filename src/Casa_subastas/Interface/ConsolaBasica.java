@@ -60,6 +60,8 @@ public abstract class ConsolaBasica {
         }
     }
 
+    protected abstract void mostrarMenuPrincipal();
+    
     protected int pedirEnteroAlUsuario(String mensaje) {
         int valorResultado = Integer.MIN_VALUE;
         while (valorResultado == Integer.MIN_VALUE) {
