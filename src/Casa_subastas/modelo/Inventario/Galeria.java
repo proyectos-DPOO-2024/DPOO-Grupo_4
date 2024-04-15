@@ -155,9 +155,10 @@ public class Galeria
 		
 	}
 	
-	public void crearSubasta(String nombrePieza, int valorMinimo, int valorInicial) {
+	public void crearSubasta(String nombrePieza, long valorMinimo, long valorInicial) {
 		
-	Pieza pieza = mapaPiezas.get(nombrePieza);	
+	Pieza pieza = mapaPiezas.get(nombrePieza);
+	pieza.Bloquear();
 	Subasta subasta = new Subasta(valorMinimo, valorInicial, pieza);
 	mapaSubastas.put(nombrePieza, subasta);
 	

@@ -4,11 +4,16 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import Casa_subastas.modelo.Centro_compras.Oferta;
+import Casa_subastas.modelo.Centro_compras.Subasta;
 import Casa_subastas.modelo.Inventario.Galeria;
+import Casa_subastas.modelo.Inventario.Pieza;
 import Casa_subastas.modelo.usuarios.Cliente;
 import Casa_subastas.modelo.usuarios.Empleado;
 
@@ -56,6 +61,13 @@ public class Loader {
             }
         try {
             cargarSubastas( galeria, raiz.getJSONArray( "subastas" ) );
+            }
+            catch (Exception e) {
+            	System.out.println(e.getMessage());
+            	e.getStackTrace();
+            }
+        try {
+            cargarPagos( galeria, raiz.getJSONArray( "pagos" ) );
             }
             catch (Exception e) {
             	System.out.println(e.getMessage());
@@ -119,8 +131,13 @@ public class Loader {
             
             String loginCliente = oferta.getString( "loginCliente" );
             String nombrePieza = oferta.getString( "nombrePieza" );
+            boolean ofertaVerificada = oferta.getBoolean( "ofertaVerificada");
             
             galeria.crearOfertaValorFijo(loginCliente, nombrePieza);
+            
+            if (ofertaVerificada) {
+            	galeria.verificarOfertaValorFijo(nombrePieza);
+            }
         }
 
     }
@@ -133,22 +150,58 @@ public class Loader {
             JSONObject subasta = jSubastas.getJSONObject( i );
             
             long valorMinimo = subasta.getLong( "valorMinimo" );
-            String loginCompradorGanador = subasta.getString( "loginCompradorGanador" );
+            long valorInicial = subasta.getLong( "valorInicial" );
+            String nombrePieza = subasta.getString( "nombrePieza" );
             
-            if (loginCompradorGanador != null) {
-            	Cliente compradorGanador = Cliente.getCliente(loginCompradorGanador);
+            galeria.crearSubasta(nombrePieza, valorMinimo, valorInicial);
+            
+            Subasta subastaObj = galeria.mapaSubastas.get(nombrePieza);
+            
+            JSONArray trazaDeOfertas = subasta.getJSONArray( "trazaDeOfertas" );
+            
+            if (!trazaDeOfertas.isEmpty()) {
+            	this.cargarOfertasSubasta(galeria, trazaDeOfertas, subastaObj);
             }
             
-            boolean esComprador = cliente.getBoolean( "esComprador" );
-            boolean esPropietario = cliente.getBoolean( "esPropietario" );
-            int cellphone = cliente.getInt( "cellphone" );
-            long valorMaximoCompras = cliente.getLong( "valorMaximoCompras" );
-            boolean esVerificado = cliente.getBoolean( "esVerificado" );
+            boolean finalizada = subasta.getBoolean( "finalizada");
             
-            galeria.agregarCliente(login, password, esComprador, esPropietario, cellphone, valorMaximoCompras, esVerificado);
+            if (finalizada) {
+            	galeria.cerrarSubasta(nombrePieza);
+            }
+            
         }
 
     }
 
+	private void cargarOfertasSubasta( Galeria galeria, JSONArray jOfertas, Subasta subasta ) throws Exception
+    {
+        int numOfertas = jOfertas.length( );
+        for( int i = 0; i < numOfertas; i++ )
+        {
+            JSONObject oferta = jOfertas.getJSONObject( i );
+            
+            String loginCliente = oferta.getString( "loginCliente" );
+            String nombrePieza = oferta.getString( "nombrePieza" );
+            long valor = oferta.getLong( "valor" );
+            
+            galeria.crearOfertaSubasta(nombrePieza, loginCliente, valor);
+        }
+
+    }
+	
+	private void cargarPagos( Galeria galeria, JSONArray jPagos) throws Exception
+    {
+        int numPagos = jPagos.length( );
+        for( int i = 0; i < numPagos; i++ )
+        {
+            JSONObject pago = jPagos.getJSONObject( i );
+            
+            String metodoPago = pago.getString( "metodoPago" );
+            String nombrePieza = pago.getString( "nombrePieza" );
+            
+            galeria.realizarPago(metodoPago, nombrePieza);
+        }
+
+    }
 }
 
