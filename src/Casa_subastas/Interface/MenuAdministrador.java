@@ -1,5 +1,7 @@
 package Casa_subastas.Interface;
 
+import java.util.Arrays;
+
 import Casa_subastas.modelo.Inventario.Galeria;
 import Casa_subastas.modelo.Inventario.Pieza;
 
@@ -31,20 +33,22 @@ public class MenuAdministrador extends ConsolaBasica {
 
     private void ingresoPieza(Galeria galeria) {
         System.out.println("Ingresando nueva pieza...");
+        String[] opcionesTipoPieza = {"Pintura", "Escultura", "Fotografía", "Impresión", "Video"};
+        String tipoPieza = pedirOpcionAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
         String propietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
-        galeria.agregarPieza(String nombrePieza, String propietario);
-       
+        // Lógica para agregar la nueva pieza a la galería
     }
+
+  
 
     private void asignarMaximo(Galeria galeria) {
         System.out.println("Asignando máximo a subasta...");
-        Galeria.as
     }
 
     private void confirmarOferta(Galeria galeria) {
         System.out.println("Confirmando oferta...");
     }
     
-    private 
+
 }

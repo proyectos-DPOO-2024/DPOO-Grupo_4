@@ -62,7 +62,7 @@ public class MenuPrincipal extends ConsolaBasica {
             case 4:           
                 System.out.println("Iniciando sesión como administrador...");
                 MenuAdministrador menuAdministrador = new MenuAdministrador();
-                menuAdministrador.mostrarMenuAdministrador();
+                menuAdministrador.mostrarMenuAdministrador(null);
                 break;
             case 5:
                 System.out.println("Saliendo ...");
