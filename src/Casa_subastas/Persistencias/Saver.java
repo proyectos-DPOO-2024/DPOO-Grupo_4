@@ -25,6 +25,9 @@ public class Saver {
         JSONObject jobject = new JSONObject( );
 
         salvarEmpleados( galeria, jobject );
+        
+        SalvadorPiezas salvadorPiezas = new SalvadorPiezas;
+        
        
 
         // Escribir la estructura JSON en un archivo
