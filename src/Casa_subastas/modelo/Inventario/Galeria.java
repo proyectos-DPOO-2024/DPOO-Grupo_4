@@ -270,6 +270,10 @@ public class Galeria
 	public Collection<Oferta> getOfertas(){
 		return mapaOfertas.values();
 	}
+	
+	public Collection<Subasta> getSubastas(){
+		return mapaSubastas.values();
+	}
 }
 
 	

@@ -21,7 +21,7 @@ public class Cliente extends Usuario {
 	private List<Pieza> propiedadesActuales;
 	private List<Pieza> propiedadesPasadas;
 	
-	private static Map<String, Cliente> Clientes;
+	private static Map<String, Cliente> Clientes = new HashMap<String,Cliente>();
 	
 public static Cliente getCliente(String login) {
 	

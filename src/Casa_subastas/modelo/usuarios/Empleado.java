@@ -1,6 +1,7 @@
 package Casa_subastas.modelo.usuarios;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Empleado extends Usuario {
@@ -10,7 +11,7 @@ public class Empleado extends Usuario {
 	private String rol;
 	private String nombre;
 	
-	private static Map<String, Empleado> Empleados;
+	private static Map<String, Empleado> Empleados = new HashMap<String,Empleado>();
 	
 	public static Empleado getEmpleado(String login) {
 		

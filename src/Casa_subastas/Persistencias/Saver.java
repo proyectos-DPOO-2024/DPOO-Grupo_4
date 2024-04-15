@@ -31,6 +31,8 @@ public class Saver {
         salvarClientes( galeria, jobject );
         
         salvarOfertas( galeria, jobject );
+        
+        salvarSubastas( galeria, jobject );
 
         
         PrintWriter pw = new PrintWriter( archivo );
@@ -94,4 +96,23 @@ public class Saver {
 
         jobject.put( "ofertas", jOfertas );
     }
+	
+	private void salvarSubastas( Galeria galeria, JSONObject jobject )
+    {
+        JSONArray jSubastas = new JSONArray( );
+        for( Subasta subasta : galeria.getOfertas() )
+        {
+        	JSONObject jOferta = new JSONObject( );
+        	
+        	jOferta.put( "loginCliente", oferta.getComprador().getLogin() );
+        	jOferta.put( "nombrePieza", oferta.getPieza().getNombrepieza() );
+        	jOferta.put( "ofertaVerificada", oferta.esConfirmada() );
+        	
+        	jOfertas.put( jOferta );
+        }
+
+        jobject.put( "ofertas", jOfertas );
+    }
+	
+	
 }
