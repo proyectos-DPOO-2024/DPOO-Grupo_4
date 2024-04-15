@@ -208,7 +208,7 @@ public class Galeria
 	 * si todo esto se cumple hace la oferta y se actualiza el valor actual de la pieza La oferta se guarda en la trazaOfertas de la 
 	 * subasta. La subasta esta guardada en mapaSubastas
 	 */
-	public void crearOfertaSubasta(String nombrePieza, String nombreCliente, long valor) {
+	public void crearOfertaSubasta(String nombrePieza, String nombreCliente, int valor) {
 		Pieza pieza = mapaPiezas.get(nombrePieza);
 		Cliente cliente = mapaClientes.get(nombreCliente);
 		Subasta subasta = mapaSubastas.get(nombrePieza);
