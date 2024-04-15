@@ -16,15 +16,13 @@ import Casa_subastas.modelo.usuarios.Empleado;
 
 public class Galeria 
 {
-	public List<Pieza> piezas;
-	public List<Pieza> piezasVendidas;
-	public Map<String, List<Pieza>> piezasPropietarios;
-	public Map<String, List<Pieza>> piezasPasadospropietarios;
-	public Map<String, Pieza> mapaPiezas;
-	public Map<String, Cliente>mapaClientes;
-	public Map<String, Oferta> mapaOfertas;
-	public Map<String, Subasta>mapaSubastas;
-	public List<Pago> pagos;
+	private List<Pieza> piezas;
+	private Map<String, List<Pieza>> piezasPropietarios;
+	private Map<String, Pieza> mapaPiezas;
+	private Map<String, Cliente>mapaClientes;
+	private Map<String, Oferta> mapaOfertas;
+	private Map<String, Subasta>mapaSubastas;
+	private List<Pago> pagos;
 
 	public Galeria () {
 		this.piezas = new LinkedList<>();
@@ -237,18 +235,21 @@ public class Galeria
 	 *subasta. Si es así, la ultima oferta gana la subasta. El siguiente paso, el cual no se realiza en este metodo, es realizar 
 	 *el pago y hacer cambio de propietarios.
 	 */
-	public void cerrarSubasta(String nombrePieza) {
+	public Oferta cerrarSubasta(String nombrePieza) {
 		Pieza pieza = mapaPiezas.get(nombrePieza);
 		
+		Oferta ofertaGanadora = null;
 		Subasta subasta = mapaSubastas.get(nombrePieza);
 		if(subasta.getValorActual()> subasta.getValorMinimo()) {
 		
-			Oferta OfertaGanadora = subasta.finalizarSubasta();
+			ofertaGanadora = subasta.finalizarSubasta();
 			
 		}
 		else {
 			System.out.println("En esta subasta la pieza no alcanzo el precio maximo para ser vendida");
+			ofertaGanadora = null;
 		}
+		return ofertaGanadora;
 		
 	}
 	public List<Pago> darPagos()
@@ -256,6 +257,9 @@ public class Galeria
 		return pagos;
 	}
 	
+	public List<Pieza> darPiezas(){
+		return piezas;
+	}
 }
 
 	
