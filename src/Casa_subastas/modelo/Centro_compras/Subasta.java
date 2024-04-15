@@ -2,6 +2,7 @@ package Casa_subastas.modelo.Centro_compras;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import Casa_subastas.modelo.Inventario.Pieza;
 import Casa_subastas.modelo.usuarios.Cliente;
@@ -11,6 +12,8 @@ public class Subasta {
 	///Atributos\\\
 	
 	private long valorMinimo;
+	
+	private long valorInicial;
 	
 	private long valorActual;
 	
@@ -33,6 +36,7 @@ public class Subasta {
 	public Subasta(long valorMinimo, long valorActual, Pieza piezaSubastar)
 	{
 		this.valorMinimo = valorMinimo;
+		this.valorInicial = valorActual;
 		this.valorActual = valorActual;
 		this.piezaSubastar = piezaSubastar;
 		this.trazaOfertas = new LinkedList<Oferta>();
@@ -40,19 +44,6 @@ public class Subasta {
 		this.compradorGanador = null;
 	}
 	
-	/*
-	 * Este constructor se usa únicamente a la hora de cargar un archivo
-	*/
-	
-	public Subasta(long valorMinimo, long valorActual, Pieza piezaSubastar, LinkedList<Oferta> trazaOfertas, boolean finalizada, Cliente compradorGanador)
-	{
-		this.valorMinimo = valorMinimo;
-		this.valorActual = valorActual;
-		this.piezaSubastar = piezaSubastar;
-		this.trazaOfertas = trazaOfertas;
-		this.finalizada = finalizada;
-		this.compradorGanador = compradorGanador;
-	}
 	
 	///Getters and setters\\\
 
@@ -91,13 +82,13 @@ public class Subasta {
 	 */
 	public Oferta finalizarSubasta() { 
 		this.finalizada = true;
-		Oferta ofertaGanadora = trazaOfertas.get(0);
+		Oferta ofertaGanadora = trazaOfertas.getLast();
 		return ofertaGanadora;
 		
 	}
 	
 	public void añadirOferta(Oferta oferta) {
-		trazaOfertas.add(0, oferta);
+		trazaOfertas.add(oferta);
 	}
 	
 	
