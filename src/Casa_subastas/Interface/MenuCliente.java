@@ -24,9 +24,6 @@ public class MenuCliente extends ConsolaBasica {
             case 2:
                 hacerOfertaValorFijo();
                 break;
-            case 3:
-                hacerOfertaSubasta();
-                break;
             case 4:
                 System.out.println("Saliendo del menú cliente...");
                 break;

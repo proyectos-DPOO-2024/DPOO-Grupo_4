@@ -26,9 +26,7 @@ public class Galeria
 
 	public Galeria () {
 		this.piezas = new LinkedList<>();
-		this.piezasVendidas = new LinkedList<>();
 		this.piezasPropietarios = new HashMap<>();
-		this.piezasPasadospropietarios = new HashMap<>();
 		this.mapaPiezas = new HashMap<>();
 		this.mapaClientes = new HashMap<>();
 		this.mapaOfertas = new HashMap<>();
