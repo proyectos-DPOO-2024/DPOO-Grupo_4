@@ -35,10 +35,8 @@ public class MenuAdministrador extends ConsolaBasica {
         System.out.println("Ingresando nueva pieza...");
         String[] opcionesTipoPieza = {"Pintura", "Escultura", "Fotografía", "Impresión", "Video"};
         String tipoPieza = pedirOpcionAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
-<<<<<<< HEAD
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
         String propietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario");
-=======
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
         String propietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
         int precio = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el precio:"));
@@ -63,7 +61,7 @@ public class MenuAdministrador extends ConsolaBasica {
         
         galeria.agregarPieza(pieza, propietario);
         
->>>>>>> branch 'main' of https://github.com/proyectos-DPOO-2024/Proyecto_1_entrega_2.git
+
         // Lógica para agregar la nueva pieza a la galería
     }
 
