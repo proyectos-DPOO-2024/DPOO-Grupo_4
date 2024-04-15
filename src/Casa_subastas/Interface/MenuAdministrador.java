@@ -2,8 +2,10 @@ package Casa_subastas.Interface;
 
 import java.util.Arrays;
 
+import Casa_subastas.modelo.Centro_compras.Oferta;
 import Casa_subastas.modelo.Inventario.Galeria;
 import Casa_subastas.modelo.Inventario.Pieza;
+import Casa_subastas.modelo.usuarios.Cliente;
 
 public class MenuAdministrador extends ConsolaBasica {
 
@@ -11,7 +13,7 @@ public class MenuAdministrador extends ConsolaBasica {
     protected void mostrarMenuPrincipal() {
     }
 
-    protected void mostrarMenuAdministrador(Galeria galeria) {
+    protected void mostrarMenuAdministrador(Galeria galeria) throws Exception {
         String[] opcionesMenuAdmin = new String[]{"Ingreso de pieza", "Asignar máximo", "Confirmar oferta", "Salir"};
         int opcionSeleccionada = mostrarMenu("Menú administrador", opcionesMenuAdmin);
         switch (opcionSeleccionada) {
@@ -25,6 +27,15 @@ public class MenuAdministrador extends ConsolaBasica {
                 confirmarOferta(galeria);
                 break;
             case 4:
+                crearSubasta(galeria);
+                break;
+            case 5:
+                cerrarSubasta(galeria);
+                break;
+            case 6:
+                agregarCliente(galeria);
+                break;
+            case 7:
                 System.out.println("Saliendo del menú administrador...");
                 break;
         }
@@ -59,19 +70,54 @@ public class MenuAdministrador extends ConsolaBasica {
         galeria.agregarPieza(pieza, propietario);
         
 
-        // Lógica para agregar la nueva pieza a la galería
     }
 
   
 
-    private void asignarMaximo(Galeria galeria) {
-        System.out.println("Asignando máximo a subasta...");
-    }
-
-    private void confirmarOferta(Galeria galeria) {
-        System.out.println("Confirmando oferta...");
+    public void asignarMaximo(Galeria galeria) {
+        System.out.println("Asignando máximo valor de compra de un cliente...");
+        String nombreCliente = pedirCadenaAlUsuario("Ingrese el nombre del Cliente");
+        long valor = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor de compra maximo"));
+        galeria.asignarMaximo(nombreCliente, valor);
     }
     
+    
+
+    public void confirmarOferta(Galeria galeria) {
+        System.out.println("Confirmando oferta...");
+        String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+        galeria.verificarOfertaValorFijo(nombrePieza);
+    }
+    
+    public void crearSubasta(Galeria galeria)
+    {
+        String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+        long valorMinimo = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor minimo para vender la pieza"));
+        long valorInicial = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor inicial de la subasta"));
+        galeria.crearSubasta(nombrePieza, valorMinimo, valorInicial);
+        System.out.println("Subasta creada");
+
+    }
+    
+    public void cerrarSubasta(Galeria galeria) {
+        String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
+    	Cliente ganador = galeria.cerrarSubasta(nombrePieza);
+    	galeria.cambiarPropietarioPieza(nombrePieza, ganador.getLogin());
+    	
+    }
+    
+    public void agregarCliente(Galeria galeria) throws Exception {
+    	
+        String nombreCliente = pedirCadenaAlUsuario("Ingrese el nombre(login) del cliente");
+        String pasword = pedirCadenaAlUsuario("Ingrese la contraseña del cliente");
+        boolean esComprador = Boolean.parseBoolean(pedirCadenaAlUsuario("El cliente es comprador?"));
+        boolean espropietario = Boolean.parseBoolean(pedirCadenaAlUsuario("El cliente es propietario?"));
+        int cellphone = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el numero de telefono"));
+        long valorMaximo = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor maximo para compras"));
+        boolean esVerificado = Boolean.parseBoolean(pedirCadenaAlUsuario("El cliente es puede participar en subastas?"));
+
+    	galeria.agregarCliente(nombreCliente, pasword, esComprador, espropietario, cellphone, valorMaximo, esVerificado);
+    }
 
 }
 
