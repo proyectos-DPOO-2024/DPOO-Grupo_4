@@ -37,8 +37,6 @@ public abstract class ConsolaBasica {
         }
     }
 
-    protected abstract void mostrarMenuPrincipal();
-
     protected int mostrarMenu(String nombreMenu, String[] opciones) {
         System.out.println("\n---------------------");
         System.out.println(nombreMenu);

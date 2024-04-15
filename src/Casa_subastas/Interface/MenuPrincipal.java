@@ -2,9 +2,15 @@ package Casa_subastas.Interface;
 import java.util.HashMap;
 import java.util.Map;
 
+import Casa_subastas.Persistencias.Loader;
+import Casa_subastas.modelo.Inventario.Galeria;
+
 public class MenuPrincipal extends ConsolaBasica {
+	
     private final String[] opcionesMenuPrincipal = new String[]{"Iniciar sesión", "Salir"};
     private Map<String, String> usuariosRegistrados;
+    
+    public static Galeria galeria;
 
     public MenuPrincipal() {
         usuariosRegistrados = new HashMap<>();
@@ -12,8 +18,7 @@ public class MenuPrincipal extends ConsolaBasica {
         usuariosRegistrados.put("usuario2", "contraseña2");
         usuariosRegistrados.put("usuario3", "contraseña3");
     }
-
-    @Override
+    
     protected void mostrarMenuPrincipal() {
         int opcionSeleccionada = mostrarMenu("Menú principal", opcionesMenuPrincipal);
         switch (opcionSeleccionada) {
@@ -70,9 +75,19 @@ public class MenuPrincipal extends ConsolaBasica {
                 break;
         }
     }
+    
+    private Galeria cargar() throws Exception{
+        
+    	
+        String archivo = this.pedirCadenaAlUsuario( "Digite el nombre del archivo json con la información de la galeria" );
+        Loader cargador = new Loader();
 
-    public static void main(String[] args) {
+        return cargador.cargarGaleria("./datos/" + archivo);
+    }
+
+    public static void main(String[] args) throws Exception {
         MenuPrincipal c = new MenuPrincipal();
+        galeria = c.cargar();
         c.mostrarMenuPrincipal();
     }
 }
