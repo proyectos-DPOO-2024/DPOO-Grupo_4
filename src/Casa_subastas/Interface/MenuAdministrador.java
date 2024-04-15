@@ -37,6 +37,28 @@ public class MenuAdministrador extends ConsolaBasica {
         String tipoPieza = pedirOpcionAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
         String propietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
+        int precio = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el precio:"));
+        String nombrePropietario = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
+        int diasConsignacion = Integer.parseInt(pedirCadenaAlUsuario("Ingrese los dias de consignación:"));
+        boolean paraVentaFijo = Boolean.parseBoolean(pedirCadenaAlUsuario("Es para venta por valor fija?:"));
+        boolean bloqueada = false;
+        boolean comprada = false;
+        
+
+        
+        if(tipoPieza == "Pintura")
+        {
+            double alto = Double.parseDouble(pedirCadenaAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
+            double ancho = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
+            String estilo = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
+ 
+        	Pieza pieza = galeria.crearPintura(nombrePieza, precio, nombrePropietario, diasConsignacion, paraVentaFijo, bloqueada , comprada, alto, ancho, estilo );
+        }
+        
+        
+        
+        galeria.agregarPieza(pieza, propietario);
+        
         // Lógica para agregar la nueva pieza a la galería
     }
 
