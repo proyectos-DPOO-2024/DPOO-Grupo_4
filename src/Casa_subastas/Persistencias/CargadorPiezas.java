@@ -1,10 +1,5 @@
 package Casa_subastas.Persistencias;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -15,7 +10,6 @@ import Casa_subastas.modelo.Inventario.Impresiones;
 import Casa_subastas.modelo.Inventario.Pieza;
 import Casa_subastas.modelo.Inventario.Pintura;
 import Casa_subastas.modelo.Inventario.Video;
-import Casa_subastas.modelo.usuarios.Empleado;
 
 public class CargadorPiezas {
 

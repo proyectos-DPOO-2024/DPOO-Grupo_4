@@ -24,8 +24,12 @@ public class Subasta {
 	
 	///Metodos\\\
 	
-	///constructor\\\
+	///Constructores\\\
 
+	/*
+	 * Este constructor se usa cuando se crea una nueva subasta desde galería
+	*/
+	
 	public Subasta(long valorMinimo, long valorActual, Pieza piezaSubastar)
 	{
 		this.valorMinimo = valorMinimo;
@@ -34,6 +38,20 @@ public class Subasta {
 		this.trazaOfertas = new LinkedList<Oferta>();
 		this.finalizada = false;
 		this.compradorGanador = null;
+	}
+	
+	/*
+	 * Este constructor se usa únicamente a la hora de cargar un archivo
+	*/
+	
+	public Subasta(long valorMinimo, long valorActual, Pieza piezaSubastar, LinkedList<Oferta> trazaOfertas, boolean finalizada, Cliente compradorGanador)
+	{
+		this.valorMinimo = valorMinimo;
+		this.valorActual = valorActual;
+		this.piezaSubastar = piezaSubastar;
+		this.trazaOfertas = trazaOfertas;
+		this.finalizada = finalizada;
+		this.compradorGanador = compradorGanador;
 	}
 	
 	///Getters and setters\\\

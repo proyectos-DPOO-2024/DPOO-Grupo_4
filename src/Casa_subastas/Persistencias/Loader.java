@@ -9,12 +9,13 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import Casa_subastas.modelo.Inventario.Galeria;
+import Casa_subastas.modelo.usuarios.Cliente;
 import Casa_subastas.modelo.usuarios.Empleado;
 
 
 public class Loader {
 
-	public void cargarGaleria(String archivo) throws Exception
+	public Galeria cargarGaleria(String archivo) throws Exception
     {
         String jsonCompleto = new String( Files.readAllBytes( new File( archivo ).toPath( ) ) );
         JSONObject raiz = new JSONObject( jsonCompleto );
@@ -53,6 +54,15 @@ public class Loader {
             	System.out.println(e.getMessage());
             	e.getStackTrace();
             }
+        try {
+            cargarSubastas( galeria, raiz.getJSONArray( "subastas" ) );
+            }
+            catch (Exception e) {
+            	System.out.println(e.getMessage());
+            	e.getStackTrace();
+            }
+        
+        return galeria;
     }
 	
 	
@@ -107,8 +117,28 @@ public class Loader {
         {
             JSONObject oferta = jOfertas.getJSONObject( i );
             
-            String login = cliente.getString( "login" );
-            String password = cliente.getString( "password" );
+            String loginCliente = oferta.getString( "loginCliente" );
+            String nombrePieza = oferta.getString( "nombrePieza" );
+            
+            galeria.crearOfertaValorFijo(loginCliente, nombrePieza);
+        }
+
+    }
+	
+	private void cargarSubastas( Galeria galeria, JSONArray jSubastas ) throws Exception
+    {
+        int numSubastas = jSubastas.length( );
+        for( int i = 0; i < numSubastas; i++ )
+        {
+            JSONObject subasta = jSubastas.getJSONObject( i );
+            
+            long valorMinimo = subasta.getLong( "valorMinimo" );
+            String loginCompradorGanador = subasta.getString( "loginCompradorGanador" );
+            
+            if (loginCompradorGanador != null) {
+            	Cliente compradorGanador = Cliente.getCliente(loginCompradorGanador);
+            }
+            
             boolean esComprador = cliente.getBoolean( "esComprador" );
             boolean esPropietario = cliente.getBoolean( "esPropietario" );
             int cellphone = cliente.getInt( "cellphone" );
