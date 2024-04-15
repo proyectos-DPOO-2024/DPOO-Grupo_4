@@ -250,9 +250,12 @@ public class Galeria
 			System.out.println("En esta subasta la pieza no alcanzo el precio maximo para ser vendida");
 		}
 		
-
-		
 	}
+	public List<Pago> darPagos()
+	{
+		return pagos;
+	}
+	
 }
 
 	
