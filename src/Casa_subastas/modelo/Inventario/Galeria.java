@@ -38,13 +38,50 @@ public class Galeria
 		this.pagos = new ArrayList<>();
 	}
 	
+	public Pieza crearPintura(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion,
+			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, float alto, float ancho, String estilo) {		
+		
+			Pieza pieza = new Pintura(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada, alto, ancho, estilo );
+			return pieza;
+		}
 	
-	public void agregarPieza (String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion, Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, int Tipo) {
+	public Pieza crearImpresiones(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion,
+			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, String original, String metodocreacion, float alto, float ancho) {		
+
+			Pieza pieza = new Impresiones(nombrePieza, Precio, nombrePropietario,  diasConsignacion,
+					 paraVentafijo,  Bloqueada, Comprada,  original,  metodocreacion, alto,  ancho);
+			return pieza;
+		}	
+
+	public Pieza crearEscultura(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion,
+			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, float alto, float ancho, float profundo, String materialconstruccion) {		
 		
-		if 
-		Pieza pieza = new Pieza(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo, Bloqueada, Comprada);
+			Pieza pieza = new Escultura(nombrePieza,  Precio ,nombrePropietario,  diasConsignacion,
+					paraVentafijo,  Bloqueada, Comprada,  alto,  ancho,  profundo, materialconstruccion );
+			return pieza;
 		
+		}	
+	public Pieza crearFotografia(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion,
+			Boolean paraVentafijo, Boolean Bloqueada, Boolean Comprada, float alto, float ancho, Boolean color) {		
 		
+			Pieza pieza = new Fotografia( nombrePieza,  Precio, nombrePropietario, diasConsignacion,
+					 paraVentafijo, Bloqueada,  Comprada,  alto,  ancho,  color);
+			return pieza;
+
+		}	
+	public Pieza crearVideo(String nombrePieza, int Precio, String nombrePropietario, int diasConsignacion, Boolean paraVentafijo,
+			Boolean Bloqueada, Boolean Comprada, float duracion, Boolean color, double memoria) {		
+		
+			Pieza pieza = new Video(nombrePieza, Precio, nombrePropietario, diasConsignacion, paraVentafijo,
+					 Bloqueada, Comprada, duracion, color, memoria);
+			return pieza;
+		}	
+
+
+			
+		public void agregarPieza(Pieza pieza, String propietario) {
+			
+			
 		this.piezas.add(pieza);
 		this.mapaPiezas.put(pieza.getNombrepieza(), pieza);
 		 if (piezasPropietarios.containsKey(propietario)) {
