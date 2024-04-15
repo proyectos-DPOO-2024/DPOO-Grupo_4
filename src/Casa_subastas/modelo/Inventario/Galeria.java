@@ -110,8 +110,9 @@ public class Galeria
 	}
 	
 	
-	public void asignarMaximo (Cliente propietario, long valor) {
-		propietario.extenderValorMaximoCompras(valor);
+	public void asignarMaximo (String nombreCliente, long valor) {
+		Cliente cliente = mapaClientes.get(nombreCliente);
+		cliente.extenderValorMaximoCompras(valor);
 	}
 	
 	/*
@@ -234,8 +235,8 @@ public class Galeria
 	 *subasta. Si es así, la ultima oferta gana la subasta. El siguiente paso, el cual no se realiza en este metodo, es realizar 
 	 *el pago y hacer cambio de propietarios.
 	 */
-	public Oferta cerrarSubasta(String nombrePieza) {
-		Pieza pieza = mapaPiezas.get(nombrePieza);
+	public Cliente cerrarSubasta(String nombrePieza) {
+
 		
 		Oferta ofertaGanadora = null;
 		Subasta subasta = mapaSubastas.get(nombrePieza);
@@ -248,8 +249,10 @@ public class Galeria
 			System.out.println("En esta subasta la pieza no alcanzo el precio maximo para ser vendida");
 			ofertaGanadora = null;
 		}
-		return ofertaGanadora;
 		
+		mapaOfertas.put(nombrePieza, ofertaGanadora); 
+	
+		return ofertaGanadora.getComprador();
 	}
 	public List<Pago> getPagos()
 	{
