@@ -1,5 +1,7 @@
 package Casa_subastas.Interface;
 
+import Casa_subastas.modelo.Inventario.Galeria;
+
 public class MenuCajero extends ConsolaBasica {
 
     @Override
@@ -21,5 +23,10 @@ public class MenuCajero extends ConsolaBasica {
 
     private void recibirPago() {
         System.out.println("Recibiendo pago...");
+        String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
+        String metodoPago = pedirCadenaAlUsuario("Ingrese el metodo de Pago:");
+    	Galeria galeria = MenuPrincipal.galeria;
+        galeria.realizarPago(metodoPago, nombrePieza);
+        System.out.println("Pago recibido");
     }
 }
