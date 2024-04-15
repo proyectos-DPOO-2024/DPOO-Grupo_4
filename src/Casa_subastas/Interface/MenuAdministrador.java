@@ -56,7 +56,7 @@ public class MenuAdministrador extends ConsolaBasica {
         
         
         
-        //galeria.agregarPieza(pieza, propietario);
+        galeria.agregarPieza(pieza, propietario);
         
 
         // Lógica para agregar la nueva pieza a la galería
