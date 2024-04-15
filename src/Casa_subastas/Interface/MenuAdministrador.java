@@ -13,12 +13,13 @@ public class MenuAdministrador extends ConsolaBasica {
     protected void mostrarMenuPrincipal() {
     }
 
-    protected void mostrarMenuAdministrador(Galeria galeria) throws Exception {
+    protected void mostrarMenuAdministrador() throws Exception {
+    	Galeria galeria = MenuPrincipal.galeria;
         String[] opcionesMenuAdmin = new String[]{"Ingreso de pieza", "Asignar máximo", "Confirmar oferta", "Salir"};
         int opcionSeleccionada = mostrarMenu("Menú administrador", opcionesMenuAdmin);
         switch (opcionSeleccionada) {
             case 1:
-                ingresoPieza();
+                ingresoPieza(galeria);
                 break;
             case 2:
                 asignarMaximo(galeria);
@@ -42,8 +43,7 @@ public class MenuAdministrador extends ConsolaBasica {
     }
     
 
-    private void ingresoPieza() {
-    	Galeria galeria = MenuPrincipal.galeria;
+    private void ingresoPieza(Galeria galeria) {
         System.out.println("Ingresando nueva pieza...");
         String[] opcionesTipoPieza = {"Pintura", "Escultura", "Fotografía", "Impresión", "Video"};
         String tipoPieza = pedirOpcionAlUsuario("¿Qué tipo de pieza es?", opcionesTipoPieza);
@@ -61,13 +61,42 @@ public class MenuAdministrador extends ConsolaBasica {
         {
             float alto = Float.parseFloat(pedirCadenaAlUsuario("Ingrese la altura de la pieza en cm"));
             float ancho = Float.parseFloat(pedirCadenaAlUsuario("Ingrese el ancho de la pieza en cm"));
-            String estilo = pedirCadenaAlUsuario("Ingrese el nombre del propietario:");
+            String estilo = pedirCadenaAlUsuario("Ingrese el estilo de la obra");
         	pieza = galeria.crearPintura(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo, bloqueada, comprada, alto, ancho, estilo);
+        	System.out.println("pieza "+ pieza.getNombrepieza()+"se ha añadido correctamente");
         }
+        if(tipoPieza == "Escultura")
+        {
+            float alto = Float.parseFloat(pedirCadenaAlUsuario("Ingrese la altura de la pieza en cm"));
+            float ancho = Float.parseFloat(pedirCadenaAlUsuario("Ingrese el ancho de la pieza en cm"));
+            float profundidad = Float.parseFloat(pedirCadenaAlUsuario("Ingrese la profundidad de la pieza en cm"));
+            String materialDeContrsuccion = pedirCadenaAlUsuario("Ingrese el material del que esta hecho la obra");
+        	pieza = galeria.crearEscultura(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo, bloqueada, comprada, alto, ancho, profundidad, materialDeContrsuccion);
+        }
+        if (tipoPieza == "Fotografía") {
+        	float alto = Float.parseFloat(pedirCadenaAlUsuario("Ingrese la altura de la pieza en cm"));
+            float ancho = Float.parseFloat(pedirCadenaAlUsuario("Ingrese el ancho de la pieza en cm"));
+            Boolean color = Boolean.parseBoolean(pedirCadenaAlUsuario("Ingrese si tienes color (true = si y false = no"));   
+        	pieza = galeria.crearFotografia(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo, bloqueada, comprada, alto, ancho, color);
+        }
+        if (tipoPieza == "Impresión")
+        {
+        	float alto = Float.parseFloat(pedirCadenaAlUsuario("Ingrese la altura de la pieza en cm"));
+            float ancho = Float.parseFloat(pedirCadenaAlUsuario("Ingrese el ancho de la pieza en cm"));
+            String original = pedirCadenaAlUsuario("es original");
+            String metodocracion = pedirCadenaAlUsuario("que metodo se suo para crearla");
+            pieza = galeria.crearImpresiones(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo, bloqueada, comprada, original, metodocracion, alto, ancho);
+        }
+        if (tipoPieza == "Video")
+        {
+        	float duracion = Float.parseFloat(pedirCadenaAlUsuario("Ingrese la duración"));
+        	Boolean color = Boolean.parseBoolean(pedirCadenaAlUsuario("Ingrese si tienes color (true = si y false = no"));
+        	double memoria = Double.parseDouble(pedirCadenaAlUsuario("Ingrese la duración"));
+        	pieza = galeria.crearVideo(nombrePieza, precio, propietario, diasConsignacion,  paraVentaFijo, bloqueada, comprada, duracion, color, memoria);
+        }
+        System.out.println("pieza "+ pieza.getNombrepieza()+" se ha añadido correctamente");
         
-        
-        
-        galeria.agregarPieza(pieza, propietario);
+        //galeria.agregarPieza(pieza, propietario);
         
 
     }

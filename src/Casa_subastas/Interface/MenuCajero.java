@@ -39,7 +39,7 @@ public class MenuCajero extends ConsolaBasica {
     private void mostrarPagos() {
         System.out.println("Mostrando ultimos pagos...");
     	Galeria galeria = MenuPrincipal.galeria;
-        List<Pago> pagos = galeria.darPagos();
+        List<Pago> pagos = galeria.getPagos();
         System.out.println(pagos);
     }
 }

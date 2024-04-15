@@ -33,7 +33,7 @@ public class MenuCliente extends ConsolaBasica {
     private void verCatalogo() {
     	
         System.out.println("Mostrando catálogo...");
-        List<Pieza> piezas = galeria.darPiezas();
+        List<Pieza> piezas = galeria.getPiezas();
         System.out.println(piezas);
 
     }
