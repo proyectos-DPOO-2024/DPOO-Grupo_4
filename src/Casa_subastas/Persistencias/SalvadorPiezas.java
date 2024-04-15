@@ -36,14 +36,16 @@ public class SalvadorPiezas {
 				{
 					JSONObject jPieza = new JSONObject( );
 		        	
-		        	jPieza.put( "tipo", it.next().getTipo() );
-		        	jPieza.put( "nombrePieza", it.next().getNombrepieza() );
-		        	jPieza.put( "precio", it.next().getCosto());
+					Pieza pieza = it.next();
+					
+		        	jPieza.put( "tipo", pieza.getTipo() );
+		        	jPieza.put( "nombrePieza", pieza.getNombrepieza() );
+		        	jPieza.put( "precio", pieza.getCosto());
 		        	jPieza.put( "propietario", loginPropietario);
-		        	jPieza.put( "diasConsignacion", it.next().getDiasConsignacion());
-		        	jPieza.put( "paraVentaFijo", it.next().getParaVentaValorFijo());
-		        	jPieza.put( "paraVentaFijo", it.next().getBloqueada());
-		        	jPieza.put( "paraVentaFijo", it.next().isComprada());
+		        	jPieza.put( "diasConsignacion", pieza.getDiasConsignacion());
+		        	jPieza.put( "paraVentaFijo", pieza.getParaVentaValorFijo());
+		        	jPieza.put( "paraVentaFijo", pieza.getBloqueada());
+		        	jPieza.put( "paraVentaFijo", pieza.isComprada());
 		        	
 		        	/*
 		        	if ( it.next().getTipo() == Pieza.ESCULTURA) {
