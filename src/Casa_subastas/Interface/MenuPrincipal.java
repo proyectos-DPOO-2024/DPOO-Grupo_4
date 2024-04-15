@@ -1,8 +1,10 @@
 package Casa_subastas.Interface;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import Casa_subastas.Persistencias.Loader;
+import Casa_subastas.Persistencias.Saver;
 import Casa_subastas.modelo.Inventario.Galeria;
 
 public class MenuPrincipal extends ConsolaBasica {
@@ -83,6 +85,13 @@ public class MenuPrincipal extends ConsolaBasica {
         Loader cargador = new Loader();
 
         return cargador.cargarGaleria("./datos/" + archivo);
+    }
+    
+    private void guardar() throws IOException{
+        
+        Saver salvador = new Saver();
+
+        salvador.salvarGaleria("./datos/" + "nuevaGaleria", galeria);
     }
 
     public static void main(String[] args) throws Exception {

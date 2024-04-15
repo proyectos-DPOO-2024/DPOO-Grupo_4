@@ -1,5 +1,6 @@
 package Casa_subastas.modelo.usuarios;
 
+import java.util.Collection;
 import java.util.Map;
 
 public class Empleado extends Usuario {
@@ -14,6 +15,11 @@ public class Empleado extends Usuario {
 	public static Empleado getEmpleado(String login) {
 		
 		return Empleados.get(login);
+	}
+	
+	public static Collection<Empleado> getEmpleados() {
+		
+		return Empleados.values();
 	}
 	
 	public Empleado (String login, String password, String rol, String nombre, int cellphone) {
