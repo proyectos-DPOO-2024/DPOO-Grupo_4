@@ -1,7 +1,6 @@
 package Casa_subastas.Interface;
 
 import java.util.Arrays;
-
 import Casa_subastas.modelo.Centro_compras.Oferta;
 import Casa_subastas.modelo.Inventario.Galeria;
 import Casa_subastas.modelo.Inventario.Pieza;
@@ -15,7 +14,7 @@ public class MenuAdministrador extends ConsolaBasica {
 
     protected void mostrarMenuAdministrador() throws Exception {
     	Galeria galeria = MenuPrincipal.galeria;
-        String[] opcionesMenuAdmin = new String[]{"Ingreso de pieza", "Asignar máximo", "Confirmar oferta", "Salir"};
+        String[] opcionesMenuAdmin = new String[]{"Ingreso de pieza", "Asignar máximo", "Confirmar oferta","Crear Subasta","Cerrar subasta","Agregar cliente", "Salir"};
         int opcionSeleccionada = mostrarMenu("Menú administrador", opcionesMenuAdmin);
         switch (opcionSeleccionada) {
             case 1:
@@ -96,7 +95,7 @@ public class MenuAdministrador extends ConsolaBasica {
         }
         System.out.println("pieza "+ pieza.getNombrepieza()+" se ha añadido correctamente");
         
-        //galeria.agregarPieza(pieza, propietario);
+        galeria.agregarPieza(pieza, propietario);
         
 
     }
