@@ -1,6 +1,8 @@
 package Casa_subastas.Interface;
 
 import java.util.Arrays;
+import java.util.Map;
+
 import Casa_subastas.modelo.Centro_compras.Oferta;
 import Casa_subastas.modelo.Inventario.Galeria;
 import Casa_subastas.modelo.Inventario.Pieza;
@@ -14,28 +16,32 @@ public class MenuAdministrador extends ConsolaBasica {
 
     protected void mostrarMenuAdministrador() throws Exception {
     	Galeria galeria = MenuPrincipal.galeria;
-        String[] opcionesMenuAdmin = new String[]{"Ingreso de pieza", "Asignar máximo", "Confirmar oferta","Crear Subasta","Cerrar subasta","Agregar cliente", "Salir"};
+        String[] opcionesMenuAdmin = new String[]{"Ingreso de pieza","Ver catalogo de clientes", "Asignar máximo", "Confirmar oferta","Crear Subasta","Cerrar subasta","Agregar cliente", "Salir"};
         int opcionSeleccionada = mostrarMenu("Menú administrador", opcionesMenuAdmin);
         switch (opcionSeleccionada) {
             case 1:
                 ingresoPieza(galeria);
                 break;
             case 2:
+                verCatalogoClientes(galeria);
+                break;         
+            case 3:
                 asignarMaximo(galeria);
                 break;
-            case 3:
+            case 4:
                 confirmarOferta(galeria);
                 break;
-            case 4:
+            case 5:
                 crearSubasta(galeria);
                 break;
-            case 5:
+            case 6:
                 cerrarSubasta(galeria);
                 break;
-            case 6:
-                agregarCliente(galeria);
-                break;
             case 7:
+                agregarCliente(galeria);
+                break;  
+               
+            case 9:
                 System.out.println("Saliendo del menú administrador...");
                 break;
         }
@@ -99,10 +105,18 @@ public class MenuAdministrador extends ConsolaBasica {
         
 
     }
-
+    
+    
+    private void verCatalogoClientes(Galeria galeria){
+        System.out.println("Mostrando catálogo...");
+        Map<String, Cliente> clientes = galeria.getMapaClientes();
+        
+        for (String llave : clientes.keySet()) {
+            System.out.println(llave);}
+    }
   
 
-    public void asignarMaximo(Galeria galeria) {
+    private void asignarMaximo(Galeria galeria) {
         System.out.println("Asignando máximo valor de compra de un cliente...");
         String nombreCliente = pedirCadenaAlUsuario("Ingrese el nombre del Cliente");
         long valor = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor de compra maximo"));
@@ -111,13 +125,14 @@ public class MenuAdministrador extends ConsolaBasica {
     
     
 
-    public void confirmarOferta(Galeria galeria) {
+    private void confirmarOferta(Galeria galeria) {
         System.out.println("Confirmando oferta...");
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
         galeria.verificarOfertaValorFijo(nombrePieza);
+        System.out.println("Oferta confirmada");
     }
     
-    public void crearSubasta(Galeria galeria)
+    private void crearSubasta(Galeria galeria)
     {
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
         long valorMinimo = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor minimo para vender la pieza"));
@@ -127,10 +142,12 @@ public class MenuAdministrador extends ConsolaBasica {
 
     }
     
-    public void cerrarSubasta(Galeria galeria) {
+    private void cerrarSubasta(Galeria galeria) {
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza");
     	Cliente ganador = galeria.cerrarSubasta(nombrePieza);
     	galeria.cambiarPropietarioPieza(nombrePieza, ganador.getLogin());
+        System.out.println("Subasta cerrada");
+
     	
     }
     
@@ -143,9 +160,11 @@ public class MenuAdministrador extends ConsolaBasica {
         int cellphone = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el numero de telefono"));
         long valorMaximo = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor maximo para compras"));
         boolean esVerificado = Boolean.parseBoolean(pedirCadenaAlUsuario("El cliente es puede participar en subastas?"));
+        System.out.println("Cliente creado");
 
     	galeria.agregarCliente(nombreCliente, pasword, esComprador, espropietario, cellphone, valorMaximo, esVerificado);
     }
+    
 
 }
 

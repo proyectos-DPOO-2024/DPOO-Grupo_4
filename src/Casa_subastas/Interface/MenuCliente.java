@@ -16,13 +16,16 @@ public class MenuCliente extends ConsolaBasica {
     }
 
     protected void mostrarMenuCliente() {
-        String[] opcionesMenuCliente = new String[]{"Ver catálogo", "Hacer oferta (Valor fijo)", "Hacer oferta (Subasta)", "Salir"};
+        String[] opcionesMenuCliente = new String[]{"Ver catálogo","Ver datos de una pieza", "Hacer oferta (Valor fijo)", "Salir"};
         int opcionSeleccionada = mostrarMenu("Menú cliente", opcionesMenuCliente);
         switch (opcionSeleccionada) {
             case 1:
                 verCatalogo();
                 break;
             case 2:
+                verDatosPieza();
+                break;
+            case 3:
                 hacerOfertaValorFijo();
                 break;
             case 4:
@@ -35,12 +38,29 @@ public class MenuCliente extends ConsolaBasica {
         System.out.println("Mostrando catálogo...");
         Map<String, Pieza> piezas = galeria.getMapaPiezas();
         
-        // Imprimir las llaves del mapa
-        System.out.println("Llaves del mapa piezas:");
         for (String llave : piezas.keySet()) {
             System.out.println(llave);
         }
     }
+    
+    private void verDatosPieza() {
+        String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
+        Pieza pieza = galeria.getPieza(nombrePieza);
+        System.out.println("Nombre: " + pieza.getNombrepieza());
+        System.out.println("Costo: " + pieza.getCosto());
+        System.out.println("Propietario: " + pieza.getPropietario());
+        System.out.println("Esta disponible para compra por valor fijo: " + (pieza.getParaVentaValorFijo() ? "Sí" : "No"));
+        System.out.println("Esta bloqueada por que alguien oferto por ella: " + (pieza.getBloqueada() ? "Sí" : "No"));
+
+
+
+
+
+
+        
+    	
+    }
+
 
     private void hacerOfertaValorFijo() {
         System.out.println("Haciendo oferta con valor fijo...");

@@ -26,11 +26,9 @@ public class MenuOperador extends ConsolaBasica {
         System.out.println("Creando oferta en subasta...");
         String nombrePieza = pedirCadenaAlUsuario("Ingrese el nombre de la pieza:");
         String nombreCliente = pedirCadenaAlUsuario("Ingrese el nombre del ofertante:");
-        int valor = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el nombre del ofertante:"));
+        int valor = Integer.parseInt(pedirCadenaAlUsuario("Ingrese el valor de la oferta:"));
         galeria.crearOfertaSubasta(nombrePieza,nombreCliente, valor);
         System.out.println("Su oferta ha sido creada");
     }
     
-    private void mostrarOfertasSubasta() {
-    }
 }

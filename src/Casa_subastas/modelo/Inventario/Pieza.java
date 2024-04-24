@@ -45,8 +45,8 @@ public abstract class Pieza {
 	public boolean getBloqueada() {
 		return this.bloqueada;
 	}
-	public Cliente cambiarPropietario(Cliente nuevoPropietario) {
-		return null;
+	public void cambiarPropietario(Cliente nuevoPropietario) {
+		this.nombrePropietario = nuevoPropietario.getLogin() ;
 	}
 	public void Comprado() {
 		this.comprada = true;
@@ -69,4 +69,5 @@ public abstract class Pieza {
 	public int getTipo() {
 		return tipo;
 	}
+
 }

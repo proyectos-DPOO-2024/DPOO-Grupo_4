@@ -174,6 +174,8 @@ public class Galeria
 		oferta.pagar();
 		
 		comprador.registrarCompra(pieza, valorPagado);
+		pieza.cambiarPropietario(comprador);
+		pieza.desbloquear();
 		
 		}
 	
@@ -261,6 +263,10 @@ public class Galeria
 		return mapaPiezas;
 	}
 	
+	public Map<String, Cliente> getMapaClientes(){
+		return mapaClientes;
+	}
+	
 	public Map<String,Subasta> getMapaSubastas(){
 		return mapaSubastas;
 	}
@@ -272,10 +278,12 @@ public class Galeria
 	public Collection<Subasta> getSubastas(){
 		return mapaSubastas.values();
 	}
-	
-	public void imprimirPorPantalla() {
-		System.out.println(mapaPiezas.keySet());
+	public Pieza getPieza(String nombrePieza) {
+		Pieza pieza = mapaPiezas.get(nombrePieza);
+		return pieza;
 	}
+	
+	
 }
 
 	
