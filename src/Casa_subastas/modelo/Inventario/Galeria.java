@@ -17,7 +17,6 @@ import Casa_subastas.modelo.usuarios.Empleado;
 
 public class Galeria 
 {
-	private List<Pieza> piezas;
 	private Map<String, List<Pieza>> piezasPropietarios;
 	private Map<String, Pieza> mapaPiezas;
 	private Map<String, Cliente>mapaClientes;
@@ -26,7 +25,6 @@ public class Galeria
 	private List<Pago> pagos;
 
 	public Galeria () {
-		this.piezas = new LinkedList<>();
 		this.piezasPropietarios = new HashMap<>();
 		this.mapaPiezas = new HashMap<>();
 		this.mapaClientes = new HashMap<>();
@@ -79,7 +77,7 @@ public class Galeria
 		public void agregarPieza(Pieza pieza, String propietario) {
 			
 			
-		this.piezas.add(pieza);
+
 		this.mapaPiezas.put(pieza.getNombrepieza(), pieza);
 		 if (piezasPropietarios.containsKey(propietario)) {
 			 List<Pieza> piezasDelCliente = piezasPropietarios.get(propietario);
@@ -91,7 +89,7 @@ public class Galeria
 			 piezasDelCliente.add(pieza);
 			 piezasPropietarios.put(propietario, piezasDelCliente);
 		 }
-		this.piezasPropietarios.put(propietario, piezas);
+		 
 	}
 	
 	public void agregarCliente(String login, String password, boolean esComprador, boolean esPropietario, int cellphone, long valorMaximo, boolean isVerificado ) throws Exception {
@@ -259,8 +257,8 @@ public class Galeria
 		return pagos;
 	}
 	
-	public List<Pieza> getPiezas(){
-		return piezas;
+	public Map<String, Pieza> getMapaPiezas(){
+		return mapaPiezas;
 	}
 	
 	public Map<String,Subasta> getMapaSubastas(){
@@ -273,6 +271,10 @@ public class Galeria
 	
 	public Collection<Subasta> getSubastas(){
 		return mapaSubastas.values();
+	}
+	
+	public void imprimirPorPantalla() {
+		System.out.println(mapaPiezas.keySet());
 	}
 }
 

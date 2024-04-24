@@ -1,7 +1,9 @@
 package Casa_subastas.Persistencias;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -28,7 +30,9 @@ public class SalvadorPiezas {
 			{
 				String loginPropietario = cliente.getLogin();
 				
-				List<Pieza> piezasPropietario = galeria.getPiezas();
+				Map<String, Pieza> piezas = galeria.getMapaPiezas();
+			    List<Pieza> piezasPropietario  = new ArrayList<>(piezas.values());
+
 				
 				Iterator <Pieza> it = piezasPropietario.iterator();
 				

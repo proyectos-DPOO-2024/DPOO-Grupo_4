@@ -1,6 +1,7 @@
 package Casa_subastas.Interface;
 
 import java.util.List;
+import java.util.Map;
 
 import Casa_subastas.modelo.Inventario.Galeria;
 import Casa_subastas.modelo.Inventario.Pieza;
@@ -31,11 +32,14 @@ public class MenuCliente extends ConsolaBasica {
     }
 
     private void verCatalogo() {
-    	
         System.out.println("Mostrando catálogo...");
-        List<Pieza> piezas = galeria.getPiezas();
-        System.out.println(piezas);
-
+        Map<String, Pieza> piezas = galeria.getMapaPiezas();
+        
+        // Imprimir las llaves del mapa
+        System.out.println("Llaves del mapa piezas:");
+        for (String llave : piezas.keySet()) {
+            System.out.println(llave);
+        }
     }
 
     private void hacerOfertaValorFijo() {
