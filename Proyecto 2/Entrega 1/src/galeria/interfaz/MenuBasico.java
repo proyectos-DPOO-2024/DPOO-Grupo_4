@@ -101,7 +101,7 @@ public static final String MENSAJE_PREDETERMINADO = "Escoja la opción deseada";
      * @param mensaje El mensaje con el que se solicita la información
      * @return El valor introducido por el usuario
      */
-    protected double pedirNumeroAlUsuario( String mensaje )
+    protected double pedirDoubleAlUsuario( String mensaje )
     {
         double valorResultado = Integer.MIN_VALUE;
         while( valorResultado == Integer.MIN_VALUE )
@@ -112,6 +112,32 @@ public static final String MENSAJE_PREDETERMINADO = "Escoja la opción deseada";
                 BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
                 String input = reader.readLine( );
                 double numero = Double.parseDouble( input );
+                valorResultado = numero;
+            }
+            catch( NumberFormatException nfe )
+            {
+                System.out.println( "El valor digitado no es un entero" );
+            }
+            catch( IOException e )
+            {
+                System.out.println( "Error leyendo de la consola" );
+            }
+        }
+        return valorResultado;
+    }
+    
+    
+    protected long pedirLongAlUsuario( String mensaje )
+    {
+        long valorResultado = Integer.MIN_VALUE;
+        while( valorResultado == Integer.MIN_VALUE )
+        {
+            try
+            {
+                System.out.print( mensaje + ": " );
+                BufferedReader reader = new BufferedReader( new InputStreamReader( System.in ) );
+                String input = reader.readLine( );
+                long numero = Long.parseLong( input );
                 valorResultado = numero;
             }
             catch( NumberFormatException nfe )

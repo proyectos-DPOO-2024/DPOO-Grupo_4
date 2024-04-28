@@ -3,6 +3,7 @@
  */
 package galeria.interfaz;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +12,7 @@ import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.inventario.Pieza;
 import galeria.modelo.usuarios.Cliente;
+import galeria.modelo.usuarios.Usuario;
 
 /**
  * Este es el menú que verá un administrador al iniciar sesión.
@@ -18,32 +20,21 @@ import galeria.modelo.usuarios.Cliente;
  */
 public class MenuAdministrador extends MenuEmpleado {
 	
-	public static final int LISTA_PAGOS = 0;
-	public static final int LISTA_NUEVOS_COMPRADORES = 1;
-	public static final int LISTA_SOLICITUDES_TOPE = 2;
 	
-	public static Map<Integer, List> notificacionesAdmin;
+	/**
+	 * La lista de pagos se utiliza para aprobar la entrega de piezas ya pagas.
+	 * La lista de compradores se utiliza para verificar nuevos compradores (se les debe asignar un tope en este proceso).
+	 * La lista de ofertas se utiliza para aprobar nuevos topes a los compradores.
+	 */
+	public static List<Pago> listaPagos = new LinkedList<Pago>();
+	public static List<String> listaCompradores = new LinkedList<String>();
+	public static List<Oferta> listaSolicitudesTope = new LinkedList<Oferta>();
+	
 
 	protected MenuAdministrador(MenuPrincipal menuPrincipal) {
 		super(menuPrincipal);
 		
-		if (notificacionesAdmin.isEmpty()){
-			
-			/**
-			 * La lista de pagos se utiliza para aprobar la entrega de piezas ya pagas.
-			 * La lista de compradores se utiliza para verificar nuevos compradores (se les debe asignar un tope en este proceso).
-			 * La lista de ofertas se utiliza para aprobar nuevos topes a los compradores.
-			 */
-			LinkedList<Pago> listaPagos = new LinkedList<Pago>();
-			LinkedList<Cliente> listaCompradores = new LinkedList<Cliente>();
-			LinkedList<Oferta> listaSolicitudesTope = new LinkedList<Oferta>();
-			
-			notificacionesAdmin.put(LISTA_PAGOS, listaPagos);
-			notificacionesAdmin.put(LISTA_NUEVOS_COMPRADORES, listaCompradores);
-			notificacionesAdmin.put(LISTA_SOLICITUDES_TOPE, listaSolicitudesTope);
-		}
-		
-		this.mostrarMenuAdministrador();
+		mostrarMenuAdministrador();
 	}
 	
 	
@@ -67,68 +58,68 @@ public class MenuAdministrador extends MenuEmpleado {
 		opciones[10] = "Guardar pieza en bodega";
 		opciones[11] = "Cerrar Sesión";
 		
-		int opcionEscogida = this.mostrarMenu("Menú Principal", opciones, MENSAJE_PREDETERMINADO);
+		int opcionEscogida = mostrarMenu("Menú Principal", opciones, MENSAJE_PREDETERMINADO);
 		
 		if (opcionEscogida == 1) {
-			this.confirmarNuevaPieza();
-			this.mostrarMenuAdministrador();
+			confirmarNuevaPieza();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 2) {
-			this.verificarComprador();
-			this.mostrarMenuAdministrador();
+			verificarComprador();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 3) {
-			this.confirmarEntrega();
-			this.mostrarMenuAdministrador();
+			confirmarEntrega();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 4) {
-			this.ampliarTope();
-			this.mostrarMenuAdministrador();
+			ampliarTope();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 5) {
-			this.realizarDevolución();
-			this.mostrarMenuAdministrador();
+			realizarDevolución();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 6) {
-			this.agregarEmpleado();
-			this.mostrarMenuAdministrador();
+			agregarEmpleado();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 7) {
-			this.verHistoriaPieza();
-			this.mostrarMenuAdministrador();
+			verHistoriaPieza();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 8) {
-			this.verHistoriaArtista();
-			this.mostrarMenuAdministrador();
+			verHistoriaArtista();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 9) {
-			String loginCliente = this.pedirCadenaAlUsuario("Por favor ingrese el login del cliente que desea consultar: ");
+			String loginCliente = pedirCadenaAlUsuario("Por favor ingrese el nombre de usuario del cliente que desea consultar");
 			
-			if (menuPrincipal.galeria.existeCliente(loginCliente)) verHistorialCliente(loginCliente);
+			if (galeria.existeCliente(loginCliente)) verHistorialCliente(loginCliente);
 			else System.out.println("No existe ningún cliente con el login seleccionado.");
 			
-			this.mostrarMenuAdministrador();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 10) {
-			this.exhibirPieza();
-			this.mostrarMenuAdministrador();
+			exhibirPieza();
+			mostrarMenuAdministrador();
 		}
 		
 		if (opcionEscogida == 11) {
-			this.guardarPiezaEnBodega();
-			this.mostrarMenuAdministrador();
+			guardarPiezaEnBodega();
+			mostrarMenuAdministrador();
 		}
 		
-		else this.cerrarSesion(menuPrincipal);
+		else cerrarSesion(menuPrincipal);
 	}
 	
 	/**
@@ -136,7 +127,42 @@ public class MenuAdministrador extends MenuEmpleado {
 	 * Se le debe preguntar al administrador el tope de compras que se le asignará al nuevo comprador.
 	 */
 	protected void verificarComprador() {
-		//TODO
+		if (listaCompradores.isEmpty()) {
+			System.out.println("No hay solicitudes de verificación pendientes.");
+			boolean busquedaManual = pedirConfirmacionAlUsuario("¿Desea verificar un cliente manualmente?");
+			
+			if(busquedaManual) {
+				String login = pedirCadenaAlUsuario("Por favor ingrese el nombre de usuario del cliente que desea verificar");
+				boolean existe = galeria.existeCliente(login);
+				if (!existe) System.out.println("El nombre de usuario ingresado no corresponde a ningún cliente registrado");
+				else {
+					Cliente cliente = galeria.getCliente(login);
+					if (cliente.isVerificado()) System.out.println("El cliente ingresado ya está verificado");
+					else {
+						long tope = pedirLongAlUsuario("Por favor ingrese el tope de compras que desea asignar");
+						galeria.verificarNuevoComprador(cliente, tope);
+					}
+				}
+			}
+		}
+		else {
+			int numClientes = listaCompradores.size();
+			String[] opciones = new String[numClientes+1];
+			
+			Iterator<String> it = listaCompradores.iterator();
+			for (int i = 0; i < numClientes && it.hasNext(); i++) {
+				opciones[i] = it.next();
+			}
+			opciones[numClientes] = "Cancelar";
+			int opcionSeleccionada = mostrarMenu("Solicitudes de verificación pendientes", opciones, MENSAJE_PREDETERMINADO);
+			if (opcionSeleccionada == numClientes+1) {}
+			else {
+				Cliente clienteSeleccionado = galeria.getCliente(listaCompradores.get(opcionSeleccionada-1));
+				long tope = pedirLongAlUsuario("Por favor ingrese el tope de compras que desea asignar");
+				galeria.verificarNuevoComprador(clienteSeleccionado, tope);
+			}
+		}
+		mostrarMenuAdministrador();
 	}
 	
 	
@@ -146,7 +172,20 @@ public class MenuAdministrador extends MenuEmpleado {
 	 * Se debe verificar que el login sea único (De esto se debe encargar la clase galería).
 	 */
 	protected void agregarEmpleado() {
-		//TODO
+		
+		String login = crearNuevoLogin();
+		String password = pedirCadenaAlUsuario("Por favor ingrese la contraseña del nuevo empleado");
+		int cellphone = pedirEnteroAlUsuario("Por favor ingrese el numero telefónico del nuevo empleado");
+		String nombre = pedirCadenaAlUsuario("Por favor ingrese el nombre del nuevo empleado");
+		
+		String[] opciones = new String[3];
+		opciones[Usuario.ADMINISTRADOR-1] = "Administrador";
+		opciones[Usuario.CAJERO-1] = "Cajero";
+		opciones[Usuario.OPERADOR-1] = "Operador";
+		
+		int rolSeleccionado = mostrarMenu("Seleccionar rol", opciones, "Escoja el rol deseado para el nuevo empleado");
+		
+		galeria.agregarNuevoEmpleado(login, password, cellphone, nombre, rolSeleccionado);
 	}
 	
 	
@@ -156,7 +195,63 @@ public class MenuAdministrador extends MenuEmpleado {
 	 * Se le debe mostrar al administrador el tope mínimo que solicita el usuario (cantidadMinimaSolicitada).
 	 */
 	protected void ampliarTope() {
-		//TODO
+		
+		if (listaSolicitudesTope.isEmpty()) {
+			System.out.println("No hay solicitudes de extensión de tope de compras pendientes.");
+			boolean busquedaManual = pedirConfirmacionAlUsuario("¿Desea extender el tope de un comprador manualmente?");
+			
+			if(busquedaManual) {
+				String login = pedirCadenaAlUsuario("Por favor ingrese el nombre de usuario del comprador al que desea extender su tope");
+				boolean existe = galeria.existeCliente(login);
+				if (!existe) System.out.println("El nombre de usuario ingresado no corresponde a ningún cliente registrado");
+				else {
+					Cliente cliente = galeria.getCliente(login);
+					if (!cliente.isVerificado()) System.out.println("El cliente ingresado no está verificado aún");
+					else {
+						
+						long tope = -1;
+						while (tope < 0) {
+							tope = pedirLongAlUsuario("Por favor ingrese el nuevo tope de compras que desea asignar (este debe ser mayor al tope actual: " + Long.toString(cliente.getTopeCompras()) + ")");
+							if (tope < cliente.getTopeCompras()) {
+								System.out.println("El tope ingresado es menor al tope actual");
+								tope = -1;
+							}
+						}
+						galeria.extenderTope(cliente, tope);
+					}
+				}
+			}
+		}
+		else {
+			int numSolicitudes = listaSolicitudesTope.size();
+			String[] opciones = new String[numSolicitudes+1];
+			
+			Iterator<Oferta> it = listaSolicitudesTope.iterator();
+			for (int i = 0; i < numSolicitudes && it.hasNext(); i++) {
+				Oferta oferta = it.next();
+				opciones[i] = "Oferta #" + Integer.toString(i+1) + ", Pieza: " + oferta.getPieza().getTitulo();
+				mostrarInformacionTransaccion(oferta, true);
+			}
+			opciones[numSolicitudes] = "Cancelar";
+			int opcionSeleccionada = mostrarMenu("Ofertas con solicitudes de extensión de tope", opciones, "Seleccione una oferta para ampliar el tope del comprador correspondiente");
+			if (opcionSeleccionada == numSolicitudes+1) {}
+			else {
+				Oferta ofertaSeleccionada = listaSolicitudesTope.get(opcionSeleccionada-1);
+				Cliente compradorSeleccionado = galeria.getCliente(ofertaSeleccionada.getLoginComprador());
+				long tope = -1;
+				long topeMinimo = ofertaSeleccionada.getValor();
+				while (tope < 0) {
+					tope = pedirLongAlUsuario("Por favor ingrese el nuevo tope de compras que desea asignar (este debe ser mayor al valor de la oferta: " + Long.toString(topeMinimo) + ")");
+					if (tope < topeMinimo) {
+						System.out.println("El tope ingresado es menor al valor de la oferta");
+						tope = -1;
+					}
+				}
+				galeria.extenderTope(compradorSeleccionado, tope);
+				//TODO Procesar nueva oferta: si es subasta, nueva oferta; si es venta directa, mandar pago a cajero.
+			}
+		}
+		mostrarMenuAdministrador();
 	}
 	
 	
@@ -209,10 +304,4 @@ public class MenuAdministrador extends MenuEmpleado {
 	}
 	
 	
-	/**
-	 * Esta función se encarga de mostrar la información de una pieza.
-	 */
-	private void mostrarPieza(Pieza pieza) {
-		//TODO
-	}
 }

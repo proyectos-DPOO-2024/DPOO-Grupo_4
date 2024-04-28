@@ -33,9 +33,11 @@ public class MenuOperador extends MenuEmpleado {
 		String[] opciones = new String[4];
 		
 		opciones[0] = "Agregar nueva oferta en subasta";
-		opciones[1] = "Exhibir pieza";
-		opciones[2] = "Guardar pieza en bodega";
-		opciones[3] = "Cerrar Sesión";
+		opciones[1] = "Ver historia pieza";
+		opciones[2] = "Ver historia artista";
+		opciones[3] = "Exhibir pieza";
+		opciones[4] = "Guardar pieza en bodega";
+		opciones[5] = "Cerrar Sesión";
 		
 		int opcionEscogida = this.mostrarMenu("Menú Principal", opciones, MENSAJE_PREDETERMINADO);
 		
@@ -45,11 +47,21 @@ public class MenuOperador extends MenuEmpleado {
 		}
 		
 		if (opcionEscogida == 2) {
-			this.exhibirPieza();
+			this.verHistoriaPieza();
 			this.mostrarMenuOperador();
 		}
 		
 		if (opcionEscogida == 3) {
+			this.verHistoriaArtista();
+			this.mostrarMenuOperador();
+		}
+		
+		if (opcionEscogida == 4) {
+			this.exhibirPieza();
+			this.mostrarMenuOperador();
+		}
+		
+		if (opcionEscogida == 5) {
 			this.guardarPiezaEnBodega();
 			this.mostrarMenuOperador();
 		}

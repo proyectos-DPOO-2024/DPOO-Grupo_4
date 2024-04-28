@@ -34,7 +34,7 @@ public class MenuPrincipal extends MenuBasico {
 	protected MenuPrincipal(Galeria galeria) {
 		this.galeria = galeria;
 		
-		this.mostrarMenuPrincipal();
+		mostrarMenuPrincipal();
 	}
 	
 	/**
@@ -49,10 +49,10 @@ public class MenuPrincipal extends MenuBasico {
 		opciones[0] = "Iniciar Sesión";
 		opciones[1] = "Cerrar Aplicación";
 		
-		int opcionEscogida = this.mostrarMenu("Menú Principal", opciones, MENSAJE_PREDETERMINADO);
+		int opcionEscogida = mostrarMenu("Menú Principal", opciones, MENSAJE_PREDETERMINADO);
 		
-		if (opcionEscogida == 1) this.iniciarSesion();
-		else this.cerrarAplicacion();
+		if (opcionEscogida == 1) iniciarSesion();
+		else cerrarAplicacion();
 	}
 	
 	
@@ -66,10 +66,10 @@ public class MenuPrincipal extends MenuBasico {
 	@SuppressWarnings("unused")
 	private void iniciarSesion() {
 		
-		String login = this.pedirCadenaAlUsuario("Nombre de usuario: ");
-		String password = this.pedirCadenaAlUsuario("Contraseña: ");
+		String login = pedirCadenaAlUsuario("Nombre de usuario");
+		String password = pedirCadenaAlUsuario("Contraseña");
 		
-		int tipoUsuario = galeria.verificarUsuario(login, password);
+		int tipoUsuario = galeria.verificarLogin(login, password);
 		
 		if (tipoUsuario < 0) System.out.println("El nombre de usuario ingresado no existe");
 		if (tipoUsuario == 0) System.out.println("La contraseña ingresada es incorrecta");

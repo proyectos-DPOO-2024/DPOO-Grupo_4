@@ -7,8 +7,12 @@ import java.util.List;
 import java.util.Map;
 
 import galeria.modelo.centroventas.CentroDeVentas;
+import galeria.modelo.usuarios.Administrador;
+import galeria.modelo.usuarios.Cajero;
 import galeria.modelo.usuarios.Cliente;
 import galeria.modelo.usuarios.Empleado;
+import galeria.modelo.usuarios.Operador;
+import galeria.modelo.usuarios.Usuario;
 
 /**
  * Esta clase actúa como un controlador que regular la comunicación entre la interfaz y el resto del modelo.
@@ -39,7 +43,7 @@ public class Galeria {
 	 * Si el login no existe, el método devuelve -1.
 	 * @return tipoUsuario
 	 */
-	public int verificarUsuario(String login, String password) {
+	public int verificarLogin(String login, String password) {
 		if (mapaEmpleados.containsKey(login)) {
 			Empleado empleado = mapaEmpleados.get(login);
 			if (empleado.getPassword().equals(password)){
@@ -66,6 +70,55 @@ public class Galeria {
 	}
 	
 	
+	
+	/**
+	 * Este método comprueba si el login ingresado por parámetro es único.
+	 */
+	public boolean comprobarLoginUnico(String login) {
+		boolean unico = !( mapaClientes.containsKey(login) || mapaEmpleados.containsKey(login) );
+		return unico;
+	}
+	
+	
+	/**
+	 * Esta función media la interacción para verificar un nuevo comprador
+	 */
+	public void verificarNuevoComprador(Cliente cliente, long tope) {
+		cliente.verificarComoComprador(tope);
+	}
+	
+	
+	/**
+	 * Esta función media la interacción para extender el tope de compras de un comprador
+	 */
+	public void extenderTope(Cliente cliente, long tope) {
+		cliente.extenderTopeCompras(tope);
+	}
+	
+	
+	/**
+	 * Esta función agrega un nuevo empleado a la base de datos.
+	 */
+	public void agregarNuevoEmpleado(String login, String password, int cellphone, String nombre, int rol) {
+		
+		if (rol == Usuario.ADMINISTRADOR) {
+			Administrador admin = new Administrador(login, password, cellphone, nombre);
+			mapaEmpleados.put(login, admin);
+		}
+		if (rol == Usuario.CAJERO) {
+			Cajero cajero = new Cajero(login, password, cellphone, nombre);
+			mapaEmpleados.put(login, cajero);
+		}
+		if (rol == Usuario.OPERADOR) {
+			Operador operador = new Operador(login, password, cellphone, nombre);
+			mapaEmpleados.put(login, operador);
+		}
+	}
+	
+	
+	/**
+	 * Getters y funciones para verificar existencia
+	 */
 	public CentroDeVentas getCentroDeVentas() {
 		return centroDeVentas;
 	}

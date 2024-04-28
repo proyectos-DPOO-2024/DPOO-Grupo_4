@@ -8,6 +8,7 @@ import java.util.List;
 
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.Transaccion;
+import galeria.modelo.inventario.Galeria;
 import galeria.modelo.inventario.Pieza;
 import galeria.modelo.usuarios.Cliente;
 
@@ -17,14 +18,16 @@ import galeria.modelo.usuarios.Cliente;
 public abstract class MenuUsuario extends MenuBasico {
 
 	MenuPrincipal menuPrincipal;
+	Galeria galeria;
 	
 	protected MenuUsuario(MenuPrincipal menuPrincipal) {
 		this.menuPrincipal = menuPrincipal;
+		galeria = menuPrincipal.galeria;
 	}
 	
 	
 	protected void verHistoriaPieza() {
-		String nombrePieza = this.pedirCadenaAlUsuario("Ingrese el título de la pieza que desea buscar: ");
+		String nombrePieza = pedirCadenaAlUsuario("Ingrese el título de la pieza que desea buscar");
 		
 		if (menuPrincipal.galeria.existePieza(nombrePieza)) {
 			mostrarTransaccionesPieza(nombrePieza);
@@ -35,7 +38,7 @@ public abstract class MenuUsuario extends MenuBasico {
 	}
 	
 	protected void verHistoriaArtista() {
-		String nombreArtista = this.pedirCadenaAlUsuario("Ingrese el nombre del artista que desea buscar: ");
+		String nombreArtista = pedirCadenaAlUsuario("Ingrese el nombre del artista que desea buscar");
 		
 		if (menuPrincipal.galeria.existeArtista(nombreArtista)) {
 			List<String> nombresPiezasArtista = menuPrincipal.galeria.getArtista(nombreArtista).getNombrePiezas();
@@ -135,6 +138,57 @@ public abstract class MenuUsuario extends MenuBasico {
 	
 	
 	/**
+	 * Este método muestra un menú continuo en el cual se pueden seleccionar piezas para ver sus transacciones repetidamente.
+	 * @param nombreMensaje
+	 * @param nombresPiezas
+	 */
+	protected void menuMostrarTransaccionesVariasPiezas(String nombreMensaje, List<String> nombresPiezas) {
+		int numPiezas = nombresPiezas.size();
+		String[] opciones = new String[numPiezas+1];
+		Iterator<String> it = nombresPiezas.iterator();
+		for (int i = 0; i < numPiezas && it.hasNext(); i++) {
+			opciones[i] = it.next();
+		}
+		opciones[numPiezas+1] = "Salir";
+		
+		int opcionSeleccionada = mostrarMenu("Piezas de " + nombreMensaje, opciones, "Escoja la pieza de la que desee ver más información");
+		
+		if (opcionSeleccionada == numPiezas+1) {}
+		
+		else {
+			mostrarTransaccionesPieza(nombresPiezas.get(opcionSeleccionada-1));
+			menuMostrarTransaccionesVariasPiezas(nombreMensaje, nombresPiezas);
+		}
+	}
+	
+	
+	/**
+	 * Este método muestra un menú continuo en el cual se pueden seleccionar piezas para ver su información repetidamente.
+	 * @param nombreMensaje
+	 * @param nombresPiezas
+	 */
+	protected void menuMostrarInformacionVariasPiezas(String nombreMensaje, List<String> nombresPiezas, boolean incluirPropietario,
+			boolean incluirPrecioMinimoSubasta) {
+		int numPiezas = nombresPiezas.size();
+		String[] opciones = new String[numPiezas+1];
+		Iterator<String> it = nombresPiezas.iterator();
+		for (int i = 0; i < numPiezas && it.hasNext(); i++) {
+			opciones[i] = it.next();
+		}
+		opciones[numPiezas+1] = "Salir";
+		
+		int opcionSeleccionada = mostrarMenu("Piezas de " + nombreMensaje, opciones, "Escoja la pieza de la que desee ver más información");
+		
+		if (opcionSeleccionada == numPiezas+1) {}
+		
+		else {
+			mostrarInformacionPieza(nombresPiezas.get(opcionSeleccionada-1), incluirPropietario, incluirPrecioMinimoSubasta);
+			menuMostrarTransaccionesVariasPiezas(nombreMensaje, nombresPiezas);
+		}
+	}
+	
+	
+	/**
 	 * Este método muestra la información de una pieza
 	 */
 	protected void mostrarInformacionPieza(String nombrePieza, boolean incluirPropietario, boolean incluirPrecioMinimoSubasta) {
@@ -185,7 +239,7 @@ public abstract class MenuUsuario extends MenuBasico {
 			
 			for (int i = 0; i < historialPieza.size(); i++) {
 				System.out.println("Transacción #" + Integer.toString(i+1));
-				this.mostrarInformacionPago(historialPieza.get(i), false);
+				mostrarInformacionPago(historialPieza.get(i), false);
 			}
 		}
 	}
@@ -220,54 +274,17 @@ public abstract class MenuUsuario extends MenuBasico {
 	
 	
 	/**
-	 * Este método muestra un menú continuo en el cual se pueden seleccionar piezas para ver sus transacciones repetidamente.
-	 * @param nombreMensaje
-	 * @param nombresPiezas
+	 * Este método ayuda a llevar a cabo la creación de un nuevo login único.
 	 */
-	protected void menuMostrarTransaccionesVariasPiezas(String nombreMensaje, List<String> nombresPiezas) {
-		int numPiezas = nombresPiezas.size();
-		String[] opciones = new String[numPiezas+1];
-		Iterator<String> it = nombresPiezas.iterator();
-		for (int i = 0; i < numPiezas; i++) {
-			opciones[i] = it.next();
+	protected String crearNuevoLogin() {
+		
+		boolean unico = false;
+		String login = "";
+		while (!unico) {
+			login = pedirCadenaAlUsuario("Por favor ingrese el login del nuevo empleado");
+			unico = galeria.comprobarLoginUnico(login);
 		}
-		opciones[numPiezas+1] = "Salir";
-		
-		int opcionSeleccionada = this.mostrarMenu("Piezas de " + nombreMensaje, opciones, "Escoja la pieza de la que desee ver más información");
-		
-		if (opcionSeleccionada == numPiezas+1) {}
-		
-		else {
-			mostrarTransaccionesPieza(nombresPiezas.get(opcionSeleccionada));
-			menuMostrarTransaccionesVariasPiezas(nombreMensaje, nombresPiezas);
-		}
-	}
-	
-	
-	
-	/**
-	 * Este método muestra un menú continuo en el cual se pueden seleccionar piezas para ver su información repetidamente.
-	 * @param nombreMensaje
-	 * @param nombresPiezas
-	 */
-	protected void menuMostrarInformacionVariasPiezas(String nombreMensaje, List<String> nombresPiezas, boolean incluirPropietario,
-			boolean incluirPrecioMinimoSubasta) {
-		int numPiezas = nombresPiezas.size();
-		String[] opciones = new String[numPiezas+1];
-		Iterator<String> it = nombresPiezas.iterator();
-		for (int i = 0; i < numPiezas; i++) {
-			opciones[i] = it.next();
-		}
-		opciones[numPiezas+1] = "Salir";
-		
-		int opcionSeleccionada = this.mostrarMenu("Piezas de " + nombreMensaje, opciones, "Escoja la pieza de la que desee ver más información");
-		
-		if (opcionSeleccionada == numPiezas+1) {}
-		
-		else {
-			mostrarInformacionPieza(nombresPiezas.get(opcionSeleccionada), incluirPropietario, incluirPrecioMinimoSubasta);
-			menuMostrarTransaccionesVariasPiezas(nombreMensaje, nombresPiezas);
-		}
+		return login;
 	}
 	
 	
