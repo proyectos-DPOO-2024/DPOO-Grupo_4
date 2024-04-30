@@ -16,14 +16,15 @@ public abstract class Pieza {
 	public static final int VIDEO = 4;
 	
 	/**
-	 *  Si una pieza tiene precio = -1, quiere decir que no está disponible para venta directa.
+	 *  Si una pieza tiene precioVentaDirecta = -1, quiere decir que no está disponible para venta directa.
 	 *  Si una pieza está bloqueada, quiere decir que hay una oferta directa o, en caso de que esté siendo subastada, una nueva puja
 	 *  siendo procesada.
 	 *  El indicador enPosesion indica si una pieza está actualmente en posesión de la galería o fue vendida (pieza pasada).
 	 */
 	private String titulo;
 	private int tipo;
-	private String nombrePropietario;
+	private String nombreArtista;
+	private String loginPropietario;
 	private String fechaTerminoConsignacion;
 	private long precioVentaDirecta;
 	private long precioInicioSubasta;
@@ -37,12 +38,13 @@ public abstract class Pieza {
 	
 	
 	
-	public Pieza (String titulo, int tipo, String nombrePropietario, String fechaTerminoConsignacion, 
+	public Pieza (String titulo, String nombreArtista, int tipo, String loginPropietario, String fechaTerminoConsignacion, 
 			long precioVentaDirecta, long precioInicioSubasta, long precioMinimoSubasta) {
 		
 		this.titulo = titulo;
 		this.tipo = tipo;
-		this.nombrePropietario = nombrePropietario;
+		this.nombreArtista = nombreArtista;
+		this.loginPropietario = loginPropietario;
 		this.fechaTerminoConsignacion = fechaTerminoConsignacion;
 		this.precioVentaDirecta = precioVentaDirecta;
 		this.precioInicioSubasta = precioInicioSubasta;
@@ -57,7 +59,7 @@ public abstract class Pieza {
 	
 	
 	public void cambiarPropietario(String loginNuevoPropietario) {
-		nombrePropietario = loginNuevoPropietario;
+		loginPropietario = loginNuevoPropietario;
 	}
 	
 	public void bloquear() {
@@ -74,9 +76,12 @@ public abstract class Pieza {
 		enBodega = false;
 	}
 	
-	public void cambiarEstadoSubasta(){
-		if (enSubasta) enSubasta = false;
-		else enSubasta = true;
+	public void abrirSubasta(){
+		enSubasta = true;
+	}
+	
+	public void cerrarSubasta(){
+		enSubasta = false;
 	}
 	
 	public void cambiarEstadoPosesion() {
@@ -90,8 +95,11 @@ public abstract class Pieza {
 	public int getTipo() {
 		return tipo;
 	}
-	public String getPropietario() {
-		return nombrePropietario;
+	public String getNombreArtista() {
+		return nombreArtista;
+	}
+	public String getLoginPropietario() {
+		return loginPropietario;
 	}
 	public String getFechaTerminoConsignacion() {
 		return fechaTerminoConsignacion;    
@@ -120,5 +128,24 @@ public abstract class Pieza {
 	public boolean isEnPosesion() {
 		return enPosesion;
 	}
+
+
+
+	public void setFechaTerminoConsignacion(String fechaTerminoConsignacion) {
+		this.fechaTerminoConsignacion = fechaTerminoConsignacion;
+	}
+	public void setPrecioVentaDirecta(long precioVentaDirecta) {
+		this.precioVentaDirecta = precioVentaDirecta;
+	}
+	public void setPrecioInicioSubasta(long precioInicioSubasta) {
+		this.precioInicioSubasta = precioInicioSubasta;
+	}
+	public void setPrecioMinimoSubasta(long precioMinimoSubasta) {
+		this.precioMinimoSubasta = precioMinimoSubasta;
+	}
+	public void setPrecioUltimaVenta(long precioUltimaVenta) {
+		this.precioUltimaVenta = precioUltimaVenta;
+	}
+	
 
 }

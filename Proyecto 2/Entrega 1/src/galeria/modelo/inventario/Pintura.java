@@ -7,9 +7,9 @@ public class Pintura extends Pieza {
 	private float ancho;
 	
 	
-	public Pintura(String nombrePieza, String nombrePropietario, String fechaTerminoConsignacion, long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
+	public Pintura(String nombrePieza, String nombreArtista, String loginPropietario, String fechaTerminoConsignacion, long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
 			 String estilo, float alto, float ancho) {
-		super(nombrePieza, Pieza.PINTURA, nombrePropietario, fechaTerminoConsignacion, precioVentaFija, precioInicioSubasta, precioMinimoSubasta);
+		super(nombrePieza, nombreArtista, Pieza.PINTURA, loginPropietario, fechaTerminoConsignacion, precioVentaFija, precioInicioSubasta, precioMinimoSubasta);
 		this.estilo = estilo;
 		this.alto = alto;
 		this.ancho = ancho;

@@ -17,9 +17,12 @@ import galeria.modelo.usuarios.Usuario;
 /**
  * Esta clase actúa como un controlador que regular la comunicación entre la interfaz y el resto del modelo.
  * Adicionalmente, guarda la siguiente información:
- * - Mapa de piezas (Llave: nombrePieza; Valor: objeto pieza).
- * - Mapa de clientes.
+ * - Mapa de piezas (Llave: nombrePieza; Valor: objeto pieza)
  * - Mapa nombre artista -> artista (objeto)
+ * - Mapa de empleados
+ * - Mapa de clientes
+ * - Mapa cliente -> piezas actuales
+ * - Mapa cliente -piezas pasadas
  * - Casa de subastas correspondiente
  */
 public class Galeria {
@@ -117,6 +120,48 @@ public class Galeria {
 	
 	
 	/**
+	 * Este método agrega una nueva pieza
+	 */
+	public void agregarPiezaNueva(Pieza piezaNueva) {
+		String tituloPieza = piezaNueva.getTitulo();
+		String nombreArtista = piezaNueva.getNombreArtista();
+		if (!existeArtista(nombreArtista)) agregarArtista(nombreArtista);
+		
+		mapaArtistas.get(nombreArtista).agregarPieza(tituloPieza);
+		mapaPiezas.put(tituloPieza, piezaNueva);
+		piezasActualesPropietarios.get(piezaNueva.getLoginPropietario()).add(tituloPieza);
+	}
+	
+	
+	/**
+	 * Este método agrega un nuevo artista
+	 */
+	public void entregarPieza(Pieza pieza, String loginComprador) {
+		String loginPropietarioAntiguo = pieza.getLoginPropietario();
+		String tituloPieza = pieza.getTitulo();
+		
+		piezasActualesPropietarios.get(loginPropietarioAntiguo).remove(tituloPieza);
+		piezasPasadasPropietarios.get(loginPropietarioAntiguo).add(tituloPieza);
+		
+		piezasActualesPropietarios.get(loginComprador).add(tituloPieza);
+		
+		pieza.cambiarPropietario(loginComprador);
+		
+		configurarValoresDeEntregaDePieza(pieza);
+	}
+	
+	
+	/**
+	 * Este método agrega un nuevo artista
+	 */
+	public void agregarArtista(String nombreArtista) {
+		Artista nuevoArtista = new Artista(nombreArtista);
+		mapaArtistas.put(nombreArtista, nuevoArtista);
+	}
+	
+	
+	
+	/**
 	 * Getters y funciones para verificar existencia
 	 */
 	public CentroDeVentas getCentroDeVentas() {
@@ -161,5 +206,25 @@ public class Galeria {
 	
 	public Artista getArtista(String nombreArtista) {
 		return mapaArtistas.get(nombreArtista);
+	}
+	
+	
+	
+	/**
+	 * Métodos Auxiliares
+	 */
+	
+	
+	/**
+	 * Este método configura los valores de las piezas cuando son entregadas (excepto cambiar el propietario y el precio de la úultimo venta).
+	 */
+	public void configurarValoresDeEntregaDePieza(Pieza pieza) {
+		pieza.cambiarEstadoPosesion();
+		pieza.cerrarSubasta();
+		pieza.desbloquear();
+		pieza.setFechaTerminoConsignacion(null);
+		pieza.setPrecioInicioSubasta(-1);
+		pieza.setPrecioMinimoSubasta(-1);
+		pieza.setPrecioVentaDirecta(-1);
 	}
 }

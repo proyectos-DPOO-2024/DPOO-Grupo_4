@@ -10,6 +10,7 @@ import java.util.Map;
 
 import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.centroventas.Pago;
+import galeria.modelo.centroventas.SolicitudTope;
 import galeria.modelo.inventario.Pieza;
 import galeria.modelo.usuarios.Cliente;
 import galeria.modelo.usuarios.Usuario;
@@ -23,12 +24,14 @@ public class MenuAdministrador extends MenuEmpleado {
 	
 	/**
 	 * La lista de pagos se utiliza para aprobar la entrega de piezas ya pagas.
+	 * La lista de piezas por ingresar se utiliza para guardar las propuestas de consignación hechas por propietarios.
 	 * La lista de compradores se utiliza para verificar nuevos compradores (se les debe asignar un tope en este proceso).
-	 * La lista de ofertas se utiliza para aprobar nuevos topes a los compradores.
+	 * La lista de solicitudes guarda los nombres de los clientes que solicitaron aprobación nuevos topes a los compradores.
 	 */
 	public static List<Pago> listaPagos = new LinkedList<Pago>();
+	public static List<Pieza> listaPiezasPorIngresar = new LinkedList<Pieza>();
 	public static List<String> listaCompradores = new LinkedList<String>();
-	public static List<Oferta> listaSolicitudesTope = new LinkedList<Oferta>();
+	public static List<SolicitudTope> listaSolicitudesTope = new LinkedList<SolicitudTope>();
 	
 
 	protected MenuAdministrador(MenuPrincipal menuPrincipal) {
@@ -226,29 +229,34 @@ public class MenuAdministrador extends MenuEmpleado {
 			int numSolicitudes = listaSolicitudesTope.size();
 			String[] opciones = new String[numSolicitudes+1];
 			
-			Iterator<Oferta> it = listaSolicitudesTope.iterator();
+			Iterator<SolicitudTope> it = listaSolicitudesTope.iterator();
 			for (int i = 0; i < numSolicitudes && it.hasNext(); i++) {
-				Oferta oferta = it.next();
-				opciones[i] = "Oferta #" + Integer.toString(i+1) + ", Pieza: " + oferta.getPieza().getTitulo();
-				mostrarInformacionTransaccion(oferta, true);
+				SolicitudTope solicitud = it.next();
+				String loginCliente = solicitud.getLoginComprador();
+				opciones[i] = "Cliente #" + Integer.toString(i+1) + ": " + loginCliente + ". Tope solicitado: " + Long.toString(solicitud.getTopeSolicitado());
 			}
 			opciones[numSolicitudes] = "Cancelar";
-			int opcionSeleccionada = mostrarMenu("Ofertas con solicitudes de extensión de tope", opciones, "Seleccione una oferta para ampliar el tope del comprador correspondiente");
+			int opcionSeleccionada = mostrarMenu("Clientes que solicitan extensión de tope", opciones, "Seleccione un cliente para ampliar su tope de compras");
 			if (opcionSeleccionada == numSolicitudes+1) {}
 			else {
-				Oferta ofertaSeleccionada = listaSolicitudesTope.get(opcionSeleccionada-1);
-				Cliente compradorSeleccionado = galeria.getCliente(ofertaSeleccionada.getLoginComprador());
-				long tope = -1;
-				long topeMinimo = ofertaSeleccionada.getValor();
-				while (tope < 0) {
-					tope = pedirLongAlUsuario("Por favor ingrese el nuevo tope de compras que desea asignar (este debe ser mayor al valor de la oferta: " + Long.toString(topeMinimo) + ")");
-					if (tope < topeMinimo) {
+				SolicitudTope solicitudSeleccionada = listaSolicitudesTope.get(opcionSeleccionada-1);
+				Cliente compradorSeleccionado = galeria.getCliente(solicitudSeleccionada.getLoginComprador());
+				long tope = Integer.MIN_VALUE;
+				long topeMinimo = solicitudSeleccionada.getTopeSolicitado();
+				boolean salir = false;
+				while (tope < 0 && !salir) {
+					tope = pedirLongAlUsuario("Por favor ingrese el nuevo tope de compras que desea asignar (este debe ser mayor o igual al valor solictado por el cliente: " + Long.toString(topeMinimo) + "). Ingrese -1 para salir");
+					if (tope == -1) {
+						salir = true;
+					} else if (tope < topeMinimo) {
 						System.out.println("El tope ingresado es menor al valor de la oferta");
-						tope = -1;
+						tope = Integer.MIN_VALUE;
 					}
 				}
-				galeria.extenderTope(compradorSeleccionado, tope);
-				//TODO Procesar nueva oferta: si es subasta, nueva oferta; si es venta directa, mandar pago a cajero.
+				if (tope >= topeMinimo) {
+					galeria.extenderTope(compradorSeleccionado, tope);
+					listaSolicitudesTope.remove(opcionSeleccionada-1);
+				}
 			}
 		}
 		mostrarMenuAdministrador();
@@ -261,7 +269,31 @@ public class MenuAdministrador extends MenuEmpleado {
 	 * Se retorna false en caso contrario.
 	 */
 	protected void confirmarNuevaPieza() {
-		//TODO
+		int numPiezasPorIngresar = listaPiezasPorIngresar.size();
+		String[] opciones = new String[numPiezasPorIngresar+1];
+		
+		Iterator<Pieza> it = listaPiezasPorIngresar.iterator();
+		for (int i = 0; i < numPiezasPorIngresar && it.hasNext(); i++) {
+			Pieza pieza = it.next();
+			int tipo = pieza.getTipo();
+			String tipoStr = null;
+			
+			if (tipo == Pieza.PINTURA) tipoStr = "Pintura";
+			if (tipo == Pieza.IMPRESION) tipoStr = "Impresión";
+			if (tipo == Pieza.ESCULTURA) tipoStr = "Escultura";
+			if (tipo == Pieza.FOTOGRAFIA) tipoStr = "Fotografía";
+			if (tipo == Pieza.VIDEO) tipoStr = "Video";
+			
+			opciones[i] = "Pieza #" + Integer.toString(i+1) + ": Título: " + pieza.getTitulo() + ". Propietario: " + pieza.getLoginPropietario() + tipoStr;
+		}
+		opciones[numPiezasPorIngresar] = "Cancelar";
+		int opcionSeleccionada = mostrarMenu("Piezas ofrecidas para consignación", opciones, MenuBasico.MENSAJE_PREDETERMINADO);
+		if (opcionSeleccionada == numPiezasPorIngresar+1) {}
+		else {
+			Pieza piezaSeleccionada = listaPiezasPorIngresar.get(opcionSeleccionada-1);
+			galeria.agregarPiezaNueva(piezaSeleccionada);
+		}
+		mostrarMenuAdministrador();
 	}
 	
 	
@@ -272,12 +304,37 @@ public class MenuAdministrador extends MenuEmpleado {
 	 * Si el administrador no autoriza, el pago permanece en la cola
 	 */
 	protected void confirmarEntrega() {
-		//TODO
+		int numPiezasPorEntregar = listaPagos.size();
+		String[] opciones = new String[numPiezasPorEntregar+1];
+		
+		Iterator<Pago> it = listaPagos.iterator();
+		for (int i = 0; i < numPiezasPorEntregar && it.hasNext(); i++) {
+			Pago pago = it.next();
+			int tipo = pago.getPieza().getTipo();
+			String tipoStr = null;
+			
+			if (tipo == Pieza.PINTURA) tipoStr = "Pintura";
+			if (tipo == Pieza.IMPRESION) tipoStr = "Impresión";
+			if (tipo == Pieza.ESCULTURA) tipoStr = "Escultura";
+			if (tipo == Pieza.FOTOGRAFIA) tipoStr = "Fotografía";
+			if (tipo == Pieza.VIDEO) tipoStr = "Video";
+			
+			opciones[i] = "Pieza #" + Integer.toString(i+1) + ": Título: " + pago.getPieza().getTitulo() + ". Propietario Actual: " + pago.getLoginVendedor() + ". Propietario Destino: " + pago.getLoginComprador() + ". Tipo: " + tipoStr;
+		}
+		opciones[numPiezasPorEntregar] = "Cancelar";
+		int opcionSeleccionada = mostrarMenu("Piezas listas para entregar", opciones, MenuBasico.MENSAJE_PREDETERMINADO);
+		if (opcionSeleccionada == numPiezasPorEntregar+1) {}
+		else {
+			Pago pagoSeleccionado = listaPagos.get(opcionSeleccionada-1);
+			galeria.entregarPieza(pagoSeleccionado.getPieza(), pagoSeleccionado.getLoginComprador());
+		}
+		mostrarMenuAdministrador();
 	}
 	
 	
 	/**
 	 * Esta función le permite al administrador devolver una pieza.
+	 * La pieza no se puede devolver si está siendo subastada, está bloqueada o no está en posesión.
 	 */
 	protected void realizarDevolución() {
 		//TODO

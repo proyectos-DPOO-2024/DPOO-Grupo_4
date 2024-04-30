@@ -8,9 +8,9 @@ public class Escultura extends Pieza {
 	private float profundo;
 
 	
-	public Escultura(String nombrePieza, String nombrePropietario, String fechaTerminoConsignacion, long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
+	public Escultura(String nombrePieza, String nombreArtista, String loginPropietario, String fechaTerminoConsignacion, long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
 			 String materialconstruccion, float alto, float ancho, float profundo) {
-		super(nombrePieza, Pieza.ESCULTURA, nombrePropietario, fechaTerminoConsignacion, precioVentaFija, precioInicioSubasta, precioMinimoSubasta);
+		super(nombrePieza, nombreArtista, Pieza.ESCULTURA, loginPropietario, fechaTerminoConsignacion, precioVentaFija, precioInicioSubasta, precioMinimoSubasta);
 		this.alto = alto;
 		this.ancho = ancho;
 		this.profundo = profundo;

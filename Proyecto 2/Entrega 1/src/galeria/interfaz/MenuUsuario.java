@@ -196,7 +196,7 @@ public abstract class MenuUsuario extends MenuBasico {
 		Pieza pieza = menuPrincipal.galeria.getPieza(nombrePieza);
 		
 		System.out.println("Título: " + pieza.getTitulo());
-		if (incluirPropietario) System.out.println("Propietario: " + pieza.getPropietario());
+		if (incluirPropietario) System.out.println("Propietario: " + pieza.getLoginPropietario());
 		if (pieza.getTipo() == Pieza.PINTURA) System.out.println("Tipo: Pintura");
 		if (pieza.getTipo() == Pieza.IMPRESION) System.out.println("Tipo: Impresión");
 		if (pieza.getTipo() == Pieza.ESCULTURA) System.out.println("Tipo: Escultura");
