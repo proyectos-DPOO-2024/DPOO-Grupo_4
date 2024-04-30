@@ -16,7 +16,7 @@ public class MenuPrincipal extends MenuBasico {
 	public static final int OPERADOR = 2;
 	public static final int CLIENTE = 3;
 	
-	protected Galeria galeria;
+	protected static Galeria galeria;
 	
 	
 	/**
