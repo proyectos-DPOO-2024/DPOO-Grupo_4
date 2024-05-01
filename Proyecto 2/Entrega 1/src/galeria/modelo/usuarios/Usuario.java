@@ -1,7 +1,8 @@
 package galeria.modelo.usuarios;
 
-public abstract class Usuario {
-	
+public abstract class Usuario
+{
+
 	public static final int ADMINISTRADOR = 1;
 	public static final int CAJERO = 2;
 	public static final int OPERADOR = 3;
@@ -11,9 +12,10 @@ public abstract class Usuario {
 	private String password;
 	private int telefono;
 	private int rol;
-	
-	public Usuario(String login, String password, int telefono, int rol) {
-		
+
+	public Usuario(String login, String password, int telefono, int rol)
+	{
+
 		this.login = login;
 		this.password = password;
 		this.telefono = telefono;
@@ -31,10 +33,9 @@ public abstract class Usuario {
 	public int getTelefono() {
 		return telefono;
 	}
-	
+
 	public int getRol() {
 		return rol;
 	}
-	
-	
+
 }

@@ -18,50 +18,46 @@ import Casa_subastas.modelo.Inventario.Video;
 import Casa_subastas.modelo.usuarios.Cliente;
 import Casa_subastas.modelo.usuarios.Empleado;
 
-public class SalvadorPiezas {
+public class SalvadorPiezas
+{
 
 	protected void salvarPiezas(Galeria galeria, JSONObject jobject) throws Exception {
-		
-		JSONArray jPiezas = new JSONArray( );
-		
-		for( Cliente cliente : Cliente.getClientes() )
-        {
-			if (cliente.isPropietario())
-			{
-				String loginPropietario = cliente.getLogin();
-				
-				Map<String, Pieza> piezas = galeria.getMapaPiezas();
-			    List<Pieza> piezasPropietario  = new ArrayList<>(piezas.values());
 
-				
-				Iterator <Pieza> it = piezasPropietario.iterator();
-				
-				while(it.hasNext()) 
-				{
-					JSONObject jPieza = new JSONObject( );
-		        	
+		JSONArray jPiezas = new JSONArray();
+
+		for (Cliente cliente : Cliente.getClientes()) {
+			if (cliente.isPropietario()) {
+				String loginPropietario = cliente.getLogin();
+
+				Map<String, Pieza> piezas = galeria.getMapaPiezas();
+				List<Pieza> piezasPropietario = new ArrayList<>(piezas.values());
+
+				Iterator<Pieza> it = piezasPropietario.iterator();
+
+				while (it.hasNext()) {
+					JSONObject jPieza = new JSONObject();
+
 					Pieza pieza = it.next();
-					
-		        	jPieza.put( "tipo", pieza.getTipo() );
-		        	jPieza.put( "nombrePieza", pieza.getNombrepieza() );
-		        	jPieza.put( "precio", pieza.getCosto());
-		        	jPieza.put( "propietario", loginPropietario);
-		        	jPieza.put( "diasConsignacion", pieza.getDiasConsignacion());
-		        	jPieza.put( "paraVentaFijo", pieza.getParaVentaValorFijo());
-		        	jPieza.put( "paraVentaFijo", pieza.getBloqueada());
-		        	jPieza.put( "paraVentaFijo", pieza.isComprada());
-		        	
-		        	/*
-		        	if ( it.next().getTipo() == Pieza.ESCULTURA) {
-		        		jPieza.put( "alto", it.next().);
-		        	}
-		        	*/
-		        	
-		        	jPiezas.put( jPieza );
+
+					jPieza.put("tipo", pieza.getTipo());
+					jPieza.put("nombrePieza", pieza.getNombrepieza());
+					jPieza.put("precio", pieza.getCosto());
+					jPieza.put("propietario", loginPropietario);
+					jPieza.put("diasConsignacion", pieza.getDiasConsignacion());
+					jPieza.put("paraVentaFijo", pieza.getParaVentaValorFijo());
+					jPieza.put("paraVentaFijo", pieza.getBloqueada());
+					jPieza.put("paraVentaFijo", pieza.isComprada());
+
+					/*
+					 * if ( it.next().getTipo() == Pieza.ESCULTURA) { jPieza.put( "alto",
+					 * it.next().); }
+					 */
+
+					jPiezas.put(jPieza);
 				}
-				
+
 			}
-        }
-		jobject.put( "piezas", jPiezas );
+		}
+		jobject.put("piezas", jPiezas);
 	}
 }
