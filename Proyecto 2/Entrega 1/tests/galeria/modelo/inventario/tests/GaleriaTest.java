@@ -15,15 +15,14 @@ public class GaleriaTest
 {	
 	Galeria galeria;
 	Pieza pieza;
-	Artista artista;
+
 	
 	@BeforeEach
 	void setUp() {
 		galeria = new Galeria();
 		pieza = new Pintura("Las Meninas", "Diego Velázquez", "miLogin", "2024-05-31", 1500000, 800000, 500000,
 				"Barroco", 300.0f, 200.0f);
-		artista = new Artista("nombreArtista");
-		
+
 	}
     @AfterEach
     void tearDown( )
@@ -48,9 +47,69 @@ public class GaleriaTest
 	@Test
 	void agregarEmpleado()
 	{
-		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 321231232, "juan", 1);;
+		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 1);
 		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
 	}
+	
+	// Comprobar Login unico 
+	@Test
+	void comprobarLoginUnicoNoRepetido()
+	{
+		//GIVEN:
+		galeria.agregarNuevoEmpleado("SantiagoLogin", "ljdk", 321123, "Santiago", 2);
+		//WHEN:
+		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 1);
+		assertTrue(galeria.comprobarLoginUnico("CarlosLogin"), "Este login ya esta en la lista pero no deberia");
+	}
+	
+	@Test
+	void comprobarLoginUnicoRepetido()
+	{
+		//GIVEN:
+		galeria.agregarNuevoEmpleado("SantiagoLogin", "ljdk", 321123, "Santiago", 2);
+		//WHEN:
+		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 1);
+		assertFalse(galeria.comprobarLoginUnico("juanLogin"), "Este login no aparece pero si se debio agregar");
+	}
+	
+	// Verificar Login
+	@Test
+	void verificarLoginAdministrador()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "contra1", 3212, "juan", 1);
+		assertEquals(1, galeria.verificarLogin("juanLogin", "contra1"), "El admin no se pudo verificar pero pueso sus credenciales bien");
+	}
+	
+	@Test
+	void verificarLoginCajero()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "contra1", 3212, "juan", 2);
+		assertEquals(2, galeria.verificarLogin("juanLogin", "contra1"), "El cajero no se pudo verificar pero pueso sus credenciales bien");
+	}
+	@Test
+	void verificarLoginOperador()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "contra1", 3212, "juan", 3);
+		assertEquals(3, galeria.verificarLogin("juanLogin", "contra1"), "El operador no se pudo verificar pero pueso sus credenciales bien");
+	}
+	@Test
+	void verificarLoginEmpleado()
+	{
+		fail();
+	}
+	@Test
+	void verificarLoginIncorrecto()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "contra1", 3212, "juan", 1);
+		assertEquals(0, galeria.verificarLogin("juan", "contra1"), "login incorrecto se verificaro, re mal");
+	}
+	@Test
+	void verificarContrasenyaIncorrecto()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "contra2", 3212, "juan", 1);
+		assertEquals(0, galeria.verificarLogin("juanLogin", "contra2"), "Entro con la contraseña incorrecta, re mal");
+	}
+	
 	
 	@Test
 	void testConfigurarValoresEntrega()
