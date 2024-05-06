@@ -16,13 +16,20 @@ public class GaleriaTest
 {	
 	Galeria galeria;
 	Pieza pieza;
+	Cliente cliente1;
+	
 
 	
 	@BeforeEach
 	void setUp() {
 		galeria = new Galeria();
+		
+		cliente1 = new Cliente("miLogin","password",122323);
 		pieza = new Pintura("Las Meninas", "Diego Velázquez", "miLogin", "2024-05-31", 1500000, 800000, 500000,
 				"Barroco", 300.0f, 200.0f);
+		
+		galeria.agregarCliente(cliente1);
+		galeria.agregarPiezaNueva(pieza);
 
 	}
     @AfterEach
@@ -137,7 +144,38 @@ public class GaleriaTest
 		
 	}
 	
+	// Otras requerimientos de funciones
 	
+	@Test
+	void testVerificarNuevoComprador() 
+	{
+		Cliente cliente = new Cliente("loginCLiente","passwordCleinte",31234234);
+		galeria.agregarCliente(cliente);
+		galeria.verificarNuevoComprador(cliente);
+		assertTrue(cliente.isVerificado(), "Se supone que deberia estar verificado, pero no lo esta");
+		
+	}
+	
+	@Test
+	void testAsignarTope() 
+	{
+		Cliente cliente = new Cliente("loginCLiente","passwordCleinte",31234234);
+		galeria.agregarCliente(cliente);
+		galeria.asignarTope(cliente, 1000);
+		assertEquals(1000, cliente.getTopeCompras(), "No es el mismo tope de compras asignado");		
+	}
+	
+	@Test
+	void testEntregarPieza()
+	{
+		Cliente cliente = new Cliente("loginComprador","passwordCleinte",31234234);
+		galeria.agregarCliente(cliente);
+
+		galeria.entregarPieza(pieza,"loginComprador");
+		
+		assertEquals("loginComprador", pieza.getLoginPropietario(), "El comprador no tiene la pieza, ha sido estafado :(");
+		
+	}
 	
 
 }

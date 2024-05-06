@@ -11,20 +11,13 @@ public class Cliente extends Usuario
 		super(login, password, cellphone, Usuario.CLIENTE);
 	}
 
-	public void verificarComoComprador(long topeCompras) {
-
-		this.topeCompras = topeCompras;
+	public void verificarComoComprador() {
 		verificado = true;
 	}
 
-	public void extenderTopeCompras(long nuevoTope) {
+	public void asignarTopeCompras(long nuevoTope) {
 
 		topeCompras = nuevoTope;
-	}
-
-	public void reducirTopeCompras(long reduccionTope) {
-
-		topeCompras -= reduccionTope;
 	}
 
 	public boolean isVerificado() {

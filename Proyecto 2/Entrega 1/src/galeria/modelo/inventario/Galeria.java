@@ -93,16 +93,16 @@ public class Galeria
 	/**
 	 * Esta función media la interacción para verificar un nuevo comprador
 	 */
-	public void verificarNuevoComprador(Cliente cliente, long tope) {
-		cliente.verificarComoComprador(tope);
+	public void verificarNuevoComprador(Cliente cliente) {
+		cliente.verificarComoComprador();
 	}
 
 	/**
 	 * Esta función media la interacción para extender el tope de compras de un
 	 * comprador
 	 */
-	public void extenderTope(Cliente cliente, long tope) {
-		cliente.extenderTopeCompras(tope);
+	public void asignarTope(Cliente cliente, long tope) {
+		cliente.asignarTopeCompras(tope);
 	}
 
 	/**
@@ -131,20 +131,21 @@ public class Galeria
 		String tituloPieza = piezaNueva.getTitulo();
 		String nombreArtista = piezaNueva.getNombreArtista();
 		String nombrePropietario = piezaNueva.getLoginPropietario();
+		
+		
 		if (!existeArtista(nombreArtista))
 			agregarArtista(nombreArtista);
+	
 
 		mapaArtistas.get(nombreArtista).agregarPieza(tituloPieza);
 		mapaPiezas.put(tituloPieza, piezaNueva);
 		
 		// Agregar la pieza al usuario
-		if(!piezasActualesPropietarios.containsKey(nombrePropietario)) 
-		{
-			List<String> piezasActuales = new ArrayList<>();
-			piezasActualesPropietarios.put(nombrePropietario, piezasActuales);
-		}
-		piezasActualesPropietarios.get(nombrePropietario).add(tituloPieza);
 
+		
+		piezasActualesPropietarios.get(nombrePropietario).add(tituloPieza);
+		
+		
 	}
 
 	/**
@@ -156,6 +157,8 @@ public class Galeria
 
 		piezasActualesPropietarios.get(loginPropietarioAntiguo).remove(tituloPieza);
 		piezasPasadasPropietarios.get(loginPropietarioAntiguo).add(tituloPieza);
+		
+
 
 		piezasActualesPropietarios.get(loginComprador).add(tituloPieza);
 
@@ -174,6 +177,12 @@ public class Galeria
 	
 	public void agregarCliente(Cliente cliente) {
 		mapaClientes.put(cliente.getLogin(), cliente);
+		
+		List<String> piezasActuales = new ArrayList<>();
+		piezasActualesPropietarios.put(cliente.getLogin(), piezasActuales);
+		
+		List<String> piezasPasadas = new ArrayList<>();
+		piezasPasadasPropietarios.put(cliente.getLogin(), piezasPasadas);
 	}
 	
 

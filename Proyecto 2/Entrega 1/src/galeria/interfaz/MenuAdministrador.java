@@ -153,7 +153,7 @@ public class MenuAdministrador extends MenuEmpleado
 						System.out.println("El cliente ingresado ya está verificado");
 					else {
 						long tope = pedirLongAlUsuario("Por favor ingrese el tope de compras que desea asignar");
-						galeria.verificarNuevoComprador(cliente, tope);
+						galeria.verificarNuevoComprador(cliente);
 					}
 				}
 			}
@@ -172,7 +172,7 @@ public class MenuAdministrador extends MenuEmpleado
 			} else {
 				Cliente clienteSeleccionado = galeria.getCliente(listaCompradores.get(opcionSeleccionada - 1));
 				long tope = pedirLongAlUsuario("Por favor ingrese el tope de compras que desea asignar");
-				galeria.verificarNuevoComprador(clienteSeleccionado, tope);
+				galeria.verificarNuevoComprador(clienteSeleccionado);
 			}
 		}
 		mostrarMenuAdministrador();
