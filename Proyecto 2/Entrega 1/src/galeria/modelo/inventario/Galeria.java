@@ -3,6 +3,8 @@
  */
 package galeria.modelo.inventario;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -33,6 +35,21 @@ public class Galeria
 	private Map<String, List<String>> piezasPasadasPropietarios;
 
 	private CentroDeVentas centroDeVentas;
+	
+	
+	
+
+	public Galeria()
+	{
+		super();
+		this.mapaPiezas = new HashMap<>();
+		this.mapaArtistas = new HashMap<>();
+		this.mapaEmpleados = new HashMap<>();
+		this.mapaClientes = new HashMap<>();
+		this.piezasActualesPropietarios = new HashMap<>();
+		this.piezasPasadasPropietarios = new HashMap<>();
+		this.centroDeVentas = new CentroDeVentas();
+	}
 
 	/**
 	 * La función verifica si el login y password ingresados corresponden a una
@@ -113,12 +130,21 @@ public class Galeria
 	public void agregarPiezaNueva(Pieza piezaNueva) {
 		String tituloPieza = piezaNueva.getTitulo();
 		String nombreArtista = piezaNueva.getNombreArtista();
+		String nombrePropietario = piezaNueva.getLoginPropietario();
 		if (!existeArtista(nombreArtista))
 			agregarArtista(nombreArtista);
 
 		mapaArtistas.get(nombreArtista).agregarPieza(tituloPieza);
 		mapaPiezas.put(tituloPieza, piezaNueva);
-		piezasActualesPropietarios.get(piezaNueva.getLoginPropietario()).add(tituloPieza);
+		
+		// Agregar la pieza al usuario
+		if(!piezasActualesPropietarios.containsKey(nombrePropietario)) 
+		{
+			List<String> piezasActuales = new ArrayList<>();
+			piezasActualesPropietarios.put(nombrePropietario, piezasActuales);
+		}
+		piezasActualesPropietarios.get(nombrePropietario).add(tituloPieza);
+
 	}
 
 	/**
@@ -145,6 +171,11 @@ public class Galeria
 		Artista nuevoArtista = new Artista(nombreArtista);
 		mapaArtistas.put(nombreArtista, nuevoArtista);
 	}
+	
+	public void agregarCliente(Cliente cliente) {
+		mapaClientes.put(cliente.getLogin(), cliente);
+	}
+	
 
 	/**
 	 * Getters y funciones para verificar existencia
@@ -188,6 +219,8 @@ public class Galeria
 	public boolean existeArtista(String nombreArtista) {
 		return mapaArtistas.containsKey(nombreArtista);
 	}
+	
+
 
 	public Artista getArtista(String nombreArtista) {
 		return mapaArtistas.get(nombreArtista);

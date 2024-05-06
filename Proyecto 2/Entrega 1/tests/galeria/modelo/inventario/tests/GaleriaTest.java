@@ -10,6 +10,7 @@ import galeria.modelo.inventario.Artista;
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.inventario.Pieza;
 import galeria.modelo.inventario.Pintura;
+import galeria.modelo.usuarios.Cliente;
 
 public class GaleriaTest
 {	
@@ -45,12 +46,31 @@ public class GaleriaTest
 	}
 	
 	@Test
-	void agregarEmpleado()
+	void agregarEmpleadoAdmin()
 	{
 		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 1);
 		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
 	}
+	@Test
+	void agregarEmpleadoCajero()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 2);
+		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
+	}
+	@Test
+	void agregarEmpleadoOperador()
+	{
+		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 3);
+		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
+	}
 	
+	@Test
+	void agregarCliente() 
+	{
+		Cliente cliente = new Cliente("loginCLiente","passwordCleinte",31234234);
+		galeria.agregarCliente(cliente);
+		assertTrue(galeria.existeCliente(cliente.getLogin()), "El cliente no esta en el mapa, pero lo acabo de meter");
+	}	
 	// Comprobar Login unico 
 	@Test
 	void comprobarLoginUnicoNoRepetido()
@@ -93,21 +113,16 @@ public class GaleriaTest
 		assertEquals(3, galeria.verificarLogin("juanLogin", "contra1"), "El operador no se pudo verificar pero pueso sus credenciales bien");
 	}
 	@Test
-	void verificarLoginEmpleado()
-	{
-		fail();
-	}
-	@Test
 	void verificarLoginIncorrecto()
 	{
 		galeria.agregarNuevoEmpleado("juanLogin", "contra1", 3212, "juan", 1);
-		assertEquals(0, galeria.verificarLogin("juan", "contra1"), "login incorrecto se verificaro, re mal");
+		assertEquals(-1, galeria.verificarLogin("juajbibio", "contra1"), "login incorrecto se verificaro, re mal");
 	}
 	@Test
 	void verificarContrasenyaIncorrecto()
 	{
 		galeria.agregarNuevoEmpleado("juanLogin", "contra2", 3212, "juan", 1);
-		assertEquals(0, galeria.verificarLogin("juanLogin", "contra2"), "Entro con la contraseña incorrecta, re mal");
+		assertEquals(0, galeria.verificarLogin("juanLogin", "contra1"), "Entro con la contraseña incorrecta, re mal");
 	}
 	
 	
