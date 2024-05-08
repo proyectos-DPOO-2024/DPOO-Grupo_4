@@ -16,11 +16,6 @@ class CentroDeVentasTest
 	Galeria galeria;
 	CentroDeVentas centroDeVentas;
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
-	
 	@BeforeEach
 	void setUp() 
 	{

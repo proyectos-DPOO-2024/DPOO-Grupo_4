@@ -44,6 +44,18 @@ public class CentroDeVentas
 		
 		galeria = gale;
 	}
+	
+	public CentroDeVentas(Galeria galeria, List<Subasta> listaDeSubastas, List<Oferta> listaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
+			Map<String, List<Pago>> historialComprasComprador, Map<String, List<Pago>> historialVentasPropietario) {
+		
+		this.mapaSubastas = listaDeSubastas;
+		this.mapaOfertas = listaDeOfertasVentaDirecta;
+		this.historialDePagosPorPieza = historialDePagosPorPieza;
+		this.historialComprasComprador = historialComprasComprador;
+		this.historialVentasPropietario = historialVentasPropietario;
+		
+		this.galeria = galeria; 
+	}
 
 	public List<Pago> getHistorialPieza(String nombrePieza) {
 		return historialDePagosPorPieza.get(nombrePieza);
