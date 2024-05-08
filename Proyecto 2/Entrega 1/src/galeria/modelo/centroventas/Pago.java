@@ -14,10 +14,10 @@ public class Pago extends Transaccion
 	/**
 	 * La fecha se va a tomar en el formato DD/MM/AAAA
 	 */
-	private String fecha;
+	private Fecha fecha;
 
 	public Pago(Pieza pieza, long valor, String loginComprador, String loginVendedor, int tipo, int metodoPago,
-			String fecha)
+			Fecha fecha)
 	{
 		super(pieza, valor, loginComprador, loginVendedor, tipo);
 
@@ -30,7 +30,7 @@ public class Pago extends Transaccion
 		return metodoPago;
 	}
 
-	public String getFecha() {
+	public Fecha getFecha() {
 		return fecha;
 	}
 

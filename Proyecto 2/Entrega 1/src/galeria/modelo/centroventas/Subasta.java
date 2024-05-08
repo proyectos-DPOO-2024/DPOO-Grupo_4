@@ -45,6 +45,10 @@ public class Subasta
 	public long getValorActual() {
 		return valorActual;
 	}
+	
+	public void serValorActual(long valor) {
+		valorActual = valor;
+	}
 
 	public Stack<Oferta> getTrazaOfertas() {
 		return trazaOfertas;
