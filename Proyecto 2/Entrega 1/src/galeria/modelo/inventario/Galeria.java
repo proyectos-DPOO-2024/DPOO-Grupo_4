@@ -93,8 +93,8 @@ public class Galeria
 	/**
 	 * Esta función media la interacción para verificar un nuevo comprador
 	 */
-	public void verificarNuevoComprador(Cliente cliente) {
-		cliente.verificarComoComprador();
+	public void verificarNuevoComprador(Cliente cliente, long tope) {
+		cliente.verificarComoComprador(tope);
 	}
 
 	/**
@@ -125,7 +125,7 @@ public class Galeria
 	}
 
 	/**
-	 * Este método agrega una nueva pieza
+	 * Este método agrega una nueva pieza a la galería. Debe hacerse cuando un cliente registre una nueva pieza.
 	 */
 	public void agregarPiezaNueva(Pieza piezaNueva) {
 		String tituloPieza = piezaNueva.getTitulo();
@@ -141,12 +141,20 @@ public class Galeria
 		mapaPiezas.put(tituloPieza, piezaNueva);
 		
 		// Agregar la pieza al usuario
-
 		
 		piezasActualesPropietarios.get(nombrePropietario).add(tituloPieza);
-		
-		
 	}
+	
+	
+	/**
+	 * Este método consigna una nueva pieza a la galería. Debe hacerse cuando un cliente quiera consignar una pieza.
+	 */
+	public void consignarPiezaNueva(Pieza pieza) {
+		
+		pieza.cambiarEstadoPosesion();
+		mapaPiezas.put(pieza.getTitulo(), pieza);
+	}
+	
 
 	/**
 	 * Este método agrega un nuevo artista

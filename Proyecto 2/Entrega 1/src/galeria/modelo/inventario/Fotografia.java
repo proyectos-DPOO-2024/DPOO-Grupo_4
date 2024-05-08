@@ -8,14 +8,20 @@ public class Fotografia extends Pieza
 	private Boolean color;
 
 	public Fotografia(String nombrePieza, String nombreArtista, String loginPropietario,
-			String fechaTerminoConsignacion, long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
 			float alto, float ancho, Boolean color)
 	{
-		super(nombrePieza, nombreArtista, Pieza.FOTOGRAFIA, loginPropietario, fechaTerminoConsignacion, precioVentaFija,
-				precioInicioSubasta, precioMinimoSubasta);
+		super(nombrePieza, nombreArtista, Pieza.FOTOGRAFIA, loginPropietario);
 		this.alto = alto;
 		this.ancho = ancho;
 		this.color = color;
+	}
+	
+	//Este constructor copia otra fotografía
+	public Fotografia(Fotografia otraFotografia) {
+		super(otraFotografia);
+		alto = otraFotografia.alto;
+		ancho = otraFotografia.ancho;
+		color = otraFotografia.color;
 	}
 	
 	//Este constructor se debe usar únicamente en la carga y en las pruebas

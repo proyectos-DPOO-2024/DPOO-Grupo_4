@@ -38,27 +38,44 @@ public abstract class Pieza
 	private boolean enBodega;
 	private boolean enPosesion;
 
-	public Pieza(String titulo, String nombreArtista, int tipo, String loginPropietario,
-			String fechaTerminoConsignacion, long precioVentaDirecta, long precioInicioSubasta,
-			long precioMinimoSubasta)
+	public Pieza(String titulo, String nombreArtista, int tipo, String loginPropietario)
 	{
 
 		this.titulo = titulo;
 		this.tipo = tipo;
 		this.nombreArtista = nombreArtista;
 		this.loginPropietario = loginPropietario;
-		this.fechaTerminoConsignacion = fechaTerminoConsignacion;
-		this.precioVentaDirecta = precioVentaDirecta;
-		this.precioInicioSubasta = precioInicioSubasta;
-		this.precioMinimoSubasta = precioMinimoSubasta;
+		fechaTerminoConsignacion = null;
+		precioVentaDirecta = -1;
+		precioInicioSubasta = -1;
+		precioMinimoSubasta = -1;
 		precioUltimaVenta = -1;
 		bloqueada = false;
 		enSubasta = false;
-		enBodega = true;
-		enPosesion = true;
+		enBodega = false;
+		enPosesion = false;
 	}
 	
 	
+	//Este constructor copia una pieza ya existente
+	public Pieza(Pieza otraPieza) {
+		titulo = otraPieza.titulo;
+		tipo = otraPieza.tipo;
+		nombreArtista = otraPieza.nombreArtista;
+		loginPropietario = otraPieza.loginPropietario;
+		fechaTerminoConsignacion = otraPieza.fechaTerminoConsignacion;
+		precioVentaDirecta = otraPieza.precioVentaDirecta;
+		precioInicioSubasta = otraPieza.precioInicioSubasta;
+		precioMinimoSubasta = otraPieza.precioMinimoSubasta;
+		precioUltimaVenta = otraPieza.precioUltimaVenta;
+		bloqueada = otraPieza.bloqueada;
+		enSubasta = otraPieza.enSubasta;
+		enBodega = otraPieza.enBodega;
+		enPosesion = otraPieza.enPosesion;
+	}
+	
+	
+	//Este constructor debería usarse únicamente para cargar el archivo y en pruebas
 	public Pieza(String titulo, String nombreArtista, int tipo, String loginPropietario,
 			String fechaTerminoConsignacion, long precioVentaDirecta, long precioInicioSubasta,
 			long precioMinimoSubasta, long precioUltimaVenta, boolean bloqueada, boolean enSubasta, boolean enBodega, boolean enPosesion)

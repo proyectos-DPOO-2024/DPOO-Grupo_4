@@ -8,16 +8,22 @@ public class Escultura extends Pieza
 	private float ancho;
 	private float profundidad;
 
-	public Escultura(String nombrePieza, String nombreArtista, String loginPropietario, String fechaTerminoConsignacion,
-			long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta, String materialconstruccion,
-			float alto, float ancho, float profundidad)
+	public Escultura(String nombrePieza, String nombreArtista, String loginPropietario, 
+			String materialconstruccion, float alto, float ancho, float profundidad)
 	{
-		super(nombrePieza, nombreArtista, Pieza.ESCULTURA, loginPropietario, fechaTerminoConsignacion, precioVentaFija,
-				precioInicioSubasta, precioMinimoSubasta);
+		super(nombrePieza, nombreArtista, Pieza.ESCULTURA, loginPropietario);
 		this.alto = alto;
 		this.ancho = ancho;
 		this.profundidad = profundidad;
 		this.materialConstruccion = materialconstruccion;
+	}
+	
+	//Este constructor copia otra escultura
+	public Escultura(Escultura otraEscultura) {
+		super(otraEscultura);
+		alto = otraEscultura.alto;
+		ancho = otraEscultura.ancho;
+		profundidad = otraEscultura.profundidad;
 	}
 	
 	//Este constructor se debe usar únicamente en la carga y en las pruebas

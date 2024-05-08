@@ -153,7 +153,7 @@ public class MenuAdministrador extends MenuEmpleado
 						System.out.println("El cliente ingresado ya está verificado");
 					else {
 						long tope = pedirLongAlUsuario("Por favor ingrese el tope de compras que desea asignar");
-						galeria.verificarNuevoComprador(cliente);
+						galeria.verificarNuevoComprador(cliente, tope);
 					}
 				}
 			}
@@ -172,7 +172,7 @@ public class MenuAdministrador extends MenuEmpleado
 			} else {
 				Cliente clienteSeleccionado = galeria.getCliente(listaCompradores.get(opcionSeleccionada - 1));
 				long tope = pedirLongAlUsuario("Por favor ingrese el tope de compras que desea asignar");
-				galeria.verificarNuevoComprador(clienteSeleccionado);
+				galeria.verificarNuevoComprador(clienteSeleccionado, tope);
 			}
 		}
 		mostrarMenuAdministrador();
@@ -235,7 +235,7 @@ public class MenuAdministrador extends MenuEmpleado
 								tope = -1;
 							}
 						}
-						galeria.extenderTope(cliente, tope);
+						galeria.asignarTope(cliente, tope);
 					}
 				}
 			}
@@ -272,7 +272,7 @@ public class MenuAdministrador extends MenuEmpleado
 					}
 				}
 				if (tope >= topeMinimo) {
-					galeria.extenderTope(compradorSeleccionado, tope);
+					galeria.asignarTope(compradorSeleccionado, tope);
 					listaSolicitudesTope.remove(opcionSeleccionada - 1);
 				}
 			}
@@ -281,9 +281,7 @@ public class MenuAdministrador extends MenuEmpleado
 	}
 
 	/**
-	 * Esta función le solicita confirmación al administrador para agregar una nueva
-	 * pieza. La función regresa true si el administrador aprobó el ingreso de la
-	 * pieza. Se retorna false en caso contrario.
+	 * Esta función le solicita confirmación al administrador para consignar una nueva pieza.
 	 */
 	protected void confirmarNuevaPieza() {
 		int numPiezasPorIngresar = listaPiezasPorIngresar.size();
@@ -315,7 +313,7 @@ public class MenuAdministrador extends MenuEmpleado
 		if (opcionSeleccionada == numPiezasPorIngresar + 1) {
 		} else {
 			Pieza piezaSeleccionada = listaPiezasPorIngresar.get(opcionSeleccionada - 1);
-			galeria.agregarPiezaNueva(piezaSeleccionada);
+			galeria.consignarPiezaNueva(piezaSeleccionada);
 		}
 		mostrarMenuAdministrador();
 	}
