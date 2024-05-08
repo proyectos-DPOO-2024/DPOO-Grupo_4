@@ -37,6 +37,17 @@ public class CentroDeVentas
 		listaDeSubastas = new LinkedList<Subasta>();
 		listaDeOfertasVentaDirecta = new LinkedList<Oferta>();
 	}
+	
+	public CentroDeVentas(List<Subasta> listaDeSubastas, List<Oferta> listaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
+			Map<String, List<Pago>> historialComprasComprador, Map<String, List<Pago>> historialVentasPropietario) {
+		
+		this.listaDeSubastas = listaDeSubastas;
+		this.listaDeOfertasVentaDirecta = listaDeOfertasVentaDirecta;
+		this.historialDePagosPorPieza = historialDePagosPorPieza;
+		this.historialComprasComprador = historialComprasComprador;
+		this.historialVentasPropietario = historialVentasPropietario;
+	}
+	
 
 	public List<Pago> getHistorialPieza(String nombrePieza) {
 		return historialDePagosPorPieza.get(nombrePieza);

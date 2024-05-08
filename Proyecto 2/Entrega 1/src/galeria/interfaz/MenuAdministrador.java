@@ -6,9 +6,7 @@ package galeria.interfaz;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.SolicitudTope;
 import galeria.modelo.inventario.Pieza;
@@ -366,23 +364,6 @@ public class MenuAdministrador extends MenuEmpleado
 	 * posesión.
 	 */
 	protected void realizarDevolución() {
-		// TODO
-	}
-
-	/**
-	 * Métodos Auxiliares
-	 */
-
-	/**
-	 * Esta función entrega una pieza a un propietario. Se debe verificar si el
-	 * "nuevo propietario" es igual al propietario actual, pues en este caso se
-	 * trata de una devolución (no una venta). Esta función es llamada por
-	 * confirmarVenta y realizarDevolución
-	 * 
-	 * @param pieza
-	 * @param propietario
-	 */
-	private void entregarPieza(Pieza pieza, Cliente propietario) {
 		// TODO
 	}
 

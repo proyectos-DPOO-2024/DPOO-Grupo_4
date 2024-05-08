@@ -4,11 +4,11 @@
 package galeria.persistencia;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 
 import org.json.JSONObject;
 
-import galeria.modelo.centroventas.CentroDeVentas;
 import galeria.modelo.inventario.Galeria;
 
 /**
@@ -17,7 +17,7 @@ import galeria.modelo.inventario.Galeria;
 public class CentralPersistencia {
 
 	
-	public Galeria cargarPrograma(String[] archivos) {
+	public Galeria cargarPrograma(String[] archivos) throws IOException {
 		
 		String jsonGaleria = new String(Files.readAllBytes(new File(archivos[0]).toPath()));
 		String jsonCentroVentas = new String(Files.readAllBytes(new File(archivos[1]).toPath()));

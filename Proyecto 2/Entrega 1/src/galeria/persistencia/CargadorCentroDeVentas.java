@@ -21,13 +21,13 @@ public class CargadorCentroDeVentas {
 	protected void cargarCentroDeVentas(JSONObject raizCentroDeVentas, Galeria galeria) {
 		
 		try {
-			cargarOfertas(galeria, raizGaleria.getJSONArray("ofertas"));
+			cargarOfertas(galeria, raizCentroDeVentas.getJSONArray("ofertas"));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.getStackTrace();
 		}
 		try {
-			cargarSubastas(galeria, raizGaleria.getJSONArray("subastas"));
+			cargarSubastas(galeria, raizCentroDeVentas.getJSONArray("subastas"));
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			e.getStackTrace();

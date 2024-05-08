@@ -241,6 +241,10 @@ public class Galeria
 		return mapaArtistas.get(nombreArtista);
 	}
 	
+	public void setPiezasPasadasPropietarios(Map<String, List<String>> piezasPasadas) {
+		piezasPasadasPropietarios = piezasPasadas;
+	}
+	
 	public void setCentroDeVentas(CentroDeVentas centroDeVentas) {
 		this.centroDeVentas = centroDeVentas;
 	}
