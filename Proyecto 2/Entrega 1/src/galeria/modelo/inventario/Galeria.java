@@ -41,14 +41,14 @@ public class Galeria
 
 	public Galeria()
 	{
-		super();
-		this.mapaPiezas = new HashMap<>();
-		this.mapaArtistas = new HashMap<>();
-		this.mapaEmpleados = new HashMap<>();
-		this.mapaClientes = new HashMap<>();
-		this.piezasActualesPropietarios = new HashMap<>();
-		this.piezasPasadasPropietarios = new HashMap<>();
-		this.centroDeVentas = new CentroDeVentas();
+		mapaPiezas = new HashMap<String, Pieza>();
+		mapaArtistas = new HashMap<String, Artista>();
+		mapaEmpleados = new HashMap<String, Empleado>();
+		mapaClientes = new HashMap<String, Cliente>();
+		piezasActualesPropietarios = new HashMap<String, List<String>>();
+		piezasPasadasPropietarios = new HashMap<String, List<String>>();
+		
+		centroDeVentas = new CentroDeVentas();
 	}
 
 	/**
@@ -228,11 +228,13 @@ public class Galeria
 	public boolean existeArtista(String nombreArtista) {
 		return mapaArtistas.containsKey(nombreArtista);
 	}
-	
-
 
 	public Artista getArtista(String nombreArtista) {
 		return mapaArtistas.get(nombreArtista);
+	}
+	
+	public void setCentroDeVentas(CentroDeVentas centroDeVentas) {
+		this.centroDeVentas = centroDeVentas;
 	}
 
 	/**

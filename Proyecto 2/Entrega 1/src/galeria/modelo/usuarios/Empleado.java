@@ -5,9 +5,9 @@ public abstract class Empleado extends Usuario
 
 	private String nombre;
 
-	public Empleado(String login, String password, int cellphone, String nombre, int rol)
+	public Empleado(String login, String password, int telefono, String nombre, int rol)
 	{
-		super(login, password, cellphone, rol);
+		super(login, password, telefono, rol);
 
 		this.nombre = nombre;
 	}

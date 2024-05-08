@@ -33,10 +33,10 @@ public abstract class Pieza
 	private long precioInicioSubasta;
 	private long precioMinimoSubasta;
 	private long precioUltimaVenta;
-	private Boolean bloqueada;
-	private Boolean enSubasta;
-	private Boolean enBodega;
-	private Boolean enPosesion;
+	private boolean bloqueada;
+	private boolean enSubasta;
+	private boolean enBodega;
+	private boolean enPosesion;
 
 	public Pieza(String titulo, String nombreArtista, int tipo, String loginPropietario,
 			String fechaTerminoConsignacion, long precioVentaDirecta, long precioInicioSubasta,
@@ -56,6 +56,27 @@ public abstract class Pieza
 		enSubasta = false;
 		enBodega = true;
 		enPosesion = true;
+	}
+	
+	
+	public Pieza(String titulo, String nombreArtista, int tipo, String loginPropietario,
+			String fechaTerminoConsignacion, long precioVentaDirecta, long precioInicioSubasta,
+			long precioMinimoSubasta, long precioUltimaVenta, boolean bloqueada, boolean enSubasta, boolean enBodega, boolean enPosesion)
+	{
+
+		this.titulo = titulo;
+		this.tipo = tipo;
+		this.nombreArtista = nombreArtista;
+		this.loginPropietario = loginPropietario;
+		this.fechaTerminoConsignacion = fechaTerminoConsignacion;
+		this.precioVentaDirecta = precioVentaDirecta;
+		this.precioInicioSubasta = precioInicioSubasta;
+		this.precioMinimoSubasta = precioMinimoSubasta;
+		this.precioUltimaVenta = precioUltimaVenta;
+		this.bloqueada = bloqueada;
+		this.enSubasta = enSubasta;
+		this.enBodega = enBodega;
+		this.enPosesion = enPosesion;
 	}
 
 	public void cambiarPropietario(String loginNuevoPropietario) {

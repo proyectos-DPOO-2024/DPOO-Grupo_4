@@ -3,6 +3,8 @@
  */
 package galeria.modelo.centroventas;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,7 +29,14 @@ public class CentroDeVentas
 	private Map<String, List<Pago>> historialVentasPropietario;
 
 	private List<Subasta> listaDeSubastas;
-	private List<Subasta> listaDeOfertasVentaDirecta;
+	private List<Oferta> listaDeOfertasVentaDirecta;
+	
+	public CentroDeVentas() {
+		historialDePagosPorPieza = new HashMap<String, List<Pago>>();
+		historialComprasComprador = new HashMap<String, List<Pago>>();
+		listaDeSubastas = new LinkedList<Subasta>();
+		listaDeOfertasVentaDirecta = new LinkedList<Oferta>();
+	}
 
 	public List<Pago> getHistorialPieza(String nombrePieza) {
 		return historialDePagosPorPieza.get(nombrePieza);

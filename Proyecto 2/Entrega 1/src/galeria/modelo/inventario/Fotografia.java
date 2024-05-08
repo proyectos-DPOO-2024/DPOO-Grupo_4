@@ -17,6 +17,20 @@ public class Fotografia extends Pieza
 		this.ancho = ancho;
 		this.color = color;
 	}
+	
+	//Este constructor se debe usar únicamente en la carga y en las pruebas
+	public Fotografia(String nombrePieza, String nombreArtista, String loginPropietario, String fechaTerminoConsignacion,
+			long precioVentaDirecta, long precioInicioSubasta, long precioMinimoSubasta, 
+			long precioUltimaVenta, boolean bloqueada, boolean enSubasta, boolean enBodega, boolean enPosesion, 
+			float alto, float ancho, Boolean color)
+	{
+		super(nombrePieza, nombreArtista, Pieza.FOTOGRAFIA, loginPropietario, fechaTerminoConsignacion, precioVentaDirecta,
+				precioInicioSubasta, precioMinimoSubasta, precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion);
+		this.alto = alto;
+		this.ancho = ancho;
+		this.color = color;
+	}
+	
 
 	public float getAlto() {
 		return alto;

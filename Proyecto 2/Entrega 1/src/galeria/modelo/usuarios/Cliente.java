@@ -6,10 +6,19 @@ public class Cliente extends Usuario
 	private boolean verificado;
 	private long topeCompras;
 
-	public Cliente(String login, String password, int cellphone)
+	public Cliente(String login, String password, int telefono)
 	{
-		super(login, password, cellphone, Usuario.CLIENTE);
+		super(login, password, telefono, Usuario.CLIENTE);
 	}
+	
+	public Cliente(String login, String password, int telefono, boolean verificado, long topeCompras)
+	{
+		super(login, password, telefono, Usuario.CLIENTE);
+		
+		this.verificado = verificado;
+		this.topeCompras = topeCompras;
+	}
+	
 
 	public void verificarComoComprador() {
 		verificado = true;

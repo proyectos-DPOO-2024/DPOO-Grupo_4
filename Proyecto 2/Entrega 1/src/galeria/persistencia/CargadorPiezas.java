@@ -3,13 +3,13 @@ package galeria.persistencia;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import Casa_subastas.modelo.Inventario.Galeria;
-import Casa_subastas.modelo.Inventario.Escultura;
-import Casa_subastas.modelo.Inventario.Fotografia;
-import Casa_subastas.modelo.Inventario.Impresiones;
-import Casa_subastas.modelo.Inventario.Pieza;
-import Casa_subastas.modelo.Inventario.Pintura;
-import Casa_subastas.modelo.Inventario.Video;
+import galeria.modelo.inventario.Escultura;
+import galeria.modelo.inventario.Fotografia;
+import galeria.modelo.inventario.Galeria;
+import galeria.modelo.inventario.Impresion;
+import galeria.modelo.inventario.Pieza;
+import galeria.modelo.inventario.Pintura;
+import galeria.modelo.inventario.Video;
 
 public class CargadorPiezas
 {
@@ -19,14 +19,19 @@ public class CargadorPiezas
 		for (int i = 0; i < numPiezas; i++) {
 			JSONObject pieza = jPiezas.getJSONObject(i);
 
+			String titulo = pieza.getString("titulo");
 			int tipo = pieza.getInt("tipo");
-			String nombrePieza = pieza.getString("nombrePieza");
-			int precio = pieza.getInt("precio");
-			String propietario = pieza.getString("propietario");
-			int diasConsignacion = pieza.getInt("diasConsignacion");
-			boolean paraVentaFijo = pieza.getBoolean("paraVentaFijo");
+			String nombreArtista = pieza.getString("nombrePieza");
+			String loginPropietario = pieza.getString("loginPropietario");
+			String fechaTerminoConsignacion = pieza.getString("fechaTerminoConsignacion");
+			long precioVentaDirecta = pieza.getLong("precioVentaDirecta");
+			long precioInicioSubasta = pieza.getLong("precioInicioSubasta");
+			long precioMinimoSubasta = pieza.getLong("precioMinimoSubasta");
+			long precioUltimaVenta = pieza.getLong("precioUltimaVenta");
 			boolean bloqueada = pieza.getBoolean("bloqueada");
-			boolean comprada = pieza.getBoolean("comprada");
+			boolean enSubasta = pieza.getBoolean("enSubasta");
+			boolean enBodega = pieza.getBoolean("enBodega");
+			boolean enPosesion = pieza.getBoolean("enPosesion");
 
 			float alto;
 			float ancho;
@@ -38,17 +43,21 @@ public class CargadorPiezas
 				ancho = pieza.getFloat("ancho");
 				String estilo = pieza.getString("estilo");
 
-				piezaObj = new Pintura(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo, bloqueada,
-						comprada, alto, ancho, estilo);
+				piezaObj = new Pintura(titulo, nombreArtista, loginPropietario, fechaTerminoConsignacion,
+						precioVentaDirecta, precioInicioSubasta, precioMinimoSubasta, 
+						precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion, 
+						estilo, alto, ancho);
 
-				if (tipo == Pieza.IMPRESIONES) {
-					String original = pieza.getString("original");
+				if (tipo == Pieza.IMPRESION) {
+					boolean original = pieza.getBoolean("original");
 					String metodoDeCreacion = pieza.getString("metodoDeCreacion");
 					alto = pieza.getFloat("alto");
 					ancho = pieza.getFloat("ancho");
 
-					piezaObj = new Impresiones(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo,
-							bloqueada, comprada, original, metodoDeCreacion, alto, ancho);
+					piezaObj = new Impresion(titulo, nombreArtista, loginPropietario, fechaTerminoConsignacion,
+							precioVentaDirecta, precioInicioSubasta, precioMinimoSubasta, 
+							precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion,
+							original, metodoDeCreacion, alto, ancho);
 				}
 
 				if (tipo == Pieza.ESCULTURA) {
@@ -57,8 +66,10 @@ public class CargadorPiezas
 					float profundidad = pieza.getFloat("profundidad");
 					String materialDeConstruccion = pieza.getString("materialDeConstruccion");
 
-					piezaObj = new Escultura(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo,
-							bloqueada, comprada, alto, ancho, profundidad, materialDeConstruccion);
+					piezaObj = new Escultura(titulo, nombreArtista, loginPropietario, fechaTerminoConsignacion,
+							precioVentaDirecta, precioInicioSubasta, precioMinimoSubasta, 
+							precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion, 
+							materialDeConstruccion, alto, ancho, profundidad);
 				}
 
 				if (tipo == Pieza.FOTOGRAFIA) {
@@ -66,8 +77,10 @@ public class CargadorPiezas
 					ancho = pieza.getFloat("ancho");
 					color = pieza.getBoolean("color");
 
-					piezaObj = new Fotografia(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo,
-							bloqueada, comprada, alto, ancho, color);
+					piezaObj = new Fotografia(titulo, nombreArtista, loginPropietario, fechaTerminoConsignacion,
+							precioVentaDirecta, precioInicioSubasta, precioMinimoSubasta, 
+							precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion, 
+							alto, ancho, color);
 				}
 
 				if (tipo == Pieza.VIDEO) {
@@ -75,11 +88,13 @@ public class CargadorPiezas
 					color = pieza.getBoolean("color");
 					double memoria = pieza.getDouble("memoria");
 
-					piezaObj = new Video(nombrePieza, precio, propietario, diasConsignacion, paraVentaFijo, bloqueada,
-							comprada, duracion, color, memoria);
+					piezaObj = new Video(titulo, nombreArtista, loginPropietario, fechaTerminoConsignacion,
+							precioVentaDirecta, precioInicioSubasta, precioMinimoSubasta, 
+							precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion, 
+							duracion, color, memoria);
 				}
 
-				galeria.agregarPieza(piezaObj, propietario);
+				galeria.agregarPiezaNueva(piezaObj);
 
 			}
 		}

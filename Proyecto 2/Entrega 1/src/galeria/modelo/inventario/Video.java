@@ -8,8 +8,8 @@ public class Video extends Pieza
 	private double memoria;
 
 	public Video(String nombrePieza, String nombreArtista, String loginPropietario, String fechaTerminoConsignacion,
-			long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta, float duracion, Boolean color,
-			double memoria)
+			long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
+			float duracion, Boolean color, double memoria)
 	{
 		super(nombrePieza, nombreArtista, Pieza.VIDEO, loginPropietario, fechaTerminoConsignacion, precioVentaFija,
 				precioInicioSubasta, precioMinimoSubasta);
@@ -17,6 +17,20 @@ public class Video extends Pieza
 		this.color = color;
 		this.memoria = memoria;
 	}
+	
+	//Este constructor se debe usar únicamente en la carga y en las pruebas
+	public Video(String nombrePieza, String nombreArtista, String loginPropietario, String fechaTerminoConsignacion,
+			long precioVentaDirecta, long precioInicioSubasta, long precioMinimoSubasta, 
+			long precioUltimaVenta, boolean bloqueada, boolean enSubasta, boolean enBodega, boolean enPosesion, 
+			float duracion, Boolean color, double memoria)
+	{
+		super(nombrePieza, nombreArtista, Pieza.VIDEO, loginPropietario, fechaTerminoConsignacion, precioVentaDirecta,
+				precioInicioSubasta, precioMinimoSubasta, precioUltimaVenta, bloqueada, enSubasta, enBodega, enPosesion);
+		this.duracion = duracion;
+		this.color = color;
+		this.memoria = memoria;
+	}
+	
 
 	public float getDuracion() {
 		return duracion;

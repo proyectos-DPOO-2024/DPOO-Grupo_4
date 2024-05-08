@@ -5,6 +5,7 @@ package galeria.interfaz;
 
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.usuarios.Usuario;
+import galeria.persistencia.CentralPersistencia;
 
 /**
  * Este menú es el primero que ve el usuario. El objetivo de esta clase es
@@ -19,7 +20,7 @@ public class MenuPrincipal extends MenuBasico
 	public static final int OPERADOR = 2;
 	public static final int CLIENTE = 3;
 
-	protected static Galeria galeria;
+	protected Galeria galeria;
 
 	/**
 	 * @param args Inicia la aplicación cargando el archivo galeria.json en la
@@ -27,8 +28,14 @@ public class MenuPrincipal extends MenuBasico
 	 *             muestra el menú principal.
 	 */
 	public static void main(String[] args) {
-		// TODO - Realizar la carga. La carga debe devolver una galeria.
-
+		
+		String[] archivos = new String[2];
+		
+		archivos[0] = "./datos/galeria.json";
+		archivos[1] = "./datos/centro_ventas.json";
+		
+		CentralPersistencia persistencia = new CentralPersistencia();
+		Galeria galeria = persistencia.cargarPrograma(archivos);
 		MenuPrincipal menuPrincipal = new MenuPrincipal(galeria);
 	}
 
