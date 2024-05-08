@@ -48,7 +48,7 @@ public class Galeria
 		piezasActualesPropietarios = new HashMap<String, List<String>>();
 		piezasPasadasPropietarios = new HashMap<String, List<String>>();
 		
-		centroDeVentas = new CentroDeVentas();
+		centroDeVentas = new CentroDeVentas(this);
 	}
 
 	/**
