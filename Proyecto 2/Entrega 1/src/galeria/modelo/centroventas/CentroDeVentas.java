@@ -40,15 +40,15 @@ public class CentroDeVentas
 	public CentroDeVentas(Galeria gale) {
 		historialDePagosPorPieza = new HashMap<String, List<Pago>>();
 		historialComprasComprador = new HashMap<String, List<Pago>>();
-		mapaDeSubastas = new HashMap<String, Subasta>();
-		mapaDeOfertasVentaDirecta = new HashMap<String, Oferta>();
+		mapaSubastas = new HashMap<String, Subasta>();
+		mapaOfertasVentaDirecta = new HashMap<String, Oferta>();
 	}
 	
 	public CentroDeVentas(Map<String, Subasta> mapaDeSubastas, Map<String, Oferta> mapaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
 			Map<String, List<Pago>> historialComprasComprador, Map<String, List<Pago>> historialVentasPropietario) {
 		
-		this.mapaDeSubastas = mapaDeSubastas;
-		this.mapaDeOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
+		this.mapaSubastas = mapaDeSubastas;
+		this.mapaOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
 		this.historialDePagosPorPieza = historialDePagosPorPieza;
 		this.historialComprasComprador = historialComprasComprador;
 		this.historialVentasPropietario = historialVentasPropietario;
@@ -83,11 +83,11 @@ public class CentroDeVentas
 	}
 
 	public void setMapaDeSubastas(Map<String, Subasta> mapaDeSubastas) {
-		this.mapaDeSubastas = mapaDeSubastas;
+		this.mapaSubastas = mapaDeSubastas;
 	}
 
 	public void setMapaDeOfertasVentaDirecta(Map<String, Oferta> mapaDeOfertasVentaDirecta) {
-		this.mapaDeOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
+		this.mapaOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
 	}
 	
 	
@@ -122,7 +122,7 @@ public class CentroDeVentas
 	
 	public void realizarPago(int metodoPago, Fecha fecha ,String nombrePieza)
 	{
-		Oferta oferta = mapaOfertas.get(nombrePieza);
+		Oferta oferta = mapaOfertasVentaDirecta.get(nombrePieza);
 		long valorPagado = oferta.getValor();
 		String loginComprador = oferta.getLoginComprador();
 		Pieza pieza = oferta.getPieza();
