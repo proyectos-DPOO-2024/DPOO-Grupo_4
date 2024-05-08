@@ -3,6 +3,8 @@
  */
 package galeria.interfaz;
 
+import java.io.IOException;
+
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.usuarios.Usuario;
 import galeria.persistencia.CentralPersistencia;
@@ -15,19 +17,15 @@ import galeria.persistencia.CentralPersistencia;
 public class MenuPrincipal extends MenuBasico
 {
 
-	public static final int ADMINISTRADOR = 0;
-	public static final int CAJERO = 1;
-	public static final int OPERADOR = 2;
-	public static final int CLIENTE = 3;
-
 	protected Galeria galeria;
 
 	/**
-	 * @param args Inicia la aplicación cargando el archivo galeria.json en la
-	 *             carpeta datos por medio de la clase Loader. Posteriormente,
+	 * @param args Inicia la aplicación cargando los archivos galeria.json y centro_ventas.json en la
+	 *             carpeta datos por medio de la clase Central Persistencia. Posteriormente,
 	 *             muestra el menú principal.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		
 		String[] archivos = new String[2];
 		
@@ -37,13 +35,13 @@ public class MenuPrincipal extends MenuBasico
 		CentralPersistencia persistencia = new CentralPersistencia();
 		Galeria galeria = persistencia.cargarPrograma(archivos);
 		MenuPrincipal menuPrincipal = new MenuPrincipal(galeria);
+		
+		menuPrincipal.mostrarMenuPrincipal();
 	}
 
 	protected MenuPrincipal(Galeria galeria)
 	{
 		this.galeria = galeria;
-
-		mostrarMenuPrincipal();
 	}
 
 	/**

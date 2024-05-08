@@ -9,15 +9,22 @@ public class Impresion extends Pieza
 	private float ancho;
 
 	public Impresion(String titulo, String nombreArtista, String loginPropietario,
-			String fechaTerminoConsignacion, long precioVentaFija, long precioInicioSubasta, long precioMinimoSubasta,
 			boolean original, String metodocreacion, float alto, float ancho)
 	{
-		super(titulo, nombreArtista, Pieza.IMPRESION, loginPropietario, fechaTerminoConsignacion, precioVentaFija,
-				precioInicioSubasta, precioMinimoSubasta);
+		super(titulo, nombreArtista, Pieza.IMPRESION, loginPropietario);
 		this.original = original;
 		this.metodoCreacion = metodocreacion;
 		this.alto = alto;
 		this.ancho = ancho;
+	}
+	
+	//Este constructor copia otra impresión
+	public Impresion(Impresion otraImpresion) {
+		super(otraImpresion);
+		original = otraImpresion.original;
+		metodoCreacion = otraImpresion.metodoCreacion;
+		alto = otraImpresion.alto;
+		ancho = otraImpresion.ancho;
 	}
 	
 	//Este constructor se debe usar únicamente en la carga y en las pruebas

@@ -20,8 +20,9 @@ public class Cliente extends Usuario
 	}
 	
 
-	public void verificarComoComprador() {
+	public void verificarComoComprador(long tope) {
 		verificado = true;
+		topeCompras = tope;
 	}
 
 	public void asignarTopeCompras(long nuevoTope) {
