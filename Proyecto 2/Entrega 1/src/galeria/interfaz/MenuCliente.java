@@ -182,7 +182,42 @@ public class MenuCliente extends MenuUsuario
 	}
 
 	private void comprarPiezaVentaDirecta() {
-		// TODO
+	    // Obtener la lista de piezas disponibles para venta directa
+	    List<Pieza> piezasDisponibles = galeria.getPiezasDisponiblesVentaDirecta();
+
+	    // Verificar si hay piezas disponibles
+	    if (piezasDisponibles.isEmpty()) {
+	        System.out.println("No hay piezas disponibles para venta directa en este momento.");
+	        return;
+	    }
+
+	    // Mostrar las piezas disponibles para venta directa al cliente
+	    System.out.println("Piezas disponibles para venta directa:");
+	    for (int i = 0; i < piezasDisponibles.size(); i++) {
+	        System.out.println((i + 1) + ". " + piezasDisponibles.get(i));
+	    }
+
+	    // Solicitar al cliente que elija una pieza para comprar
+	    int opcionSeleccionada = pedirEnteroAlUsuario("Seleccione el número de la pieza que desea comprar:");
+
+	    // Verificar la validez de la opción seleccionada
+	    if (opcionSeleccionada < 1 || opcionSeleccionada > piezasDisponibles.size()) {
+	        System.out.println("Opción inválida. Por favor seleccione un número de pieza válido.");
+	        return;
+	    }
+
+	    // Obtener la pieza seleccionada por el cliente
+	    Pieza piezaSeleccionada = piezasDisponibles.get(opcionSeleccionada - 1);
+
+	    // Realizar la compra de la pieza
+	    boolean compraExitosa = galeria.comprarPiezaVentaDirecta(piezaSeleccionada, esteCliente);
+
+	    // Verificar si la compra fue exitosa
+	    if (compraExitosa) {
+	        System.out.println("¡La compra se realizó con éxito!");
+	    } else {
+	        System.out.println("Lo siento, no se pudo completar la compra en este momento.");
+	    }
 	}
 
 	private void realizarOfertaSubasta() {

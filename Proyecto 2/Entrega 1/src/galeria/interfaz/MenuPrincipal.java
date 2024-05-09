@@ -83,7 +83,7 @@ public class MenuPrincipal extends MenuBasico
 
 		//int tipoUsuario = galeria.verificarLogin(login, password);
 
-		int tipoUsuario = 1;
+		int tipoUsuario = 2;
 		
 		if (tipoUsuario < 0)
 			System.out.println("El nombre de usuario ingresado no existe");
@@ -97,7 +97,7 @@ public class MenuPrincipal extends MenuBasico
 			if (tipoUsuario == Usuario.OPERADOR) {
 				MenuOperador menuOp = new MenuOperador(this);
 			}
-			if (tipoUsuario == Usuario.OPERADOR) {
+			if (tipoUsuario == Usuario.CAJERO) {
 				MenuCajero menuCaj = new MenuCajero(this);
 			}
 			if (tipoUsuario == Usuario.CLIENTE) {

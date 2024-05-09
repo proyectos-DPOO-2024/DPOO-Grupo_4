@@ -49,5 +49,10 @@ public class CentroDeVentas
 	public List<Pago> getHistorialVentas(String loginPropietario) {
 		return historialVentasPropietario.get(loginPropietario);
 	}
-
+	public List<Subasta> getListaDeSubastas() {
+	    return listaDeSubastas;
+	}
+	public List<Oferta> getListaDeOfertasVentaDirecta() {
+	    return listaDeOfertasVentaDirecta;
+	}
 }
