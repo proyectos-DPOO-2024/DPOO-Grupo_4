@@ -63,7 +63,7 @@ public class CentroDeVentas
 	    Cliente cliente = galeria.getCliente(nombreCliente);
 	    Pieza pieza = galeria.getPieza(nombrePieza);
 	    
-	    if(pieza.getPrecioVentaDirecta() == 0 ) {
+
 	        if(cliente.getTopeCompras() > pieza.getPrecioVentaDirecta()) {
 	            if(!pieza.isBloqueada()) {
 	                Oferta oferta = new Oferta(pieza, pieza.getPrecioVentaDirecta(), nombreCliente, pieza.getLoginPropietario(), pieza.getTipo());
@@ -78,10 +78,7 @@ public class CentroDeVentas
 	            throw new Exception("La pieza no está disponible para venta por valor fijo");
 	        }
 	    }
-	    else {
-	        throw new Exception("El valor de la compra es mayor a lo que tiene permitido por el administrador");
-	    }
-	}
+
 	
 	/*
 	 * realiza el pago dada una oferta ya verificada. Crea un nuevo pago. Lo adiciona a los pagos 

@@ -31,8 +31,8 @@ class CentroDeVentasTest
 		cliente1 = new Cliente("miLogin","password",122323);
 		pieza = new Pintura("Las Meninas", "Diego Velázquez", "miLogin", "2024-05-31", 1500000, 800000, 500000,
 				0, false, false, false, false, "Barroco", 300.0f, 200.0f);
-		
 		galeria.agregarCliente(cliente1);
+		cliente1.asignarTopeCompras(1000000);
 		galeria.agregarPiezaNueva(pieza);
 
 	}
@@ -44,11 +44,11 @@ class CentroDeVentasTest
     void testCrearOfertaValorFijo()
     {
     	try {
-			centroDeVentas.crearOfertaValorFijo(cliente1.getLogin(), pieza.getTitulo());
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	assertTrue(pieza.isBloqueada(), "No esta pero deberia estar bloqueada");
+    	    centroDeVentas.crearOfertaValorFijo(cliente1.getLogin(), pieza.getTitulo());
+    	} catch (Exception e) {
+    	    System.out.println("Error: " + e.getMessage());
+    	}
+    	assertTrue(pieza.isBloqueada(), "No esta bloqueda, pero deberia estar bloqueada");
     }
     
     
