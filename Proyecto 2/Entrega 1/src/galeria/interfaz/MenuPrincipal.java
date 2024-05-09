@@ -28,20 +28,23 @@ public class MenuPrincipal extends MenuBasico
 	 *             muestra el menú principal.
 	 */
 	public static void main(String[] args) {
-		
+		/*
 		String[] archivos = new String[2];
 		
 		archivos[0] = "./datos/galeria.json";
 		archivos[1] = "./datos/centro_ventas.json";
 		
 		CentralPersistencia persistencia = new CentralPersistencia();
+	
 		Galeria galeria = persistencia.cargarPrograma(archivos);
-		MenuPrincipal menuPrincipal = new MenuPrincipal(galeria);
+		*/
+		
+		MenuPrincipal menuPrincipal = new MenuPrincipal();
 	}
 
-	protected MenuPrincipal(Galeria galeria)
+	protected MenuPrincipal(/*Galeria galeria*/)
 	{
-		this.galeria = galeria;
+		//this.galeria = galeria;
 
 		mostrarMenuPrincipal();
 	}
@@ -78,8 +81,10 @@ public class MenuPrincipal extends MenuBasico
 		String login = pedirCadenaAlUsuario("Nombre de usuario");
 		String password = pedirCadenaAlUsuario("Contraseña");
 
-		int tipoUsuario = galeria.verificarLogin(login, password);
+		//int tipoUsuario = galeria.verificarLogin(login, password);
 
+		int tipoUsuario = 1;
+		
 		if (tipoUsuario < 0)
 			System.out.println("El nombre de usuario ingresado no existe");
 		if (tipoUsuario == 0)
