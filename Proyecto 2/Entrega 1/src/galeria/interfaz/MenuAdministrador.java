@@ -360,14 +360,57 @@ public class MenuAdministrador extends MenuEmpleado
 		mostrarMenuAdministrador();
 	}
 
+	
 	/**
 	 * Esta función le permite al administrador devolver una pieza. La pieza no se
 	 * puede devolver si está siendo subastada, está bloqueada o no está en
 	 * posesión.
 	 */
 	protected void realizarDevolución() {
-		// TODO
+	    String tituloPieza = pedirCadenaAlUsuario("Ingrese el título de la pieza que desea devolver:");
+	    String loginCliente = pedirCadenaAlUsuario("Ingrese el login del cliente propietario:");
+
+	    // Verificar si la galería está inicializada
+	    if (galeria == null) {
+	        System.out.println("Error: La galería no está inicializada.");
+	        return;
+	    }
+
+	    // Verificar si el cliente existe en la galería
+	    if (!galeria.existeCliente(loginCliente)) {
+	        System.out.println("No se encontró ningún cliente con el login '" + loginCliente + "'.");
+	        mostrarMenuAdministrador(); // Retorna al menú principal
+	        return;
+	    }
+
+	    Cliente propietario = galeria.getCliente(loginCliente);
+
+	    // Verificar si el cliente está verificado
+	    if (!propietario.isVerificado()) {
+	        System.out.println("El cliente no está verificado y no puede realizar devoluciones.");
+	        mostrarMenuAdministrador(); // Retorna al menú principal
+	        return;
+	    }
+
+	    // Verificar si el cliente tiene la pieza
+	    if (!galeria.getPiezasActuales(loginCliente).contains(tituloPieza)) {
+	        System.out.println("El cliente no posee la pieza con título '" + tituloPieza + "'.");
+	        mostrarMenuAdministrador(); // Retorna al menú principal
+	        return;
+	    }
+
+	    // Obtener la pieza del inventario
+	    Pieza pieza = galeria.getPieza(tituloPieza);
+
+	    // Devolver la pieza al cliente
+	    galeria.entregarPieza(pieza, loginCliente);
+	    System.out.println("La pieza ha sido devuelta al cliente: " + propietario.getLogin());
+
+	    // Retornar al menú principal
+	    mostrarMenuAdministrador();
 	}
+
+
 
 	/**
 	 * Métodos Auxiliares
@@ -382,8 +425,5 @@ public class MenuAdministrador extends MenuEmpleado
 	 * @param pieza
 	 * @param propietario
 	 */
-	private void entregarPieza(Pieza pieza, Cliente propietario) {
-		// TODO
-	}
 
 }
