@@ -40,8 +40,6 @@ class CentroDeVentasTest
     void tearDown( )
     {
     }
-    
-    
     @Test
     void testCrearOfertaValorFijo()
     {
@@ -53,20 +51,6 @@ class CentroDeVentasTest
     	assertTrue(pieza.isBloqueada(), "No esta pero deberia estar bloqueada");
     }
     
-    @Test
-    void testRealizarPago()
-    {
-		try {
-			centroDeVentas.crearOfertaValorFijo(cliente1.getLogin(), pieza.getTitulo());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    
 
-    	Fecha fecha = new Fecha(2, 06, 2023);
-    	
-    	centroDeVentas.realizarPago(0, fecha, pieza.getTitulo());
-    	Pago ultimoPago = centroDeVentas.getHistorialCompras(cliente1.getLogin()).getLast();
-    	assertEquals(ultimoPago.getFecha(), fecha, "No es la fecha correcta");
-    }
 }

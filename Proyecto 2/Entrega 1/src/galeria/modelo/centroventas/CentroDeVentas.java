@@ -42,7 +42,7 @@ public class CentroDeVentas
 		historialComprasComprador = new HashMap<String, List<Pago>>();
 		mapaSubastas = new HashMap<String, Subasta>();
 		mapaOfertasVentaDirecta = new HashMap<String, Oferta>();
-		Galeria galeria = gale;
+		this.galeria = gale;
 	}
 	
 	public CentroDeVentas(Galeria gale, Map<String, Subasta> mapaDeSubastas, Map<String, Oferta> mapaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
