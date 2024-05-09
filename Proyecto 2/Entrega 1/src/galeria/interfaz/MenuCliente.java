@@ -3,11 +3,13 @@
  */
 package galeria.interfaz;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import galeria.modelo.usuarios.Cliente;
+import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.inventario.Escultura;
 import galeria.modelo.inventario.Fotografia;
 import galeria.modelo.inventario.Impresion;
@@ -182,8 +184,16 @@ public class MenuCliente extends MenuUsuario
 	}
 
 	private void comprarPiezaVentaDirecta() {
-	    // Obtener la lista de piezas disponibles para venta directa desde el CentroDeVentas
-	    List<Pieza> piezasDisponibles = galeria.getCentroDeVentas().getListaDeOfertasVentaDirecta();
+	    // Obtener la lista de ofertas de venta directa desde el CentroDeVentas
+	    List<Oferta> ofertasDisponibles = galeria.getCentroDeVentas().getListaDeOfertasVentaDirecta();
+
+	    // Crear una lista para almacenar las piezas disponibles para venta directa
+	    List<Pieza> piezasDisponibles = new ArrayList<>();
+
+	    // Iterar sobre las ofertas y agregar las piezas disponibles a la lista
+	    for (Oferta oferta : ofertasDisponibles) {
+	        piezasDisponibles.add(oferta.getPieza());
+	    }
 
 	    // Verificar si hay piezas disponibles
 	    if (piezasDisponibles.isEmpty()) {
@@ -219,6 +229,7 @@ public class MenuCliente extends MenuUsuario
 	        System.out.println("Lo siento, no se pudo completar la compra en este momento.");
 	    }
 	}
+
 
 
 	private void realizarOfertaSubasta() {

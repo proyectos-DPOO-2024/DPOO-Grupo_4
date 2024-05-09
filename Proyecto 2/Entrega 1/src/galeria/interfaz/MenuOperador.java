@@ -81,7 +81,31 @@ public class MenuOperador extends MenuEmpleado
 	 * y la subasta permanece igual.
 	 */
 	protected void agregarNuevaOfertaSubasta() {
-		// TODO
+	    // Verificar si hay ofertas en la cola
+	    if (!colaOfertas.isEmpty()) {
+	        // Obtener la oferta máxima de la cola
+	        Oferta ofertaMaxima = colaOfertas.peek();
+
+	        // Preguntar al operador si desea registrar la oferta
+	        boolean registrarOferta = pedirConfirmacionAlUsuario("Desea registrar la nueva oferta como oferta máxima?");
+
+	        if (registrarOferta) {
+	            // Registrar la nueva oferta como oferta máxima
+	            Oferta nuevaOfertaMaxima = colaOfertas.poll();
+	            // Actualizar la cola de ofertas
+	            actualizarColaOfertasSubasta(nuevaOfertaMaxima);
+	            // Mostrar un mensaje de confirmación
+	            System.out.println("La nueva oferta se ha registrado como oferta máxima.");
+	        } else {
+	            // La oferta no se registra como oferta máxima, se elimina de la cola
+	            colaOfertas.poll();
+	            // Mostrar un mensaje de confirmación
+	            System.out.println("La nueva oferta ha sido descartada.");
+	        }
+	    } else {
+	        // No hay ofertas en la cola para registrar
+	        System.out.println("No hay ofertas en la cola para registrar.");
+	    }
 	}
 
 	/**
@@ -97,6 +121,28 @@ public class MenuOperador extends MenuEmpleado
 	 * función.
 	 */
 	private void actualizarColaOfertasSubasta(Oferta oferta) {
-		// TODO
+	    // Crear una nueva cola para almacenar las ofertas válidas
+	    Queue<Oferta> colaOfertasActualizada = new LinkedList<>();
+
+	    // Recorrer la cola de ofertas original
+	    while (!colaOfertas.isEmpty()) {
+	        // Obtener la oferta de la cola original
+	        Oferta ofertaEnCola = colaOfertas.poll();
+
+	        // Verificar si la oferta es menor o igual que la nueva oferta
+	        if (ofertaEnCola.getValor() <= oferta.getValor()) {
+	            // Descartar la oferta si es menor o igual
+	            System.out.println("La oferta de " + ofertaEnCola.getValor() + " ha sido superada por la nueva oferta máxima.");
+	        } else {
+	            // Agregar la oferta a la cola actualizada si es mayor
+	            colaOfertasActualizada.offer(ofertaEnCola);
+	        }
+	    }
+
+	    // Agregar la nueva oferta máxima a la cola actualizada
+	    colaOfertasActualizada.offer(oferta);
+
+	    // Asignar la cola actualizada a la cola de ofertas
+	    colaOfertas = colaOfertasActualizada;
 	}
 }
