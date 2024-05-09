@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import galeria.modelo.usuarios.Cliente;
+import galeria.modelo.centroventas.CentroDeVentas;
 import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.inventario.Escultura;
 import galeria.modelo.inventario.Fotografia;
@@ -183,52 +184,46 @@ public class MenuCliente extends MenuUsuario
 		
 	}
 
-	private void comprarPiezaVentaDirecta() {
-	    // Obtener la lista de ofertas de venta directa desde el CentroDeVentas
-	    List<Oferta> ofertasDisponibles = galeria.getCentroDeVentas().getListaDeOfertasVentaDirecta();
+	public boolean comprarPiezaVentaDirecta(Pieza pieza, Cliente cliente) {
+	    // Obtener la lista de ofertas de venta directa
+	    List<Oferta> ofertasVentaDirecta = CentroDeVentas.getListaDeOfertasVentaDirecta();
 
-	    // Crear una lista para almacenar las piezas disponibles para venta directa
-	    List<Pieza> piezasDisponibles = new ArrayList<>();
-
-	    // Iterar sobre las ofertas y agregar las piezas disponibles a la lista
-	    for (Oferta oferta : ofertasDisponibles) {
-	        piezasDisponibles.add(oferta.getPieza());
+	    // Buscar la oferta correspondiente a la pieza
+	    Oferta ofertaSeleccionada = null;
+	    for (Oferta oferta : ofertasVentaDirecta) {
+	        if (oferta.getPieza().equals(pieza)) {
+	            ofertaSeleccionada = oferta;
+	            break;
+	        }
 	    }
 
-	    // Verificar si hay piezas disponibles
-	    if (piezasDisponibles.isEmpty()) {
-	        System.out.println("No hay piezas disponibles para venta directa en este momento.");
-	        return;
-	    }
-
-	    // Mostrar las piezas disponibles para venta directa al cliente
-	    System.out.println("Piezas disponibles para venta directa:");
-	    for (int i = 0; i < piezasDisponibles.size(); i++) {
-	        System.out.println((i + 1) + ". " + piezasDisponibles.get(i));
-	    }
-
-	    // Solicitar al cliente que elija una pieza para comprar
-	    int opcionSeleccionada = pedirEnteroAlUsuario("Seleccione el número de la pieza que desea comprar:");
-
-	    // Verificar la validez de la opción seleccionada
-	    if (opcionSeleccionada < 1 || opcionSeleccionada > piezasDisponibles.size()) {
-	        System.out.println("Opción inválida. Por favor seleccione un número de pieza válido.");
-	        return;
-	    }
-
-	    // Obtener la pieza seleccionada por el cliente
-	    Pieza piezaSeleccionada = piezasDisponibles.get(opcionSeleccionada - 1);
-
-	    // Realizar la compra de la pieza
-	    boolean compraExitosa = galeria.comprarPiezaVentaDirecta(piezaSeleccionada, esteCliente);
-
-	    // Verificar si la compra fue exitosa
-	    if (compraExitosa) {
-	        System.out.println("¡La compra se realizó con éxito!");
+	    // Verificar si se encontró la oferta correspondiente
+	    if (ofertaSeleccionada != null) {
+	        // Verificar si el cliente puede realizar la compra
+	        if (cliente.getPiezasCompradas().size() < cliente.getTopeCompras()) {
+	            // Realizar la compra
+	            ofertaSeleccionada.getPieza().cambiarPropietario(cliente.getLogin());
+	            ofertaSeleccionada.getPieza().cambiarEstadoPosesion();
+	            piezasActualesPropietarios.get(ofertaSeleccionada.getPieza().getLoginPropietario()).remove(pieza.getTitulo());
+	            piezasActualesPropietarios.get(cliente.getLogin()).add(pieza.getTitulo());
+	            ofertaSeleccionada.getPieza().agregarHistorialCompra(ofertaSeleccionada.getPrecio());
+	            // Eliminar la oferta de la lista
+	            ofertasVentaDirecta.remove(ofertaSeleccionada);
+	            // Mostrar mensaje de confirmación
+	            System.out.println("¡Compra realizada con éxito!");
+	            return true;
+	        } else {
+	            // Mostrar mensaje de error
+	            System.out.println("El cliente ha alcanzado su tope de compras.");
+	            return false;
+	        }
 	    } else {
-	        System.out.println("Lo siento, no se pudo completar la compra en este momento.");
+	        // Mostrar mensaje de error
+	        System.out.println("No se encontró una oferta para la pieza especificada.");
+	        return false;
 	    }
 	}
+
 
 
 
