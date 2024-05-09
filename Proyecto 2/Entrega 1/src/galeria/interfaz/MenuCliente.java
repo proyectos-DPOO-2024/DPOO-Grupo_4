@@ -182,8 +182,8 @@ public class MenuCliente extends MenuUsuario
 	}
 
 	private void comprarPiezaVentaDirecta() {
-	    // Obtener la lista de piezas disponibles para venta directa
-	    List<Pieza> piezasDisponibles = galeria.getPiezasDisponiblesVentaDirecta();
+	    // Obtener la lista de piezas disponibles para venta directa desde el CentroDeVentas
+	    List<Pieza> piezasDisponibles = galeria.getCentroDeVentas().getListaDeOfertasVentaDirecta();
 
 	    // Verificar si hay piezas disponibles
 	    if (piezasDisponibles.isEmpty()) {
@@ -219,6 +219,7 @@ public class MenuCliente extends MenuUsuario
 	        System.out.println("Lo siento, no se pudo completar la compra en este momento.");
 	    }
 	}
+
 
 	private void realizarOfertaSubasta() {
 		// TODO
