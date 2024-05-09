@@ -17,7 +17,7 @@ class PiezaTest
 	void setUp() {
 
 		pieza = new Pintura("Las Meninas", "Diego Velázquez", "miLogin", "2024-05-31", 1500000, 800000, 500000,
-				"Barroco", 300.0f, 200.0f);
+				0, false, false, false, false, "Barroco", 300.0f, 200.0f);
 	}
 
 	@AfterEach

@@ -42,9 +42,10 @@ public class CentroDeVentas
 		historialComprasComprador = new HashMap<String, List<Pago>>();
 		mapaSubastas = new HashMap<String, Subasta>();
 		mapaOfertasVentaDirecta = new HashMap<String, Oferta>();
+		this.galeria = gale;
 	}
 	
-	public CentroDeVentas(Map<String, Subasta> mapaDeSubastas, Map<String, Oferta> mapaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
+	public CentroDeVentas(Galeria gale, Map<String, Subasta> mapaDeSubastas, Map<String, Oferta> mapaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
 			Map<String, List<Pago>> historialComprasComprador, Map<String, List<Pago>> historialVentasPropietario) {
 		
 		this.mapaSubastas = mapaDeSubastas;
@@ -53,7 +54,7 @@ public class CentroDeVentas
 		this.historialComprasComprador = historialComprasComprador;
 		this.historialVentasPropietario = historialVentasPropietario;
 		
-		this.galeria = galeria; 
+		this.galeria = gale; 
 	}
 
 	
