@@ -1,7 +1,6 @@
 package galeria.interfaz;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Collection;
@@ -197,9 +196,9 @@ public abstract class MenuBasico
 	 * Al cerrar la aplicación, se guarda la información del programa en un archivo
 	 * llamado nueva_galeria.json en la carpeta datos usando la clase Saver.
 	 * Posteriormente, se detiene la ejecución del programa.
-	 * @throws FileNotFoundException 
+	 * @throws Exception 
 	 */
-	protected void cerrarAplicacion(Galeria galeria) throws FileNotFoundException {
+	protected void cerrarAplicacion(Galeria galeria) throws Exception {
 		
 		CentralPersistencia persistencia = new CentralPersistencia();
 		persistencia.guardarPrograma(galeria);

@@ -98,6 +98,13 @@ public class MenuCliente extends MenuUsuario
 			this.cerrarSesion(menuPrincipal);
 	}
 	
+	
+	/**
+	 * Esta función debe pedir la información básica para registrar una nueva pieza (título, artista, tipo de pieza, información
+	 * relacionada al tipo de pieza, etc). Luego, debe llamar a la función agregarPiezaNueva de galería.
+	 * La pieza aún no se considera como consignada por lo que no se debe pedir precios de venta fijo o de subasta (eso se hace en consignar pieza).
+	 * Es decir, se debe llamar al primer constructor de cada pieza.
+	 */
 	private void registrarNuevaPieza() {
 		//TODO
 	}

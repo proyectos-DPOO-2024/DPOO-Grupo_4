@@ -3,9 +3,6 @@
  */
 package galeria.interfaz;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.usuarios.Usuario;
 import galeria.persistencia.CentralPersistencia;
@@ -24,9 +21,9 @@ public class MenuPrincipal extends MenuBasico
 	 * @param args Inicia la aplicación cargando los archivos galeria.json y centro_ventas.json en la
 	 *             carpeta datos por medio de la clase Central Persistencia. Posteriormente,
 	 *             muestra el menú principal.
-	 * @throws IOException 
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		
 		String[] archivos = new String[2];
 		
@@ -48,9 +45,9 @@ public class MenuPrincipal extends MenuBasico
 	/**
 	 * Muestra el menú principal. El menú principal permite: 1. Iniciar sesión 2.
 	 * Cerrar la aplicación
-	 * @throws FileNotFoundException 
+	 * @throws Exception 
 	 */
-	protected void mostrarMenuPrincipal() throws FileNotFoundException {
+	protected void mostrarMenuPrincipal() throws Exception {
 
 		String[] opciones = new String[2];
 		opciones[0] = "Iniciar Sesión";
@@ -71,10 +68,10 @@ public class MenuPrincipal extends MenuBasico
 	 * debe informar a qué tipo de usuario es y se debe abrir el menú
 	 * correspondiente. Si no coinciden, se le debe informar al usuario que el login
 	 * y password no están registrados o son incorrectos.
-	 * @throws FileNotFoundException 
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unused")
-	private void iniciarSesion() throws FileNotFoundException {
+	private void iniciarSesion() throws Exception {
 
 		String login = pedirCadenaAlUsuario("Nombre de usuario");
 		String password = pedirCadenaAlUsuario("Contraseña");
