@@ -16,8 +16,7 @@ public class Pago extends Transaccion
 	 */
 	private Fecha fecha;
 
-	public Pago(Pieza pieza, long valor, String loginComprador, String loginVendedor, int tipo, int metodoPago,
-			Fecha fecha)
+	public Pago(Pieza pieza, long valor, String loginComprador, String loginVendedor, int tipo, int metodoPago, Fecha fecha)
 	{
 		super(pieza, valor, loginComprador, loginVendedor, tipo);
 

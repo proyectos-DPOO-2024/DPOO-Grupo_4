@@ -82,11 +82,11 @@ public class CentroDeVentas
 		this.historialVentasPropietario = historialVentasPropietario;
 	}
 
-	public void setMapaDeSubastas(Map<String, Subasta> mapaDeSubastas) {
+	public void setMapaSubastas(Map<String, Subasta> mapaDeSubastas) {
 		this.mapaSubastas = mapaDeSubastas;
 	}
 
-	public void setMapaDeOfertasVentaDirecta(Map<String, Oferta> mapaDeOfertasVentaDirecta) {
+	public void setMapaOfertasVentaDirecta(Map<String, Oferta> mapaDeOfertasVentaDirecta) {
 		this.mapaOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
 	}
 	
