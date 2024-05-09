@@ -56,39 +56,6 @@ public class CentroDeVentas
 		this.galeria = galeria; 
 	}
 
-	public List<Pago> getHistorialPieza(String nombrePieza) {
-		return historialDePagosPorPieza.get(nombrePieza);
-	}
-
-	public List<Pago> getHistorialCompras(String loginComprador) {
-		return historialComprasComprador.get(loginComprador);
-	}
-
-	public List<Pago> getHistorialVentas(String loginPropietario) {
-		return historialVentasPropietario.get(loginPropietario);
-	}
-	
-	
-	//Setters
-	public void setHistorialDePagosPorPieza(Map<String, List<Pago>> historialDePagosPorPieza) {
-		this.historialDePagosPorPieza = historialDePagosPorPieza;
-	}
-
-	public void setHistorialComprasComprador(Map<String, List<Pago>> historialComprasComprador) {
-		this.historialComprasComprador = historialComprasComprador;
-	}
-
-	public void setHistorialVentasPropietario(Map<String, List<Pago>> historialVentasPropietario) {
-		this.historialVentasPropietario = historialVentasPropietario;
-	}
-
-	public void setMapaSubastas(Map<String, Subasta> mapaDeSubastas) {
-		this.mapaSubastas = mapaDeSubastas;
-	}
-
-	public void setMapaOfertasVentaDirecta(Map<String, Oferta> mapaDeOfertasVentaDirecta) {
-		this.mapaOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
-	}
 	
 	
 	public void crearOfertaValorFijo(String nombreCliente, String nombrePieza) throws Exception {
@@ -187,6 +154,68 @@ public class CentroDeVentas
 	        throw new Exception("En este momento el valor de la pieza es mayor al que ofertaste");
 	    }
 	}
+	
+	
+	
+	public List<Pago> getHistorialPieza(String nombrePieza) {
+		return historialDePagosPorPieza.get(nombrePieza);
+	}
+
+	public List<Pago> getHistorialCompras(String loginComprador) {
+		return historialComprasComprador.get(loginComprador);
+	}
+
+	public List<Pago> getHistorialVentas(String loginPropietario) {
+		return historialVentasPropietario.get(loginPropietario);
+	}
+	
+	
+	//Setters
+	public void setHistorialDePagosPorPieza(Map<String, List<Pago>> historialDePagosPorPieza) {
+		this.historialDePagosPorPieza = historialDePagosPorPieza;
+	}
+
+	public void setHistorialComprasComprador(Map<String, List<Pago>> historialComprasComprador) {
+		this.historialComprasComprador = historialComprasComprador;
+	}
+
+	public void setHistorialVentasPropietario(Map<String, List<Pago>> historialVentasPropietario) {
+		this.historialVentasPropietario = historialVentasPropietario;
+	}
+
+	public void setMapaSubastas(Map<String, Subasta> mapaDeSubastas) {
+		this.mapaSubastas = mapaDeSubastas;
+	}
+
+	public void setMapaOfertasVentaDirecta(Map<String, Oferta> mapaDeOfertasVentaDirecta) {
+		this.mapaOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
+	}
+
+	public Map<String, List<Pago>> getHistorialDePagosPorPieza() {
+		return historialDePagosPorPieza;
+	}
+
+	public Map<String, List<Pago>> getHistorialComprasComprador() {
+		return historialComprasComprador;
+	}
+
+	public Map<String, List<Pago>> getHistorialVentasPropietario() {
+		return historialVentasPropietario;
+	}
+
+	public Map<String, Subasta> getMapaSubastas() {
+		return mapaSubastas;
+	}
+
+	public Map<String, Oferta> getMapaOfertasVentaDirecta() {
+		return mapaOfertasVentaDirecta;
+	}
+
+	public Galeria getGaleria() {
+		return galeria;
+	}
+	
+	
 	
 }
 	

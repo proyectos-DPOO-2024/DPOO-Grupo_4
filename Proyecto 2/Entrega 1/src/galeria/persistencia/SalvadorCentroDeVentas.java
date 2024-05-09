@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.Subasta;
+import galeria.modelo.centroventas.Transaccion;
 import galeria.modelo.inventario.Galeria;
 
 /**
@@ -20,51 +21,56 @@ public class SalvadorCentroDeVentas {
 
 	protected void guardarCentroDeVentas(Galeria galeria, JSONObject jCentroDeVentas) {
 	
-	salvarOfertas(galeria, jCentroDeVentas);
+	salvarListaOfertasPorVentaDirecta(galeria, jCentroDeVentas);
 	salvarSubastas(galeria, jCentroDeVentas);
 	salvarPagos(galeria, jCentroDeVentas);
 	
 	}
 	
 	
-	private void salvarOfertas( Galeria galeria, JSONObject jobject )
+	private void salvarListaOfertasPorVentaDirecta( Galeria galeria, JSONObject jCentroDeVentas )
     {
         JSONArray jOfertas = new JSONArray( );
-        for( Oferta oferta : galeria.getOfertas() )
+        for( Oferta oferta : galeria.getCentroDeVentas().getMapaOfertasVentaDirecta().values() )
         {
         	JSONObject jOferta = new JSONObject( );
         	
-        	jOferta.put( "loginCliente", oferta.getComprador().getLogin() );
-        	jOferta.put( "nombrePieza", oferta.getPieza().getNombrepieza() );
-        	jOferta.put( "ofertaVerificada", oferta.esConfirmada() );
+        	jOferta.put( "tituloPieza", oferta.getPieza().getTitulo() );
+        	jOferta.put( "valor", oferta.getValor() );
+        	jOferta.put( "loginComprador", oferta.getLoginComprador() );
+        	jOferta.put( "loginVendedor", oferta.getLoginVendedor() );
+        	jOferta.put( "tipo", Transaccion.VENTA_DIRECTA );
         	
         	jOfertas.put( jOferta );
         }
 
-        jobject.put( "ofertas", jOfertas );
+        jCentroDeVentas.put( "listaOfertasVentaDirecta", jOfertas );
     }
 	
-	private void salvarSubastas( Galeria galeria, JSONObject jobject )
+	private void salvarSubastas( Galeria galeria, JSONObject jCentroDeVentas )
     {
         JSONArray jSubastas = new JSONArray( );
-        for( Subasta subasta : galeria.getSubastas() )
+        for( Subasta subasta : galeria.getCentroDeVentas().getMapaSubastas().values() )
         {
         	JSONObject jSubasta = new JSONObject( );
         	
+        	jSubasta.put( "tituloPiezaSubastada", subasta.getTituloPiezaSubastada() );
+        	jSubasta.put( "valorActual", subasta.getValorActual() );
         	jSubasta.put( "valorMinimo", subasta.getValorMinimo() );
-        	jSubasta.put( "valorInicial", subasta.getValorInicial() );
-        	jSubasta.put( "nombrePieza", subasta.getPiezaSubastar().getNombrepieza() );
         	
-        	List<Oferta> trazaDeOfertas = subasta.getTrazaOfertas();
-        	JSONArray jTrazaDeOfertas = this.salvarOfertasSubasta(galeria, trazaDeOfertas);
-        	jSubasta.put( "trazaDeOfertas", jTrazaDeOfertas );
+        	int tamanoTrazaOfertas = subasta.getTrazaOfertas().size();
+        	JSONArray trazaOfertas = new JSONArray(tamanoTrazaOfertas);
+        	for (int i = 0; i < tamanoTrazaOfertas; i++) {
+        		Oferta oferta = subasta.getTrazaOfertas().pop();
+        		trazaOfertas.put(oferta);
+        	}
         	
-        	jSubasta.put( "finalizada", subasta.getFinalizada() );
+        	jSubasta.put( "trazaOfertas", trazaOfertas );
         	
         	jSubastas.put( jSubasta );
         }
 
-        jobject.put( "subastas", jSubastas );
+        jCentroDeVentas.put( "listaSubastas", jSubastas );
     }
 	
 	private JSONArray salvarOfertasSubasta( Galeria galeria, List<Oferta> trazaOfertas )

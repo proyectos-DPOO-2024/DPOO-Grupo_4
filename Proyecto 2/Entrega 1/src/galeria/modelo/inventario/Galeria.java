@@ -241,6 +241,32 @@ public class Galeria
 		return mapaArtistas.get(nombreArtista);
 	}
 	
+	
+	
+	public Map<String, Pieza> getMapaPiezas() {
+		return mapaPiezas;
+	}
+
+	public Map<String, Artista> getMapaArtistas() {
+		return mapaArtistas;
+	}
+
+	public Map<String, Empleado> getMapaEmpleados() {
+		return mapaEmpleados;
+	}
+
+	public Map<String, Cliente> getMapaClientes() {
+		return mapaClientes;
+	}
+
+	public Map<String, List<String>> getPiezasActualesPropietarios() {
+		return piezasActualesPropietarios;
+	}
+
+	public Map<String, List<String>> getPiezasPasadasPropietarios() {
+		return piezasPasadasPropietarios;
+	}
+
 	public void setPiezasPasadasPropietarios(Map<String, List<String>> piezasPasadas) {
 		piezasPasadasPropietarios = piezasPasadas;
 	}

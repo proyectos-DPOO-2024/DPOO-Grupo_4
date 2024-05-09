@@ -21,7 +21,7 @@ public class CargadorPiezas
 
 			String titulo = pieza.getString("titulo");
 			int tipo = pieza.getInt("tipo");
-			String nombreArtista = pieza.getString("nombrePieza");
+			String nombreArtista = pieza.getString("nombreArtista");
 			String loginPropietario = pieza.getString("loginPropietario");
 			String fechaTerminoConsignacion = pieza.getString("fechaTerminoConsignacion");
 			long precioVentaDirecta = pieza.getLong("precioVentaDirecta");

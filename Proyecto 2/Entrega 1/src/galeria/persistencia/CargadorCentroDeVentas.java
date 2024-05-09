@@ -203,7 +203,9 @@ public class CargadorCentroDeVentas {
 			trazaDesorganizada.push(ofertaObj);
 		}
 		
-		for (int i = 0; i < trazaDesorganizada.size(); i++) {
+		int tamanoTrazaDesorganizada = trazaDesorganizada.size();
+		
+		for (int i = 0; i < tamanoTrazaDesorganizada; i++) {
 			Oferta ofertaObj = trazaDesorganizada.pop();
 			trazaOrganizada.push(ofertaObj);
 		}
