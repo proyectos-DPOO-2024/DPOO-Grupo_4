@@ -46,7 +46,7 @@ public class Fotografia extends Pieza
 		return ancho;
 	}
 
-	public Boolean getColor() {
+	public Boolean isColor() {
 		return color;
 	}
 

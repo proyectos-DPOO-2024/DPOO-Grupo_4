@@ -52,7 +52,7 @@ public class Escultura extends Pieza
 		return ancho;
 	}
 
-	public float getProfundo() {
+	public float getProfundidad() {
 		return profundidad;
 	}
 

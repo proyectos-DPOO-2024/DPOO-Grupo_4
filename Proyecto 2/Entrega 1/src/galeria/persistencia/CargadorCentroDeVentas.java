@@ -165,7 +165,7 @@ public class CargadorCentroDeVentas {
 		for (int i = 0; i < numVendedores; i++) {
 			JSONObject parejaPropietariosPagos = jPagos.getJSONObject(i);
 
-			String loginVendedor = parejaPropietariosPagos.getString("loginComprador");
+			String loginVendedor = parejaPropietariosPagos.getString("loginPropietario");
 			
 			JSONArray listaPagos = parejaPropietariosPagos.getJSONArray("listaPagos");
 			
