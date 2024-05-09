@@ -26,7 +26,7 @@ public class GaleriaTest
 		
 		cliente1 = new Cliente("miLogin","password",122323);
 		pieza = new Pintura("Las Meninas", "Diego Velázquez", "miLogin", "2024-05-31", 1500000, 800000, 500000,
-				"Barroco", 300.0f, 200.0f);
+				0, false, false, false, false, "Barroco", 300.0f, 200.0f);
 		
 		galeria.agregarCliente(cliente1);
 		galeria.agregarPiezaNueva(pieza);
@@ -151,7 +151,7 @@ public class GaleriaTest
 	{
 		Cliente cliente = new Cliente("loginCLiente","passwordCleinte",31234234);
 		galeria.agregarCliente(cliente);
-		galeria.verificarNuevoComprador(cliente);
+		galeria.verificarNuevoComprador(cliente, 100);
 		assertTrue(cliente.isVerificado(), "Se supone que deberia estar verificado, pero no lo esta");
 		
 	}

@@ -19,7 +19,7 @@ public class ClienteTest {
     @Test
     public void testVerificarCliente() {
         assertFalse(cliente.isVerificado());
-        cliente.verificarComoComprador();
+        cliente.verificarComoComprador(100);
         assertTrue(cliente.isVerificado());
     }
 
@@ -32,7 +32,7 @@ public class ClienteTest {
     @Test
     public void testIsVerificado() {
         assertFalse(cliente.isVerificado()); // Por defecto no verificado
-        cliente.verificarComoComprador(); // Verificar
+        cliente.verificarComoComprador(100); // Verificar
         assertTrue(cliente.isVerificado()); // Debería estar verificado ahora
     }
 
