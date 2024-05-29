@@ -25,7 +25,6 @@ public class MenuCajero extends MenuEmpleado
 	protected MenuCajero(MenuPrincipal menuPrincipal)
 	{
 		super(menuPrincipal);
-
 		this.mostrarMenuCajero();
 	}
 

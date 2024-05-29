@@ -90,12 +90,13 @@ public class MenuPrincipal extends MenuBasico
 			if (tipoUsuario == Usuario.OPERADOR) {
 				MenuOperador menuOp = new MenuOperador(this);
 			}
-			if (tipoUsuario == Usuario.OPERADOR) {
+			if (tipoUsuario == Usuario.CAJERO) {
 				MenuCajero menuCaj = new MenuCajero(this);
 			}
 			if (tipoUsuario == Usuario.CLIENTE) {
 				MenuCliente menuCli = new MenuCliente(this, login);
 			}
+		
 		}
 
 		mostrarMenuPrincipal();

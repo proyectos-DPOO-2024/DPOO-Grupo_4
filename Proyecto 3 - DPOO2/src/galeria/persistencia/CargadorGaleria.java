@@ -60,9 +60,8 @@ public class CargadorGaleria
 			int rol = empleado.getInt("rol");
 			String login = empleado.getString("login");
 			String password = empleado.getString("password");
-			int telefono = empleado.getInt("telefono");
+			int telefono = empleado.getInt("cellphone");
 			String nombre = empleado.getString("nombre");
-
 			if (rol == Empleado.ADMINISTRADOR || rol == Empleado.CAJERO || rol == Empleado.OPERADOR) {
 				galeria.agregarNuevoEmpleado(login, password, telefono, nombre, rol);
 			} else {
@@ -74,16 +73,13 @@ public class CargadorGaleria
 
 	private void cargarClientes(Galeria galeria, JSONArray jClientes) throws Exception {
 		int numClientes = jClientes.length();
-		System.out.println(numClientes);
 		for (int i = 0; i < numClientes; i++) {
 			JSONObject cliente = jClientes.getJSONObject(i);
-			System.out.println("Aqui1");
 
 			String login = cliente.getString("login");
 			String password = cliente.getString("password");
 			int telefono = cliente.getInt("cellphone");
 			boolean verificado = cliente.getBoolean("esVerificado");
-			System.out.println("Aquí2");
 			long topeCompras = cliente.getLong("valorMaximoCompras");
 			
 			Cliente clienteObj = new Cliente(login, password, telefono, verificado, topeCompras);
