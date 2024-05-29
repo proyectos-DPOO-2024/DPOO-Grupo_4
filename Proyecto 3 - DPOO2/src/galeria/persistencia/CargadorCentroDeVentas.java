@@ -27,39 +27,42 @@ import galeria.modelo.inventario.Pieza;
 public class CargadorCentroDeVentas {
 
 	protected void cargarCentroDeVentas(JSONObject raizCentroDeVentas, Galeria galeria) {
-		
-		try {
-			cargarOfertasVentaDirecta(galeria, raizCentroDeVentas.getJSONArray("listaOfertasVentaDirecta"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.getStackTrace();
-		}
-		try {
-			cargarSubastas(galeria, raizCentroDeVentas.getJSONArray("listaSubastas"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.getStackTrace();
-		}
-		try {
-			cargarHistorialDePagosPorPieza(galeria, raizCentroDeVentas.getJSONArray("historialDePagosPorPieza"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.getStackTrace();
-		}
-		try {
-			cargarHistorialDeComprasComprador(galeria, raizCentroDeVentas.getJSONArray("historialDeComprasComprador"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.getStackTrace();
-		}
-		try {
-			cargarHistorialDeVentasPropietario(galeria, raizCentroDeVentas.getJSONArray("historialDeVentasPropietario"));
-		} catch (Exception e) {
-			System.out.println(e.getMessage());
-			e.getStackTrace();
-		}
-		
+	    try {
+	        cargarOfertasVentaDirecta(galeria, raizCentroDeVentas.getJSONArray("listaOfertasVentaDirecta"));
+	    } catch (Exception e) {
+	        System.err.println("Error al cargar las ofertas de venta directa: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    try {
+	        cargarSubastas(galeria, raizCentroDeVentas.getJSONArray("listaSubastas"));
+	    } catch (Exception e) {
+	        System.err.println("Error al cargar las subastas: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    try {
+	        cargarHistorialDePagosPorPieza(galeria, raizCentroDeVentas.getJSONArray("historialDePagosPorPieza"));
+	    } catch (Exception e) {
+	        System.err.println("Error al cargar el historial de pagos por pieza: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    try {
+	        cargarHistorialDeComprasComprador(galeria, raizCentroDeVentas.getJSONArray("historialDeComprasComprador"));
+	    } catch (Exception e) {
+	        System.err.println("Error al cargar el historial de compras del comprador: " + e.getMessage());
+	        e.printStackTrace();
+	    }
+
+	    try {
+	        cargarHistorialDeVentasPropietario(galeria, raizCentroDeVentas.getJSONArray("historialDeVentasPropietario"));
+	    } catch (Exception e) {
+	        System.err.println("Error al cargar el historial de ventas del propietario: " + e.getMessage());
+	        e.printStackTrace();
+	    }
 	}
+
 	
 	private void cargarOfertasVentaDirecta(Galeria galeria, JSONArray jOfertas) throws Exception {
 		

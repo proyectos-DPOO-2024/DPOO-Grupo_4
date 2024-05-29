@@ -72,7 +72,6 @@ public class SalvadorCentroDeVentas {
 
         jCentroDeVentas.put( "listaSubastas", jSubastas );
     }
-	
 	private JSONArray salvarOfertasSubasta( Galeria galeria, List<Oferta> trazaOfertas )
     {
         JSONArray jOfertas = new JSONArray( );
@@ -80,9 +79,9 @@ public class SalvadorCentroDeVentas {
         {
         	JSONObject jOferta = new JSONObject( );
         	
-        	jOferta.put( "loginCliente", oferta.getComprador().getLogin() );
-        	jOferta.put( "nombrePieza", oferta.getPieza().getNombrepieza() );
-        	jOferta.put( "valor", oferta.getValorPieza() );
+        	jOferta.put( "loginCliente", oferta.getLoginComprador());
+        	jOferta.put( "nombrePieza", oferta.getPieza().getTitulo() );
+        	jOferta.put( "valor", oferta.getValor() );
         	
         	jOfertas.put( jOferta );
         }
@@ -91,10 +90,13 @@ public class SalvadorCentroDeVentas {
 
     }
 	
+	
+
 	private void salvarPagos( Galeria galeria, JSONObject jobject )
     {
+		/*
         JSONArray jPagos = new JSONArray( );
-        for( Pago pago : galeria.getPagos() )
+        for( Pago pago : galeria.getCentroDeVentas().getHistorialDePagosPorPieza().values().)
         {
         	JSONObject jPago = new JSONObject( );
         	
@@ -105,5 +107,7 @@ public class SalvadorCentroDeVentas {
         }
 
         jobject.put( "pagos", jPagos );
+        */
     }
+	
 }

@@ -28,6 +28,7 @@ public class CargadorGaleria
 		try {
 			cargarClientes(galeria, raizGaleria.getJSONArray("clientes"));
 		} catch (Exception e) {
+			System.out.println("No se cargan los empleados");
 			System.out.println(e.getMessage());
 			e.getStackTrace();
 		}

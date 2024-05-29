@@ -1,0 +1,98 @@
+{
+    "listaOfertasVentaDirecta": [
+        {
+            "tituloPieza": "Pieza1",
+            "valor": 1000,
+            "loginComprador": "comprador1",
+            "loginVendedor": "vendedor1"
+        },
+        {
+            "tituloPieza": "Pieza2",
+            "valor": 2000,
+            "loginComprador": "comprador2",
+            "loginVendedor": "vendedor2"
+        }
+    ],
+    "listaSubastas": [
+        {
+            "tituloPiezaSubastada": "PiezaSubasta1",
+            "valorActual": 1500,
+            "valorMinimo": 1000,
+            "trazaOfertas": [
+                {
+                    "tituloPieza": "PiezaSubasta1",
+                    "valor": 1200,
+                    "loginComprador": "comprador3",
+                    "loginVendedor": "vendedor3"
+                },
+                {
+                    "tituloPieza": "PiezaSubasta1",
+                    "valor": 1400,
+                    "loginComprador": "comprador4",
+                    "loginVendedor": "vendedor4"
+                }
+            ]
+        },
+        {
+            "tituloPiezaSubastada": "PiezaSubasta2",
+            "valorActual": 2500,
+            "valorMinimo": 2000,
+            "trazaOfertas": [
+                {
+                    "tituloPieza": "PiezaSubasta2",
+                    "valor": 2200,
+                    "loginComprador": "comprador5",
+                    "loginVendedor": "vendedor5"
+                }
+            ]
+        }
+    ],
+    "historialDePagosPorPieza": [
+        {
+            "tituloPieza": "Pieza1",
+            "listaPagos": [
+                {
+                    "tituloPieza": "Pieza1",
+                    "valor": 1000,
+                    "loginComprador": "comprador1",
+                    "loginVendedor": "vendedor1",
+                    "tipo": 1,
+                    "metodoDePago": 1,
+                    "fecha": [1, 1, 2023]
+                }
+            ]
+        }
+    ],
+    "historialDeComprasComprador": [
+        {
+            "loginComprador": "comprador1",
+            "listaPagos": [
+                {
+                    "tituloPieza": "Pieza1",
+                    "valor": 1000,
+                    "loginComprador": "comprador1",
+                    "loginVendedor": "vendedor1",
+                    "tipo": 1,
+                    "metodoDePago": 1,
+                    "fecha": [1, 1, 2023]
+                }
+            ]
+        }
+    ],
+    "historialDeVentasPropietario": [
+        {
+            "loginComprador": "vendedor1",
+            "listaPagos": [
+                {
+                    "tituloPieza": "Pieza1",
+                    "valor": 1000,
+                    "loginComprador": "comprador1",
+                    "loginVendedor": "vendedor1",
+                    "tipo": 1,
+                    "metodoDePago": 1,
+                    "fecha": [1, 1, 2023]
+                }
+            ]
+        }
+    ]
+}
