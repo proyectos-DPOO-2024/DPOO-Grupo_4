@@ -22,13 +22,14 @@ public class CargadorGaleria
 		try {
 			cargarEmpleados(galeria, raizGaleria.getJSONArray("empleados"));
 		} catch (Exception e) {
+			System.out.println("No se cargan los empleados");
 			System.out.println(e.getMessage());
 			e.getStackTrace();
 		}
 		try {
 			cargarClientes(galeria, raizGaleria.getJSONArray("clientes"));
 		} catch (Exception e) {
-			System.out.println("No se cargan los empleados");
+			System.out.println("No se cargan los clientes");
 			System.out.println(e.getMessage());
 			e.getStackTrace();
 		}
@@ -73,17 +74,19 @@ public class CargadorGaleria
 
 	private void cargarClientes(Galeria galeria, JSONArray jClientes) throws Exception {
 		int numClientes = jClientes.length();
+		System.out.println(numClientes);
 		for (int i = 0; i < numClientes; i++) {
 			JSONObject cliente = jClientes.getJSONObject(i);
+			System.out.println("Aqui1");
 
 			String login = cliente.getString("login");
 			String password = cliente.getString("password");
-			int telefono = cliente.getInt("telefono");
-			boolean verificado = cliente.getBoolean("verificado");
-			long topeCompras = cliente.getLong("topeCompras");
+			int telefono = cliente.getInt("cellphone");
+			boolean verificado = cliente.getBoolean("esVerificado");
+			System.out.println("Aquí2");
+			long topeCompras = cliente.getLong("valorMaximoCompras");
 			
 			Cliente clienteObj = new Cliente(login, password, telefono, verificado, topeCompras);
-
 			galeria.agregarCliente(clienteObj);
 		}
 	}

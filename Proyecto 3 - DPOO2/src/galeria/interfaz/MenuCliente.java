@@ -34,7 +34,7 @@ public class MenuCliente extends MenuUsuario
 
 	private void mostrarMenuCliente() {
 
-		String[] opciones = new String[9];
+		String[] opciones = new String[10];
 
 		opciones[0] = "Registrar nueva pieza";
 		opciones[1] = "Consignar nueva pieza"; //La pieza ya debe estar registrada y no puede estar en posesión (esto querría decir que ya está consignada)

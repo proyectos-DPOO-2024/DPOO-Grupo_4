@@ -185,7 +185,6 @@ public class Galeria
 	
 	public void agregarCliente(Cliente cliente) {
 		mapaClientes.put(cliente.getLogin(), cliente);
-		
 		List<String> piezasActuales = new ArrayList<>();
 		piezasActualesPropietarios.put(cliente.getLogin(), piezasActuales);
 		
