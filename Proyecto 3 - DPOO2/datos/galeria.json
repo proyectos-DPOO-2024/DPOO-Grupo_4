@@ -1,0 +1,84 @@
+{
+	"empleados": [
+		{
+			"rol": "administrador",
+			"login": "admin",
+			"password": "a",
+			"nombre": "Alice",
+			"cellphone": 111
+		},
+		{
+			"rol": "cajero",
+			"login": "caj",
+			"password": "b",
+			"nombre": "Bob",
+			"cellphone": 222
+		},
+		{
+			"rol": "operador",
+			"login": "op",
+			"password": "c",
+			"nombre": "Carlos",
+			"cellphone": 333
+		}
+	],
+
+	"piezas": [
+		{
+			"tipo": 0,
+			"nombrePieza": "Gioconda",
+			"precio": 1000,
+			"propietario": "cliente1",
+			"diasConsignacion": 30,
+			"paraVentaFijo": true,
+			"bloqueada": false,
+			"comprada": false,
+			"alto": 30,
+			"ancho": 15,
+			"estilo": "Renacentista"
+		},
+		{
+			"tipo": 4,
+			"nombrePieza": "Shrek",
+			"precio": 200,
+			"propietario": "cliente2",
+			"diasConsignacion": 10,
+			"paraVentaFijo": true,
+			"bloqueada": false,
+			"comprada": false,
+			"duracion": 110,
+			"color": true,
+			"memoria": 500
+		}
+	],
+	
+	"clientes": [
+		{
+			"login": "cliente1",
+			"password": "123",
+			"esComprador": true,
+			"esPropietario": true,
+			"cellphone": 444,
+			"valorMaximoCompras": 5000,
+			"esVerificado": true
+		},
+		{
+			"login": "cliente2",
+			"password": "123",
+			"esComprador": true,
+			"esPropietario": true,
+			"cellphone": 555,
+			"valorMaximoCompras": 3000,
+			"esVerificado": true
+		}
+	],
+	"ofertas": [
+
+	],
+	"subastas":[
+
+	],
+	"pagos":[
+
+	]
+}
