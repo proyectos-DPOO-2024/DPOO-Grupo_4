@@ -7,6 +7,8 @@ import java.util.List;
 
 import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.centroventas.Pago;
+import galeria.pasarelasDePago.PasarelaDePago;
+
 
 /**
  * Este es el menú que verá un cajero al iniciar sesión. La clase también
@@ -85,6 +87,9 @@ public class MenuCajero extends MenuEmpleado
 	 * directa.
 	 */
 	private void registrarPagoPorVentaDirecta() {
+		MenuPasarela menuPasarela = new MenuPasarela();
+		PasarelaDePago pasarela = menuPasarela.getPasarela();
+		MenuPago menuPago = new MenuPago(pasarela);
 		
 	}
 
