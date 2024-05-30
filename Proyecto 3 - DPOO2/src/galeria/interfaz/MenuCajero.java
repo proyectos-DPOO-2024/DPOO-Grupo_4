@@ -88,7 +88,7 @@ public class MenuCajero extends MenuEmpleado
 	 */
 	private void registrarPagoPorVentaDirecta() {
 		MenuPasarela menuPasarela = new MenuPasarela();
-		PasarelaDePago pasarela = menuPasarela.getPasarela();
+		String pasarela = menuPasarela.getPasarela();
 		MenuPago menuPago = new MenuPago(pasarela);
 		
 	}
