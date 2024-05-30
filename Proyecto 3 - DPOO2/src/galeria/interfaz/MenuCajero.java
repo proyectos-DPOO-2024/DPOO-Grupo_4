@@ -85,7 +85,7 @@ public class MenuCajero extends MenuEmpleado
 	 * directa.
 	 */
 	private void registrarPagoPorVentaDirecta() {
-		// TODO
+		
 	}
 
 	/**
