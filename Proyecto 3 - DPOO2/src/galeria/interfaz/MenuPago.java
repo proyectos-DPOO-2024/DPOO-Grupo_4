@@ -57,7 +57,7 @@ public class MenuPago extends MenuBasico
             writer.write("Login del Comprador: " + loginComprador);
             writer.newLine();
             writer.newLine(); // Línea en blanco para separar transacciones
-            System.out.print("otro");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
