@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import galeria.pasarelasDePago.PasarelaDePago;
+import galeria.pasarelasDePago.PayPal;
+import galeria.pasarelasDePago.PayU;
+import galeria.pasarelasDePago.Sire;
 
 public class MenuPago extends MenuBasico 
 {
