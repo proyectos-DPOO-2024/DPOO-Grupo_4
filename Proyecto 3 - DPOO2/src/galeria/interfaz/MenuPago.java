@@ -3,7 +3,9 @@ package galeria.interfaz;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+
 
 import galeria.pasarelasDePago.PasarelaDePago;
 import galeria.pasarelasDePago.PayPal;
@@ -28,14 +30,13 @@ public class MenuPago extends MenuBasico
 		long numeroTarjeta = super.pedirLongAlUsuario("La pasarela "+pasarela+" necesita que ingrese el numero de tarjeta");
 		long valorPagar = super.pedirLongAlUsuario("La pasarela "+pasarela+" necesita que inserte el valor a pagar por el Usuario");
 		int pasarelaDePagoNumero = 1;
-		String pasarelaNombre = extraerNombrePasarela(pasarela);
+		//String pasarelaNombre = esxtraerNombrePasarela(pasarela);
 		long numeroTransaccion = ObtenerNumeroTransaccion(pasarelaDePagoNumero);
-		PasarelaDePago pasarelaObjeto = getPasarela(pasarelaNombre,loginComprador, numeroTarjeta, valorPagar, numeroTransaccion, pasarelaDePagoNumero);
+		PasarelaDePago pasarelaObjeto = getPasarela(pasarela,loginComprador, numeroTarjeta, valorPagar, numeroTransaccion, pasarelaDePagoNumero);
 		salvarTransaccion(pasarelaObjeto);
 	}
 
 	private void salvarTransaccion(PasarelaDePago pasarelaObjeto) {
-		
 		long numeroTransaccion= pasarelaObjeto.getNumeroTransacción();
 		long numeroTarjeta = pasarelaObjeto.getNumeroTarjeta();
 		long valorPagar = pasarelaObjeto.getValorPagar();
@@ -56,6 +57,7 @@ public class MenuPago extends MenuBasico
             writer.write("Login del Comprador: " + loginComprador);
             writer.newLine();
             writer.newLine(); // Línea en blanco para separar transacciones
+            System.out.print("otro");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,17 +70,40 @@ public class MenuPago extends MenuBasico
 	}
 
 	private PasarelaDePago getPasarela(String pasarelaNombre, String loginComprador, long numeroTarjeta, long valorPagar, long numeroTransaccion ,int pasarelaDePagoNumero) {
-		Class clase = null;
-		try {
+
+		
+    	Class clase= null;
+    	try {
 			clase = Class.forName(pasarelaNombre);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	
+    	Constructor<PasarelaDePago> constructor = null;
 		try {
-			miPasarela = (PasarelaDePago) clase.getDeclaredConstructor().newInstance(loginComprador, numeroTarjeta , valorPagar, numeroTransaccion, pasarelaDePagoNumero);
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e) {
+			constructor =  clase.getDeclaredConstructor(String.class, long.class, long.class, long.class);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		try {
+			miPasarela = constructor.newInstance(loginComprador, numeroTarjeta , valorPagar, numeroTransaccion);
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -92,5 +117,5 @@ public class MenuPago extends MenuBasico
         // Devuelve la última parte, que es el nombre de la pasarela
         return partes[partes.length - 1];
      }
-	
+    
 }
