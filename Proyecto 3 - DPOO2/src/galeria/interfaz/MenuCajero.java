@@ -3,10 +3,13 @@
  */
 package galeria.interfaz;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.centroventas.Pago;
+import galeria.pasarelasDePago.PasarelaDePago;
+
 
 /**
  * Este es el menú que verá un cajero al iniciar sesión. La clase también
@@ -83,9 +86,21 @@ public class MenuCajero extends MenuEmpleado
 	/**
 	 * Esta función registra una oferta de subasta como un pago con modalidad venta
 	 * directa.
+	 * @throws ClassNotFoundException 
+	 * @throws SecurityException 
+	 * @throws NoSuchMethodException 
+	 * @throws InvocationTargetException 
+	 * @throws IllegalArgumentException 
+	 * @throws IllegalAccessException 
+	 * @throws InstantiationException 
 	 */
-	private void registrarPagoPorVentaDirecta() {
-		// TODO
+	private void registrarPagoPorVentaDirecta(){
+		MenuPasarela menuPasarela = new MenuPasarela();
+		String pasarela = menuPasarela.getPasarela();
+
+
+		MenuPago menuPago = new MenuPago(pasarela);
+		
 	}
 
 	/**

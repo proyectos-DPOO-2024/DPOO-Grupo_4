@@ -3,6 +3,9 @@
  */
 package galeria.interfaz;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.usuarios.Usuario;
 import galeria.persistencia.CentralPersistencia;
@@ -25,6 +28,12 @@ public class MenuPrincipal extends MenuBasico
 	 */
 	public static void main(String[] args) throws Exception {
 		
+		
+
+    	String claseConcretaNombre = "galeria.pasarelasDePago.ClaseConcreta";
+    	
+
+		
 		String[] archivos = new String[2];
 		
 		archivos[0] = "./datos/galeria.json";
@@ -35,6 +44,8 @@ public class MenuPrincipal extends MenuBasico
 		MenuPrincipal menuPrincipal = new MenuPrincipal(galeria);
 		
 		menuPrincipal.mostrarMenuPrincipal();
+		
+		
 	}
 
 	protected MenuPrincipal(Galeria galeria)
@@ -57,8 +68,10 @@ public class MenuPrincipal extends MenuBasico
 
 		if (opcionEscogida == 1)
 			iniciarSesion();
-		else
+			
+		if (opcionEscogida == 0)
 			cerrarAplicacion(galeria);
+
 	}
 
 	/**

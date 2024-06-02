@@ -1,0 +1,12 @@
+Número de Transacción: 1030
+Número de Tarjeta: 1234
+Valor a Pagar: 123
+Pasarela de Pago: 1
+Login del Comprador: de
+
+Número de Transacción: 1233
+Número de Tarjeta: 1234
+Valor a Pagar: 1234
+Pasarela de Pago: 1
+Login del Comprador: qwe
+
