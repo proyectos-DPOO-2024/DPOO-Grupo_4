@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.Iterator;
 
+import galeria.modelo.inventario.Galeria;
+import galeria.persistencia.CentralPersistencia;
+
 /**
  * Esta es una clase abstracta que implementa métodos útiles para todos los
  * menús de la aplicación.
@@ -193,9 +196,16 @@ public abstract class MenuBasico
 	 * Al cerrar la aplicación, se guarda la información del programa en un archivo
 	 * llamado nueva_galeria.json en la carpeta datos usando la clase Saver.
 	 * Posteriormente, se detiene la ejecución del programa.
+	 * @throws Exception 
 	 */
-	protected void cerrarAplicacion() {
-		// TODO
+	protected void cerrarAplicacion(Galeria galeria) throws Exception {
+		
+		CentralPersistencia persistencia = new CentralPersistencia();
+		persistencia.guardarPrograma(galeria);
+		
+		System.out.println("Saliendo...");
+		System.out.println("Guardando información...");
+		System.exit(0);
 	}
 
 }

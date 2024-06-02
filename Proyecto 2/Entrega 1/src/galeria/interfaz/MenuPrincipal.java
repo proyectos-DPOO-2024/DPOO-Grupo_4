@@ -15,19 +15,15 @@ import galeria.persistencia.CentralPersistencia;
 public class MenuPrincipal extends MenuBasico
 {
 
-	public static final int ADMINISTRADOR = 0;
-	public static final int CAJERO = 1;
-	public static final int OPERADOR = 2;
-	public static final int CLIENTE = 3;
-
 	protected Galeria galeria;
 
 	/**
-	 * @param args Inicia la aplicación cargando el archivo galeria.json en la
-	 *             carpeta datos por medio de la clase Loader. Posteriormente,
+	 * @param args Inicia la aplicación cargando los archivos galeria.json y centro_ventas.json en la
+	 *             carpeta datos por medio de la clase Central Persistencia. Posteriormente,
 	 *             muestra el menú principal.
+	 * @throws Exception 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		
 		String[] archivos = new String[2];
 		
@@ -40,20 +36,21 @@ public class MenuPrincipal extends MenuBasico
 		
 		
 		MenuPrincipal menuPrincipal = new MenuPrincipal(galeria);
+		
+		menuPrincipal.mostrarMenuPrincipal();
 	}
 
 	protected MenuPrincipal(Galeria galeria)
 	{
 		this.galeria = galeria;
-
-		mostrarMenuPrincipal();
 	}
 
 	/**
 	 * Muestra el menú principal. El menú principal permite: 1. Iniciar sesión 2.
 	 * Cerrar la aplicación
+	 * @throws Exception 
 	 */
-	protected void mostrarMenuPrincipal() {
+	protected void mostrarMenuPrincipal() throws Exception {
 
 		String[] opciones = new String[2];
 		opciones[0] = "Iniciar Sesión";
@@ -64,7 +61,7 @@ public class MenuPrincipal extends MenuBasico
 		if (opcionEscogida == 1)
 			iniciarSesion();
 		else
-			cerrarAplicacion();
+			cerrarAplicacion(galeria);
 	}
 
 	/**
@@ -74,9 +71,10 @@ public class MenuPrincipal extends MenuBasico
 	 * debe informar a qué tipo de usuario es y se debe abrir el menú
 	 * correspondiente. Si no coinciden, se le debe informar al usuario que el login
 	 * y password no están registrados o son incorrectos.
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unused")
-	private void iniciarSesion() {
+	private void iniciarSesion() throws Exception {
 
 		String login = pedirCadenaAlUsuario("Nombre de usuario");
 		String password = pedirCadenaAlUsuario("Contraseña");

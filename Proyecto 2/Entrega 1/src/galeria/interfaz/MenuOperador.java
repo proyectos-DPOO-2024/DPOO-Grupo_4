@@ -113,6 +113,9 @@ public class MenuOperador extends MenuEmpleado
 	 */
 
 	/**
+	 * 
+	 * IGNORAR ESTE MÉTODO
+	 * 
 	 * Esta función se ejecuta después de agregar una nueva oferta máxima. La idea
 	 * es quitar las ofertas que se hayan realizado en esa misma subasta que tengan
 	 * un valor ofecido menor al nuevo máximo. En caso de que se decida bloquear la

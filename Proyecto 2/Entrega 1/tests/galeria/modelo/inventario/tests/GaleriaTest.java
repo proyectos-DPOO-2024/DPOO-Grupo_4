@@ -26,7 +26,7 @@ public class GaleriaTest
 		
 		cliente1 = new Cliente("miLogin","password",122323);
 		pieza = new Pintura("Las Meninas", "Diego Velázquez", "miLogin", "2024-05-31", 1500000, 800000, 500000,
-				"Barroco", 300.0f, 200.0f);
+				0, false, false, false, false, "Barroco", 300.0f, 200.0f);
 		
 		galeria.agregarCliente(cliente1);
 		galeria.agregarPiezaNueva(pieza);
@@ -39,40 +39,40 @@ public class GaleriaTest
     
     
 	@Test
-	void agregarPieza()
+	void testAgregarPieza()
 	{
 		galeria.agregarPiezaNueva(pieza);
 		assertTrue(galeria.existePieza("Las Meninas"), "La pieza no esta en el mapa, deberia");
 	}
 	
 	@Test
-	void agregarArtista()
+	void testAgregarArtista()
 	{
 		galeria.agregarArtista("nombreArtista");
 		assertTrue(galeria.existeArtista("nombreArtista"), "El artista no esta en el mapa de artistas, debería");
 	}
 	
 	@Test
-	void agregarEmpleadoAdmin()
+	void testAgregarEmpleadoAdmin()
 	{
 		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 1);
 		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
 	}
 	@Test
-	void agregarEmpleadoCajero()
+	void testAgregarEmpleadoCajero()
 	{
 		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 2);
 		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
 	}
 	@Test
-	void agregarEmpleadoOperador()
+	void testAgregarEmpleadoOperador()
 	{
 		galeria.agregarNuevoEmpleado("juanLogin", "pablo", 3212, "juan", 3);
 		assertTrue(galeria.existeEmpleado("juanLogin"), "El empleado no esta en el mapa empleados, deberia");
 	}
 	
 	@Test
-	void agregarCliente() 
+	void testAgregarCliente() 
 	{
 		Cliente cliente = new Cliente("loginCLiente","passwordCleinte",31234234);
 		galeria.agregarCliente(cliente);
@@ -151,7 +151,7 @@ public class GaleriaTest
 	{
 		Cliente cliente = new Cliente("loginCLiente","passwordCleinte",31234234);
 		galeria.agregarCliente(cliente);
-		galeria.verificarNuevoComprador(cliente);
+		galeria.verificarNuevoComprador(cliente, 100);
 		assertTrue(cliente.isVerificado(), "Se supone que deberia estar verificado, pero no lo esta");
 		
 	}

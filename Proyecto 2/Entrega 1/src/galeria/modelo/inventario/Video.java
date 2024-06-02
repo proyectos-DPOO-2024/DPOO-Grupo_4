@@ -42,7 +42,7 @@ public class Video extends Pieza
 		return duracion;
 	}
 
-	public Boolean getColor() {
+	public Boolean isColor() {
 		return color;
 	}
 

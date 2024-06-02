@@ -48,7 +48,7 @@ public class Galeria
 		piezasActualesPropietarios = new HashMap<String, List<String>>();
 		piezasPasadasPropietarios = new HashMap<String, List<String>>();
 		
-		centroDeVentas = new CentroDeVentas();
+		centroDeVentas = new CentroDeVentas(this);
 	}
 
 	/**
@@ -239,6 +239,36 @@ public class Galeria
 
 	public Artista getArtista(String nombreArtista) {
 		return mapaArtistas.get(nombreArtista);
+	}
+	
+	
+	
+	public Map<String, Pieza> getMapaPiezas() {
+		return mapaPiezas;
+	}
+
+	public Map<String, Artista> getMapaArtistas() {
+		return mapaArtistas;
+	}
+
+	public Map<String, Empleado> getMapaEmpleados() {
+		return mapaEmpleados;
+	}
+
+	public Map<String, Cliente> getMapaClientes() {
+		return mapaClientes;
+	}
+
+	public Map<String, List<String>> getPiezasActualesPropietarios() {
+		return piezasActualesPropietarios;
+	}
+
+	public Map<String, List<String>> getPiezasPasadasPropietarios() {
+		return piezasPasadasPropietarios;
+	}
+
+	public void setPiezasPasadasPropietarios(Map<String, List<String>> piezasPasadas) {
+		piezasPasadasPropietarios = piezasPasadas;
 	}
 	
 	public void setCentroDeVentas(CentroDeVentas centroDeVentas) {

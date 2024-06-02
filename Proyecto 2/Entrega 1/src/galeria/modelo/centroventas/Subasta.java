@@ -17,6 +17,15 @@ public class Subasta
 		valorActual = valorInicial;
 		this.valorMinimo = valorMinimo;
 	}
+	
+	//Este constructor debe utilizarse únicamente para el constructor o pruebas
+	public Subasta(String tituloPiezaSubastada, long valorActual, long valorMinimo, Stack<Oferta> trazaOfertas)
+	{
+		this.tituloPiezaSubastada = tituloPiezaSubastada;
+		this.valorActual = valorActual;
+		this.valorMinimo = valorMinimo;
+		this.trazaOfertas = trazaOfertas;
+	}
 
 	/*
 	 * Esta función devuelve la oferta ganadora.
@@ -44,6 +53,10 @@ public class Subasta
 
 	public long getValorActual() {
 		return valorActual;
+	}
+	
+	public void serValorActual(long valor) {
+		valorActual = valor;
 	}
 
 	public Stack<Oferta> getTrazaOfertas() {
