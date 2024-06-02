@@ -10,3 +10,9 @@ Valor a Pagar: 1234
 Pasarela de Pago: 1
 Login del Comprador: qwe
 
+Número de Transacción: 1334
+Número de Tarjeta: 23124
+Valor a Pagar: 123412
+Pasarela de Pago: 1
+Login del Comprador: cliente1
+

@@ -111,6 +111,10 @@ public class MenuPrincipal1 extends JFrame {
                 MenuAdministrador1 menuAdmin = new MenuAdministrador1(galeria, listaPiezasPorIngresar);
                 menuAdmin.setVisible(true);
             }
+            if (tipoUsuario == 2) {
+                MenuCajero1 menuCajero = new MenuCajero1(galeria, listaPiezasPorIngresar);
+                menuCajero.setVisible(true);
+            }
         }
     }
 
