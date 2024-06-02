@@ -48,13 +48,12 @@ public class CentroDeVentas
 	public CentroDeVentas(Galeria gale, Map<String, Subasta> mapaDeSubastas, Map<String, Oferta> mapaDeOfertasVentaDirecta, Map<String, List<Pago>> historialDePagosPorPieza,
 			Map<String, List<Pago>> historialComprasComprador, Map<String, List<Pago>> historialVentasPropietario) {
 		
-		this.mapaSubastas = mapaDeSubastas;
-		this.mapaOfertasVentaDirecta = mapaDeOfertasVentaDirecta;
-		this.historialDePagosPorPieza = historialDePagosPorPieza;
-		this.historialComprasComprador = historialComprasComprador;
-		this.historialVentasPropietario = historialVentasPropietario;
-		
-		this.galeria = gale; 
+		historialDePagosPorPieza = new HashMap<>();
+	    historialComprasComprador = new HashMap<>();
+	    historialVentasPropietario = new HashMap<>();
+	    mapaSubastas = new HashMap<>();
+	    mapaOfertasVentaDirecta = new HashMap<>();
+	    this.galeria = gale;
 	}
 
 	
@@ -156,15 +155,15 @@ public class CentroDeVentas
 	
 	
 	public List<Pago> getHistorialPieza(String nombrePieza) {
-		return historialDePagosPorPieza.get(nombrePieza);
+		return historialDePagosPorPieza.getOrDefault(nombrePieza, new LinkedList<>());
 	}
 
 	public List<Pago> getHistorialCompras(String loginComprador) {
-		return historialComprasComprador.get(loginComprador);
+		return historialComprasComprador.getOrDefault(loginComprador, new LinkedList<>());
 	}
 
 	public List<Pago> getHistorialVentas(String loginPropietario) {
-		return historialVentasPropietario.get(loginPropietario);
+		return historialVentasPropietario.getOrDefault(loginPropietario, new LinkedList<>());
 	}
 	
 	

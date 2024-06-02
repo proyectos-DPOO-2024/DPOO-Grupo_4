@@ -9,7 +9,6 @@ import java.util.List;
 
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.SolicitudTope;
-import galeria.modelo.centroventas.Transaccion;
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.inventario.Pieza;
 import galeria.modelo.usuarios.Cliente;
@@ -379,36 +378,315 @@ public class InternalFrameManager {
         }
     }
     public void mostrarInternalFrameVerHistorialPieza() {
-        JInternalFrame internalFrame = new JInternalFrame("Ver Historial de Pieza", true, true, true, true);
-        internalFrame.setSize(400, 150);
+        JInternalFrame internalFrameBusqueda = new JInternalFrame("Buscar Pieza", true, true, true, true);
+        internalFrameBusqueda.setSize(400, 150);
+        internalFrameBusqueda.setLayout(new BorderLayout());
+
+        JPanel panelBusqueda = new JPanel();
+        internalFrameBusqueda.add(panelBusqueda, BorderLayout.CENTER);
+
+        JLabel labelBusqueda = new JLabel("Ingrese el título de la pieza que desea buscar:");
+        panelBusqueda.add(labelBusqueda);
+
+        JTextField textFieldBusqueda = new JTextField(20);
+        panelBusqueda.add(textFieldBusqueda);
+
+        JButton buscarButton = new JButton("Buscar");
+        buscarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nombrePieza = textFieldBusqueda.getText();
+                if (nombrePieza.isEmpty()) {
+                    JOptionPane.showMessageDialog(internalFrameBusqueda, "Por favor ingrese un título válido");
+                } else {
+                    if (galeria.existePieza(nombrePieza)) {
+                        internalFrameBusqueda.dispose();
+                        mostrarInternalFrameTransaccionesPieza(nombrePieza);
+                    } else {
+                        JOptionPane.showMessageDialog(internalFrameBusqueda, nombrePieza + " no ha sido registrada en la galería.");
+                    }
+                }
+            }
+        });
+        panelBusqueda.add(buscarButton);
+
+        internalFrameBusqueda.setVisible(true);
+        desktopPane.add(internalFrameBusqueda);
+        try {
+            internalFrameBusqueda.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarInternalFrameTransaccionesPieza(String nombrePieza) {
+        List<Pago> historialPieza = galeria.getCentroDeVentas().getHistorialPieza(nombrePieza);
+
+        if (historialPieza == null || historialPieza.isEmpty()) {
+            JOptionPane.showMessageDialog(desktopPane, nombrePieza + " no ha sido comprada/vendida.");
+            return;
+        }
+
+        JInternalFrame internalFrameHistorial = new JInternalFrame("Historial de " + nombrePieza, true, true, true, true);
+        internalFrameHistorial.setSize(600, 400);
+        internalFrameHistorial.setLayout(new BorderLayout());
+
+        JPanel panelHistorial = new JPanel();
+        panelHistorial.setLayout(new BoxLayout(panelHistorial, BoxLayout.Y_AXIS));
+
+        JLabel labelTitulo = new JLabel("Historial de transacciones de " + nombrePieza + ":");
+        panelHistorial.add(labelTitulo);
+
+        for (int i = 0; i < historialPieza.size(); i++) {
+            Pago pago = historialPieza.get(i);
+            JLabel labelTransaccion = new JLabel("Transacción #" + (i + 1) + ": " +
+                    "Vendedor: " + pago.getLoginVendedor() + ", " +
+                    "Comprador: " + pago.getLoginComprador() + ", " +
+                    "Fecha: " + pago.getFecha());
+            panelHistorial.add(labelTransaccion);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(panelHistorial);
+        internalFrameHistorial.add(scrollPane, BorderLayout.CENTER);
+
+        internalFrameHistorial.setVisible(true);
+        desktopPane.add(internalFrameHistorial);
+        try {
+            internalFrameHistorial.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+    public void mostrarInternalFrameVerHistorialArtista() {
+        JInternalFrame internalFrameBusqueda = new JInternalFrame("Buscar Artista", true, true, true, true);
+        internalFrameBusqueda.setSize(400, 150);
+        internalFrameBusqueda.setLayout(new BorderLayout());
+
+        JPanel panelBusqueda = new JPanel();
+        internalFrameBusqueda.add(panelBusqueda, BorderLayout.CENTER);
+
+        JLabel labelBusqueda = new JLabel("Ingrese el nombre del artista que desea buscar:");
+        panelBusqueda.add(labelBusqueda);
+
+        JTextField textFieldBusqueda = new JTextField(20);
+        panelBusqueda.add(textFieldBusqueda);
+
+        JButton buscarButton = new JButton("Buscar");
+        buscarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nombreArtista = textFieldBusqueda.getText();
+                if (nombreArtista.isEmpty()) {
+                    JOptionPane.showMessageDialog(internalFrameBusqueda, "Por favor ingrese un nombre válido");
+                } else {
+                    if (galeria.existeArtista(nombreArtista)) {
+                        List<String> nombresPiezasArtista = galeria.getArtista(nombreArtista).getNombrePiezas();
+                        if (nombresPiezasArtista.isEmpty()) {
+                            JOptionPane.showMessageDialog(internalFrameBusqueda, nombreArtista + " no tiene piezas registradas");
+                        } else {
+                            internalFrameBusqueda.dispose();
+                            mostrarInternalFrameTransaccionesVariasPiezas(nombreArtista, nombresPiezasArtista);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(internalFrameBusqueda, nombreArtista + " no ha sido registrado en la galería.");
+                    }
+                }
+            }
+        });
+        panelBusqueda.add(buscarButton);
+
+        internalFrameBusqueda.setVisible(true);
+        desktopPane.add(internalFrameBusqueda);
+        try {
+            internalFrameBusqueda.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarInternalFrameTransaccionesVariasPiezas(String nombreArtista, List<String> nombresPiezas) {
+        int numPiezas = nombresPiezas.size();
+        String[] opciones = new String[numPiezas + 1];
+        Iterator<String> it = nombresPiezas.iterator();
+        for (int i = 0; i < numPiezas && it.hasNext(); i++) {
+            opciones[i] = it.next();
+        }
+        opciones[numPiezas] = "Salir";
+
+        int opcionSeleccionada = JOptionPane.showOptionDialog(desktopPane, 
+            "Piezas de " + nombreArtista, 
+            "Escoja la pieza de la que desee ver más información", 
+            JOptionPane.DEFAULT_OPTION, 
+            JOptionPane.PLAIN_MESSAGE, 
+            null, 
+            opciones, 
+            opciones[numPiezas]);
+
+        if (opcionSeleccionada == numPiezas) {
+            // Do nothing, user chose to exit
+        } else {
+            mostrarInternalFrameTransaccionesPieza(nombresPiezas.get(opcionSeleccionada));
+        }
+    }
+    public void mostrarInternalFrameVerHistorialCliente() {
+        JInternalFrame internalFrameBusqueda = new JInternalFrame("Buscar Cliente", true, true, true, true);
+        internalFrameBusqueda.setSize(400, 150);
+        internalFrameBusqueda.setLayout(new BorderLayout());
+
+        JPanel panelBusqueda = new JPanel();
+        internalFrameBusqueda.add(panelBusqueda, BorderLayout.CENTER);
+
+        JLabel labelBusqueda = new JLabel("Ingrese el nombre de usuario del cliente que desea consultar:");
+        panelBusqueda.add(labelBusqueda);
+
+        JTextField textFieldBusqueda = new JTextField(20);
+        panelBusqueda.add(textFieldBusqueda);
+
+        JButton buscarButton = new JButton("Buscar");
+        buscarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String loginCliente = textFieldBusqueda.getText();
+                if (loginCliente.isEmpty()) {
+                    JOptionPane.showMessageDialog(internalFrameBusqueda, "Por favor ingrese un nombre de usuario válido");
+                } else {
+                    if (galeria.existeCliente(loginCliente)) {
+                        internalFrameBusqueda.dispose();
+                        mostrarInternalFrameHistorialCliente(loginCliente);
+                    } else {
+                        JOptionPane.showMessageDialog(internalFrameBusqueda, "No existe ningún cliente con el login seleccionado.");
+                    }
+                }
+            }
+        });
+        panelBusqueda.add(buscarButton);
+
+        internalFrameBusqueda.setVisible(true);
+        desktopPane.add(internalFrameBusqueda);
+        try {
+            internalFrameBusqueda.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void mostrarInternalFrameHistorialCliente(String loginCliente) {
+        Cliente cliente = galeria.getCliente(loginCliente);
+
+        if (!cliente.isVerificado()) {
+            JOptionPane.showMessageDialog(desktopPane, "El cliente ingresado no es un comprador verificado.");
+            return;
+        }
+
+        JInternalFrame internalFrameHistorial = new JInternalFrame("Historial de Cliente: " + loginCliente, true, true, true, true);
+        internalFrameHistorial.setSize(600, 400);
+        internalFrameHistorial.setLayout(new BorderLayout());
+
+        JPanel panelHistorial = new JPanel();
+        panelHistorial.setLayout(new BoxLayout(panelHistorial, BoxLayout.Y_AXIS));
+
+        JLabel labelCompras = new JLabel("Historial de Compras:");
+        panelHistorial.add(labelCompras);
+
+        List<Pago> listaCompras = galeria.getCentroDeVentas().getHistorialCompras(loginCliente);
+        long totalCompras = 0;
+        if (!listaCompras.isEmpty()) {
+            for (Pago pago : listaCompras) {
+                JLabel labelTransaccion = new JLabel("Vendedor: " + pago.getLoginVendedor() + ", Fecha: " + pago.getFecha());
+                panelHistorial.add(labelTransaccion);
+                totalCompras += pago.getValor();
+            }
+            JLabel labelTotalCompras = new JLabel("Valor total de compras: " + totalCompras);
+            panelHistorial.add(labelTotalCompras);
+        } else {
+            JLabel labelNoCompras = new JLabel("El cliente ingresado no ha comprado piezas.");
+            panelHistorial.add(labelNoCompras);
+        }
+
+        JLabel labelVentas = new JLabel("Historial de Ventas:");
+        panelHistorial.add(labelVentas);
+
+        List<Pago> listaVentas = galeria.getCentroDeVentas().getHistorialVentas(loginCliente);
+        long totalVentas = 0;
+        if (!listaVentas.isEmpty()) {
+            for (Pago pago : listaVentas) {
+                JLabel labelTransaccion = new JLabel("Comprador: " + pago.getLoginComprador() + ", Fecha: " + pago.getFecha());
+                panelHistorial.add(labelTransaccion);
+                totalVentas += pago.getValor();
+            }
+            JLabel labelTotalVentas = new JLabel("Valor total de ventas: " + totalVentas);
+            panelHistorial.add(labelTotalVentas);
+        } else {
+            JLabel labelNoVentas = new JLabel("El cliente ingresado no ha vendido piezas.");
+            panelHistorial.add(labelNoVentas);
+        }
+
+        JLabel labelColeccion = new JLabel("Colección Actual:");
+        panelHistorial.add(labelColeccion);
+
+        List<String> listaNombresPiezasActuales = galeria.getPiezasActuales(loginCliente);
+        long totalColeccion = 0;
+        if (!listaNombresPiezasActuales.isEmpty()) {
+            for (String nombrePieza : listaNombresPiezasActuales) {
+                Pieza pieza = galeria.getPieza(nombrePieza);
+                long precio = pieza.getPrecioUltimaVenta() >= 0 ? pieza.getPrecioUltimaVenta()
+                        : (pieza.getPrecioVentaDirecta() >= 0 ? pieza.getPrecioVentaDirecta()
+                        : pieza.getPrecioMinimoSubasta());
+                totalColeccion += precio;
+                JLabel labelPieza = new JLabel("Título: " + pieza.getTitulo() + ", Precio: " + precio);
+                panelHistorial.add(labelPieza);
+            }
+            JLabel labelTotalColeccion = new JLabel("Valor total de colección: " + totalColeccion);
+            panelHistorial.add(labelTotalColeccion);
+        } else {
+            JLabel labelNoColeccion = new JLabel("El cliente ingresado no posee piezas.");
+            panelHistorial.add(labelNoColeccion);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(panelHistorial);
+        internalFrameHistorial.add(scrollPane, BorderLayout.CENTER);
+
+        internalFrameHistorial.setVisible(true);
+        desktopPane.add(internalFrameHistorial);
+        try {
+            internalFrameHistorial.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void mostrarInternalFrameExhibirPieza() {
+        JInternalFrame internalFrame = new JInternalFrame("Exhibir Pieza", true, true, true, true);
+        internalFrame.setSize(400, 200);
         internalFrame.setLayout(new BorderLayout());
 
         JPanel panel = new JPanel();
         internalFrame.add(panel, BorderLayout.CENTER);
 
-        JLabel label = new JLabel("Ingrese el título de la pieza que desea buscar:");
+        JLabel label = new JLabel("Ingrese el nombre de la pieza que desea exhibir:");
         panel.add(label);
 
         JTextField textField = new JTextField(20);
         panel.add(textField);
 
-        JButton buscarButton = new JButton("Buscar");
-        buscarButton.addActionListener(new ActionListener() {
+        JButton exhibirButton = new JButton("Exhibir");
+        exhibirButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nombrePieza = textField.getText();
-                if (nombrePieza.isEmpty()) {
-                    JOptionPane.showMessageDialog(internalFrame, "Por favor ingrese un título válido");
+                Pieza pieza = galeria.getPieza(nombrePieza);
+
+                if (pieza == null) {
+                    JOptionPane.showMessageDialog(internalFrame, "La pieza " + nombrePieza + " no está registrada en la galería.");
+                    return;
+                }
+
+                if (pieza.isEnBodega()) {
+                    pieza.exhibir();
+                    JOptionPane.showMessageDialog(internalFrame, "La pieza " + nombrePieza + " ha sido puesta en exhibición.");
+                    internalFrame.dispose();
                 } else {
-                    if (galeria.existePieza(nombrePieza)) {
-                        mostrarTransaccionesPieza(nombrePieza);
-                        internalFrame.dispose();
-                    } else {
-                        JOptionPane.showMessageDialog(internalFrame, nombrePieza + " no ha sido registrada en la galería.");
-                    }
+                    JOptionPane.showMessageDialog(internalFrame, "La pieza seleccionada ya está siendo exhibida.");
                 }
             }
         });
-        panel.add(buscarButton);
+        panel.add(exhibirButton);
 
         internalFrame.setVisible(true);
         desktopPane.add(internalFrame);
@@ -418,37 +696,46 @@ public class InternalFrameManager {
             e.printStackTrace();
         }
     }
+    public void mostrarInternalFrameGuardarPiezaEnBodega() {
+        JInternalFrame internalFrame = new JInternalFrame("Guardar Pieza en Bodega", true, true, true, true);
+        internalFrame.setSize(400, 200);
+        internalFrame.setLayout(new BorderLayout());
 
-    private void mostrarTransaccionesPieza(String nombrePieza) {
-        JInternalFrame internalFrameHistorial = new JInternalFrame("Historial de Pieza: " + nombrePieza, true, true, true, true);
-        internalFrameHistorial.setSize(400, 300);
-        internalFrameHistorial.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        internalFrame.add(panel, BorderLayout.CENTER);
 
-        JTextArea textArea = new JTextArea();
-        textArea.setEditable(false);
+        JLabel label = new JLabel("Ingrese el nombre de la pieza que desea guardar en bodega:");
+        panel.add(label);
 
-        List<Transaccion> transacciones = galeria.obtenerHistorialPieza(nombrePieza);
-        if (transacciones.isEmpty()) {
-            textArea.setText("No hay transacciones registradas para esta pieza.");
-        } else {
-            StringBuilder historial = new StringBuilder();
-            for (Transaccion transaccion : transacciones) {
-                historial.append("Fecha: ").append(transaccion.getFecha()).append("\n");
-                historial.append("Vendedor: ").append(transaccion.getLoginVendedor()).append("\n");
-                historial.append("Comprador: ").append(transaccion.getLoginComprador()).append("\n");
-                historial.append("Precio: ").append(transaccion.getPrecio()).append("\n");
-                historial.append("----------------------------\n");
+        JTextField textField = new JTextField(20);
+        panel.add(textField);
+
+        JButton guardarButton = new JButton("Guardar en Bodega");
+        guardarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nombrePieza = textField.getText();
+                Pieza pieza = galeria.getPieza(nombrePieza);
+
+                if (pieza == null) {
+                    JOptionPane.showMessageDialog(internalFrame, "La pieza " + nombrePieza + " no está registrada en la galería.");
+                    return;
+                }
+
+                if (!pieza.isEnBodega()) {
+                    pieza.guardarEnBodega();
+                    JOptionPane.showMessageDialog(internalFrame, "La pieza " + nombrePieza + " ha sido guardada en bodega.");
+                    internalFrame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(internalFrame, "La pieza seleccionada ya está en bodega.");
+                }
             }
-            textArea.setText(historial.toString());
-        }
+        });
+        panel.add(guardarButton);
 
-        JScrollPane scrollPane = new JScrollPane(textArea);
-        internalFrameHistorial.add(scrollPane, BorderLayout.CENTER);
-
-        internalFrameHistorial.setVisible(true);
-        desktopPane.add(internalFrameHistorial);
+        internalFrame.setVisible(true);
+        desktopPane.add(internalFrame);
         try {
-            internalFrameHistorial.setSelected(true);
+            internalFrame.setSelected(true);
         } catch (java.beans.PropertyVetoException e) {
             e.printStackTrace();
         }

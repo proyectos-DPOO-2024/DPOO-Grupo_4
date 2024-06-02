@@ -52,13 +52,7 @@ public class MenuAdministrador1 extends JFrame {
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(lblNewLabel_1);
 
-        JButton hitorialPieza = new JButton("Ver historia pieza");
-        hitorialPieza.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para ver historia de pieza
-                verHistoriaPieza();
-            }
-        });
+       
         
                 JButton confirmarPieza = new JButton("Confirmar nueva pieza por consignación");
                 confirmarPieza.addActionListener(new ActionListener() {
@@ -75,13 +69,12 @@ public class MenuAdministrador1 extends JFrame {
                     }
                 });
                 panel.add(verificarCompradorButton);
-        JButton historiaCliente = new JButton("Ver historia cliente");
-        historiaCliente.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Lógica para ver historia de cliente
-                verHistoriaCliente();
-            }
-        });
+                JButton verHistorialClienteButton = new JButton("Ver Historial de Cliente");
+                verHistorialClienteButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        internalFrameManager.mostrarInternalFrameVerHistorialCliente();
+                    }
+                });
         
                 JButton confirmarEntrega = new JButton("Confirmar entrega de pieza pagada");
                 confirmarEntrega.addActionListener(new ActionListener() {
@@ -117,40 +110,38 @@ public class MenuAdministrador1 extends JFrame {
                 });
                 panel.add(agregarEmpleadoButton);
         
-                JButton historiaArtista = new JButton("Ver historia artista");
-                historiaArtista.addActionListener(new ActionListener() {
+                JButton verHistorialArtistaButton = new JButton("Ver Historial de Artista");
+                verHistorialArtistaButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        // Lógica para ver historia de artista
-                        verHistoriaArtista();
+                        internalFrameManager.mostrarInternalFrameVerHistorialArtista();
                     }
                 });
                 
-                JButton historialPieza = new JButton("Ver historial pieza");
-                historialPieza.addActionListener(new ActionListener() {
-                	public void actionPerformed(ActionEvent e) {
-                	}
+                JButton verHistorialPiezaButton = new JButton("Ver Historial de Pieza");
+                verHistorialPiezaButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        internalFrameManager.mostrarInternalFrameVerHistorialPieza();
+                    }
                 });
-                panel.add(historialPieza);
-                panel.add(historiaArtista);
-        panel.add(historiaCliente);
+                panel.add(verHistorialPiezaButton);
+                panel.add(verHistorialArtistaButton);
+        panel.add(verHistorialClienteButton);
 
-        JButton exhibir = new JButton("Exhibir pieza");
-        exhibir.addActionListener(new ActionListener() {
+        JButton exhibirPiezaButton = new JButton("Exhibir Pieza");
+        exhibirPiezaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para exhibir pieza
-                exhibirPieza();
+                internalFrameManager.mostrarInternalFrameExhibirPieza();
             }
         });
-        panel.add(exhibir);
+        panel.add(exhibirPiezaButton);
 
-        JButton guardar = new JButton("Guardar pieza en bodega");
-        guardar.addActionListener(new ActionListener() {
+        JButton guardarEnBodegaButton = new JButton("Guardar Pieza en Bodega");
+        guardarEnBodegaButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Lógica para guardar pieza en bodega
-                guardarPiezaEnBodega();
+                internalFrameManager.mostrarInternalFrameGuardarPiezaEnBodega();
             }
         });
-        panel.add(guardar);
+        panel.add(guardarEnBodegaButton);
 
 
         JButton cerrarSesion = new JButton("Cerrar Sesión");
@@ -163,40 +154,16 @@ public class MenuAdministrador1 extends JFrame {
         panel.add(cerrarSesion);
     }
 
-    private void verHistoriaPieza() {
-        // Implementar lógica
-    }
 
-    private void verHistoriaCliente() {
-        // Implementar lógica
-    }
 
-    private void exhibirPieza() {
-        // Implementar lógica
-    }
-
-    private void guardarPiezaEnBodega() {
-        // Implementar lógica
-    }
-
-    private void verHistoriaArtista() {
-        // Implementar lógica
-    }
 
     private void realizarDevolucionPieza() {
         // Implementar lógica
     }
 
-    private void agregarNuevoEmpleado() {
-        // Implementar lógica
+    protected void cerrarSesion() {
+        // Cierra el internal frame actual
+        this.dispose();
     }
 
-    private void ampliarTopeComprador() {
-        // Implementar lógica
-    }
-
-
-    private void cerrarSesion() {
-        // Implementar lógica
-    }
 }
