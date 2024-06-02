@@ -3,11 +3,14 @@
  */
 package galeria.interfaz;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import galeria.modelo.usuarios.Cliente;
+import galeria.modelo.centroventas.CentroDeVentas;
+import galeria.modelo.centroventas.Oferta;
 import galeria.modelo.inventario.Escultura;
 import galeria.modelo.inventario.Fotografia;
 import galeria.modelo.inventario.Impresion;
@@ -188,9 +191,48 @@ public class MenuCliente extends MenuUsuario
 		
 	}
 
-	private void comprarPiezaVentaDirecta() {
-		// TODO
+	public boolean comprarPiezaVentaDirecta(Pieza pieza, Cliente cliente) {
+	    // Obtener la lista de ofertas de venta directa
+	    List<Oferta> ofertasVentaDirecta = CentroDeVentas.getListaDeOfertasVentaDirecta();
+
+	    // Buscar la oferta correspondiente a la pieza
+	    Oferta ofertaSeleccionada = null;
+	    for (Oferta oferta : ofertasVentaDirecta) {
+	        if (oferta.getPieza().equals(pieza)) {
+	            ofertaSeleccionada = oferta;
+	            break;
+	        }
+	    }
+
+	    // Verificar si se encontró la oferta correspondiente
+	    if (ofertaSeleccionada != null) {
+	        // Verificar si el cliente puede realizar la compra
+	        if (cliente.getPiezasCompradas().size() < cliente.getTopeCompras()) {
+	            // Realizar la compra
+	            ofertaSeleccionada.getPieza().cambiarPropietario(cliente.getLogin());
+	            ofertaSeleccionada.getPieza().cambiarEstadoPosesion();
+	            piezasActualesPropietarios.get(ofertaSeleccionada.getPieza().getLoginPropietario()).remove(pieza.getTitulo());
+	            piezasActualesPropietarios.get(cliente.getLogin()).add(pieza.getTitulo());
+	            ofertaSeleccionada.getPieza().agregarHistorialCompra(ofertaSeleccionada.getPrecio());
+	            // Eliminar la oferta de la lista
+	            ofertasVentaDirecta.remove(ofertaSeleccionada);
+	            // Mostrar mensaje de confirmación
+	            System.out.println("¡Compra realizada con éxito!");
+	            return true;
+	        } else {
+	            // Mostrar mensaje de error
+	            System.out.println("El cliente ha alcanzado su tope de compras.");
+	            return false;
+	        }
+	    } else {
+	        // Mostrar mensaje de error
+	        System.out.println("No se encontró una oferta para la pieza especificada.");
+	        return false;
+	    }
 	}
+
+
+
 
 	private void realizarOfertaSubasta() {
 		// TODO

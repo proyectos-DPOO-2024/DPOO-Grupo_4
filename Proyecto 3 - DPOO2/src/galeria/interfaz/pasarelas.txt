@@ -1,0 +1,3 @@
+galeria.pasarelasDePago.PayPal
+galeria.pasarelasDePago.PayU
+galeria.pasarelasDePago.Sira

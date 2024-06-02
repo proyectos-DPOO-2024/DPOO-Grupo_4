@@ -31,7 +31,10 @@ public class MenuPrincipal extends MenuBasico
 		archivos[1] = "./datos/centro_ventas.json";
 		
 		CentralPersistencia persistencia = new CentralPersistencia();
+	
 		Galeria galeria = persistencia.cargarPrograma(archivos);
+		
+		
 		MenuPrincipal menuPrincipal = new MenuPrincipal(galeria);
 		
 		menuPrincipal.mostrarMenuPrincipal();
@@ -78,6 +81,8 @@ public class MenuPrincipal extends MenuBasico
 
 		int tipoUsuario = galeria.verificarLogin(login, password);
 
+		
+		
 		if (tipoUsuario < 0)
 			System.out.println("El nombre de usuario ingresado no existe");
 		if (tipoUsuario == 0)
@@ -90,7 +95,7 @@ public class MenuPrincipal extends MenuBasico
 			if (tipoUsuario == Usuario.OPERADOR) {
 				MenuOperador menuOp = new MenuOperador(this);
 			}
-			if (tipoUsuario == Usuario.OPERADOR) {
+			if (tipoUsuario == Usuario.CAJERO) {
 				MenuCajero menuCaj = new MenuCajero(this);
 			}
 			if (tipoUsuario == Usuario.CLIENTE) {
