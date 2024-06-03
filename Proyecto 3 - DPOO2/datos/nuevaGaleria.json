@@ -1,0 +1,52 @@
+{
+  "piezasPasadasPropietario": [
+    {
+      "propietario": "cliente1",
+      "listaPiezasPasadas": []
+    },
+    {
+      "propietario": "cliente2",
+      "listaPiezasPasadas": []
+    }
+  ],
+  "piezas": [],
+  "empleados": [
+    {
+      "password": "c",
+      "login": "op",
+      "telefono": 333,
+      "nombre": "Carlos",
+      "rol": 3
+    },
+    {
+      "password": "a",
+      "login": "admin",
+      "telefono": 111,
+      "nombre": "Alice",
+      "rol": 1
+    },
+    {
+      "password": "b",
+      "login": "caj",
+      "telefono": 222,
+      "nombre": "Bob",
+      "rol": 2
+    }
+  ],
+  "clientes": [
+    {
+      "verificado": true,
+      "password": "123",
+      "topeCompras": 5000,
+      "login": "cliente1",
+      "telefono": 444
+    },
+    {
+      "verificado": true,
+      "password": "123",
+      "topeCompras": 3000,
+      "login": "cliente2",
+      "telefono": 555
+    }
+  ]
+}

@@ -53,7 +53,9 @@ public class MenuCajero1 extends JFrame {
         contentPane.add(pagoDirecta);
         pagoDirecta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aquí deberías implementar la lógica para registrar el pago por venta directa
+        		MenuPasarela menuPasarela = new MenuPasarela();
+        		String pasarela = menuPasarela.getPasarela();
+        		MenuPago menuPago = new MenuPago(pasarela);
                 mostrarInternalFrameRegistrarPagoPorVentaDirecta();
             }
         });
@@ -63,8 +65,11 @@ public class MenuCajero1 extends JFrame {
         contentPane.add(pagoSubasta);
         pagoSubasta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Aquí deberías implementar la lógica para registrar el pago por subasta
-                mostrarInternalFrameRegistrarPagoPorSubasta();
+        		MenuPasarela menuPasarela = new MenuPasarela();
+        		String pasarela = menuPasarela.getPasarela();
+        		MenuPago menuPago = new MenuPago(pasarela);
+
+            	mostrarInternalFrameRegistrarPagoPorSubasta();
             }
         });
 
