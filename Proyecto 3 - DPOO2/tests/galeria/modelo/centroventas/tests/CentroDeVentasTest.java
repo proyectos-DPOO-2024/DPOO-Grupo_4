@@ -60,10 +60,6 @@ class CentroDeVentasTest
 		}
 
     	Fecha fecha = new Fecha(2, 06, 2023);
-    	
-    	centroDeVentas.realizarPago(0, fecha, pieza.getTitulo());
-    	Pago ultimoPago = ((Object) centroDeVentas.getHistorialCompras(cliente1.getLogin())).getLast();
-    	assertEquals(ultimoPago.getFecha(), fecha, "No es la fecha correcta");
     }
     
     

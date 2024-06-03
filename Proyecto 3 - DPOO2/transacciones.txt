@@ -16,3 +16,33 @@ Valor a Pagar: 123412
 Pasarela de Pago: 1
 Login del Comprador: cliente1
 
+Número de Transacción: 1050
+Número de Tarjeta: 1234
+Valor a Pagar: 1000
+Pasarela de Pago: 1
+Login del Comprador: clienteJuan
+
+Número de Transacción: 1908
+Número de Tarjeta: 1234
+Valor a Pagar: 1234
+Pasarela de Pago: 1
+Login del Comprador: werr
+
+Número de Transacción: 1502
+Número de Tarjeta: 1234
+Valor a Pagar: 1234
+Pasarela de Pago: 2
+Login del Comprador: erfgf
+
+Número de Transacción: 1518
+Número de Tarjeta: 123
+Valor a Pagar: 123
+Pasarela de Pago: 3
+Login del Comprador: qwer
+
+Número de Transacción: 1505
+Número de Tarjeta: 123
+Valor a Pagar: 123
+Pasarela de Pago: 3
+Login del Comprador: poi
+

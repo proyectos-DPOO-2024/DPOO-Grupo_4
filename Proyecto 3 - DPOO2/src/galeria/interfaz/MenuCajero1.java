@@ -53,9 +53,6 @@ public class MenuCajero1 extends JFrame {
         contentPane.add(pagoDirecta);
         pagoDirecta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-        		MenuPasarela menuPasarela = new MenuPasarela();
-        		String pasarela = menuPasarela.getPasarela();
-        		MenuPago menuPago = new MenuPago(pasarela);
                 mostrarInternalFrameRegistrarPagoPorVentaDirecta();
             }
         });
@@ -64,10 +61,7 @@ public class MenuCajero1 extends JFrame {
         pagoSubasta.setBounds(202, 103, 206, 26);
         contentPane.add(pagoSubasta);
         pagoSubasta.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-        		MenuPasarela menuPasarela = new MenuPasarela();
-        		String pasarela = menuPasarela.getPasarela();
-        		MenuPago menuPago = new MenuPago(pasarela);
+            public void actionPerformed(ActionEvent e) {      	
 
             	mostrarInternalFrameRegistrarPagoPorSubasta();
             }
@@ -125,11 +119,15 @@ public class MenuCajero1 extends JFrame {
 
     // Métodos para mostrar los internal frames (puedes implementar la lógica específica en estos métodos)
     private void mostrarInternalFrameRegistrarPagoPorVentaDirecta() {
-        // Implementa la lógica para mostrar el internal frame correspondiente
+		MenuPasarela menuPasarela = new MenuPasarela();
+		String pasarela = menuPasarela.getPasarela();
+		MenuPago menuPago = new MenuPago(pasarela);
     }
 
     private void mostrarInternalFrameRegistrarPagoPorSubasta() {
-        // Implementa la lógica para mostrar el internal frame correspondiente
+		MenuPasarela menuPasarela = new MenuPasarela();
+		String pasarela = menuPasarela.getPasarela();
+		MenuPago menuPago = new MenuPago(pasarela);
     }
 
 
