@@ -118,7 +118,7 @@ public class MenuPrincipal1 extends JFrame {
                 menuCajero.setVisible(true);
             }
 			if (tipoUsuario == Usuario.OPERADOR) {
-				MenuOperador menuOp = new MenuOperador(this);
+				MenuOperador1 menuOp = new MenuOperador1(galeria);
 			}
 			if (tipoUsuario == Usuario.CLIENTE) {
 				MenuCliente1 menuCli = new MenuCliente1(galeria, listaPiezasPorIngresar, usu);

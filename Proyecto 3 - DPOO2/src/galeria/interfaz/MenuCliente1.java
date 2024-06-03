@@ -130,6 +130,7 @@ public class MenuCliente1 extends JFrame {
                     internalFrameManager.mostrarInternalFrameHistorialCliente(esteCliente.getLogin());
                 }
             });
+            panel.add(verHistorialClienteButton);
 	        
 	        JButton verHistorialArtistaButton = new JButton("Ver Historial de Artista");
             verHistorialArtistaButton.addActionListener(new ActionListener() {
@@ -146,6 +147,20 @@ public class MenuCliente1 extends JFrame {
                 }
             });
             panel.add(verHistorialPiezaButton);
+            
+            JButton cerrarSesion = new JButton("Cerrar Sesión");
+            cerrarSesion.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    // Lógica para cerrar sesión
+                    cerrarSesion();
+                }
+            });
 
+    }
+    
+    
+    protected void cerrarSesion() {
+        // Cierra el internal frame actual
+        this.dispose();
     }
 }

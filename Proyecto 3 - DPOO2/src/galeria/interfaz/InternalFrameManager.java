@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.SolicitudTope;
+import galeria.modelo.centroventas.Subasta;
 import galeria.modelo.inventario.Escultura;
 import galeria.modelo.inventario.Fotografia;
 import galeria.modelo.inventario.Galeria;
@@ -42,6 +44,11 @@ public class InternalFrameManager {
         this.desktopPane = desktopPane;
         this.galeria = galeria;
         this.listaPiezasPorIngresar = listaPiezasPorIngresar;
+    }
+    
+    public InternalFrameManager(JDesktopPane desktopPane, Galeria galeria) {
+        this.desktopPane = desktopPane;
+        this.galeria = galeria;
     }
 
     public void mostrarInternalFrameConfirmarPieza() {
@@ -780,7 +787,7 @@ public class InternalFrameManager {
                 internalFrame.dispose();
                 
                 JInternalFrame infoFrame = new JInternalFrame("Información nueva pieza", true, true, true, true);
-                infoFrame.setSize(400, 300);
+                infoFrame.setSize(600, 500);
                 infoFrame.setLayout(new BorderLayout());
                 
                 JPanel panelInfoPieza = new JPanel(new GridLayout(6, 2));
@@ -1201,5 +1208,94 @@ public class InternalFrameManager {
         internalFrame.add(panelConsignacion, BorderLayout.CENTER);
         internalFrame.add(botonConfirmar, BorderLayout.SOUTH);
         
+    }
+    
+    public void mostrarInternalFrameOfertaSubasta() {
+    	JInternalFrame internalFrame = new JInternalFrame("Registrar nueva pieza", true, true, true, true);
+        internalFrame.setSize(400, 300);
+        internalFrame.setLayout(new BorderLayout());
+        
+        Collection<Subasta> subastas = galeria.getCentroDeVentas().getMapaSubastas().values();
+        
+        Iterator<Subasta> it = subastas.iterator();
+        String[] piezasSubastadas = new String[subastas.size()];
+        
+        for (int i = 0; it.hasNext(); i++) {
+        	Subasta subasta = it.next();
+        	piezasSubastadas[i] = subasta.getTituloPiezaSubastada();
+        }
+
+        JPanel panelSubastas = new JPanel(new GridLayout(1, 2));
+        
+        JLabel labelSubasta = new JLabel("Seleccione la subasta:");
+        panelSubastas.add(labelSubasta);
+        JComboBox<String> comboBoxSubastas = new JComboBox<>(piezasSubastadas);
+        panelSubastas.add(comboBoxSubastas);
+        
+        
+        JButton botonContinuar = new JButton("Continuar");
+        botonContinuar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	int index = comboBoxSubastas.getSelectedIndex();
+                
+                if (index != -1) {
+                	
+	                internalFrame.dispose();
+	                
+	                Subasta subasta = galeria.getCentroDeVentas().getMapaSubastas().get(piezasSubastadas[index]);
+	                
+	                JInternalFrame pujaFrame = new JInternalFrame("Puja subasta", true, true, true, true);
+	                pujaFrame.setSize(400, 300);
+	                pujaFrame.setLayout(new BorderLayout());
+	                
+	                JPanel panelPuja = new JPanel(new GridLayout(6, 2));
+	                
+	                JLabel labelLogin = new JLabel("Login del Cliente que realiza la oferta:");
+	                panelPuja.add(labelLogin);
+	                JTextField loginField = new JTextField(20);
+	                panelPuja.add(loginField);
+	                
+	                JLabel labelValor = new JLabel("Valor de la puja (debe ser mayor a la puja máxima actual: " + subasta.getValorActual() + "):");
+	                panelPuja.add(labelValor);
+	                JTextField valorField = new JTextField(20);
+	                panelPuja.add(valorField);
+	                
+	                JButton botonFinalizar = new JButton("Poner puja");
+                    botonFinalizar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                        	
+                        	if ( subasta.getValorActual() >= Integer.parseInt(valorField.getText()) ) {
+                        		JOptionPane.showMessageDialog(internalFrame, "La puja suministrada no excede la puja máxima actual.");
+                        	}
+                        	else {
+                        		
+                        		Integer valor = Integer.parseInt(valorField.getText());
+                        		
+                        		try {
+									galeria.getCentroDeVentas().crearOfertaSubasta(subasta.getTituloPiezaSubastada(), loginField.getText(), valor);
+								} catch (Exception e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+                        	}
+                        }
+                    });
+	                
+	                
+                }
+            }
+        });
+
+        internalFrame.add(panelSubastas, BorderLayout.CENTER);
+        internalFrame.add(botonContinuar, BorderLayout.SOUTH);
+
+        internalFrame.setVisible(true);
+        desktopPane.add(internalFrame);
+        try {
+        	internalFrame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
     }
 }
