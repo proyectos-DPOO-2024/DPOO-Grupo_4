@@ -80,7 +80,7 @@ public class MenuPrincipal1 extends JFrame {
         contentPane.add(usuario);
         usuario.setColumns(10);
 
-        contraseña = new JTextField();
+        contraseña = new JPasswordField();
         contraseña.setBounds(250, 123, 151, 26);
         contentPane.add(contraseña);
         contraseña.setColumns(10);
@@ -110,6 +110,15 @@ public class MenuPrincipal1 extends JFrame {
             if (tipoUsuario == 1) {
                 MenuAdministrador1 menuAdmin = new MenuAdministrador1(galeria, listaPiezasPorIngresar);
                 menuAdmin.setVisible(true);
+            }
+            
+            
+            
+            
+            
+            if (tipoUsuario == 4) {
+            	MenuCliente1 menuCliente = new MenuCliente1(galeria, listaPiezasPorIngresar, usu);
+                menuCliente.setVisible(true);
             }
         }
     }

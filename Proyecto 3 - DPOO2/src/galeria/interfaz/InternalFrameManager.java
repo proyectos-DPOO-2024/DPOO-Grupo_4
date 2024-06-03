@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +13,7 @@ import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.SolicitudTope;
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.inventario.Pieza;
+import galeria.modelo.inventario.Pintura;
 import galeria.modelo.usuarios.Cliente;
 
 public class InternalFrameManager {
@@ -29,6 +32,12 @@ public class InternalFrameManager {
         this.listaCompradores = listaCompradores;
         this.listaPagos = listaPagos;
         this.listaSolicitudesTope = listaSolicitudesTope;
+    }
+    
+    public InternalFrameManager(JDesktopPane desktopPane, Galeria galeria, List<Pieza> listaPiezasPorIngresar) {
+        this.desktopPane = desktopPane;
+        this.galeria = galeria;
+        this.listaPiezasPorIngresar = listaPiezasPorIngresar;
     }
 
     public void mostrarInternalFrameConfirmarPieza() {
@@ -740,5 +749,215 @@ public class InternalFrameManager {
             e.printStackTrace();
         }
     }
+    
+    
+    
+    public void mostrarInternalFrameRegistrarNuevaPieza(String loginPropietario) {
+    	JInternalFrame internalFrame = new JInternalFrame("Registrar nueva pieza", true, true, true, true);
+        internalFrame.setSize(400, 300);
+        internalFrame.setLayout(new BorderLayout());
 
+        JPanel panelTipo = new JPanel(new GridLayout(2, 2));
+        
+        JLabel labelRol = new JLabel("Seleccione el tipo de pieza:");
+        panelTipo.add(labelRol);
+        String[] tipos = { "Pintura", "Impresión", "Escultura", "Fotografía", "Video" };
+        JComboBox<String> comboBoxTipo = new JComboBox<>(tipos);
+        panelTipo.add(comboBoxTipo);
+        
+        
+        JButton botonContinuar = new JButton("Continuar");
+        botonContinuar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int tipo = comboBoxTipo.getSelectedIndex();
+                
+                JPanel panelInfoPieza = new JPanel(new GridLayout(6, 2));
+                
+                if (tipo == Pieza.PINTURA) {
+                	
+                	JLabel labelTitulo = new JLabel("Título:");
+                	panelInfoPieza.add(labelTitulo);
+                    JTextField tituloField = new JTextField(20);
+                    panelInfoPieza.add(tituloField);
+                    
+                    JLabel labelArtista = new JLabel("Artista:");
+                    panelInfoPieza.add(labelArtista);
+                    JTextField artistaField = new JTextField(20);
+                    panelInfoPieza.add(artistaField);
+                	
+                	JLabel labelEstilo = new JLabel("Estilo:");
+                	panelInfoPieza.add(labelEstilo);
+                    JTextField estiloField = new JTextField(20);
+                    panelInfoPieza.add(estiloField);
+                    
+                    JLabel labelAlto = new JLabel("Alto:");
+                    panelInfoPieza.add(labelAlto);
+                    JTextField altoField = new JTextField(20);
+                    panelInfoPieza.add(altoField);
+                    
+                    JLabel labelAncho = new JLabel("Ancho:");
+                    panelInfoPieza.add(labelAncho);
+                    JTextField anchoField = new JTextField(20);
+                    panelInfoPieza.add(anchoField);
+                    
+                    JButton botonFinalizar = new JButton("Finalizar");
+                    botonFinalizar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                        	
+                        	if (galeria.existePieza(tituloField.getText())) {
+                        		JOptionPane.showMessageDialog(internalFrame, "La pieza ingresada ya existe.");
+                        	}
+                        	else {
+                        		
+                        		Float alto = new Float(altoField.getText());
+                        		Float ancho = new Float(anchoField.getText());
+                        		
+                        		Pintura pieza = new Pintura(tituloField.getText(), artistaField.getText(), loginPropietario, estiloField.getText(), alto, ancho);
+                        		galeria.agregarPiezaNueva(pieza);
+                        	}
+                        }
+                    });
+                    internalFrame.add(botonFinalizar, BorderLayout.SOUTH);
+                    
+                }
+                
+                if (tipo == Pieza.IMPRESION) {
+                	
+                	JLabel labelTitulo = new JLabel("Título:");
+                	panelInfoPieza.add(labelTitulo);
+                    JTextField tituloField = new JTextField(20);
+                    panelInfoPieza.add(tituloField);
+                    
+                    JLabel labelArtista = new JLabel("Artista:");
+                    panelInfoPieza.add(labelArtista);
+                    JTextField artistaField = new JTextField(20);
+                    panelInfoPieza.add(artistaField);
+                	
+                	JLabel labelOriginal = new JLabel("Original:");
+                	panelInfoPieza.add(labelOriginal);
+                    JCheckBox originalField = new JCheckBox();
+                    panelInfoPieza.add(originalField);
+                    
+                    JLabel labelMetodo = new JLabel("Método de Creación:");
+                	panelInfoPieza.add(labelMetodo);
+                    JTextField metodoField = new JTextField(20);
+                    panelInfoPieza.add(metodoField);
+                	
+                	JLabel labelAlto = new JLabel("Alto:");
+                    panelInfoPieza.add(labelAlto);
+                    JTextField altoField = new JTextField(20);
+                    panelInfoPieza.add(altoField);
+                    
+                    JLabel labelAncho = new JLabel("Ancho:");
+                    panelInfoPieza.add(labelAncho);
+                    JTextField anchoField = new JTextField(20);
+                    panelInfoPieza.add(anchoField);
+                }
+                
+                if (tipo == Pieza.ESCULTURA) {
+                	
+                	JLabel labelTitulo = new JLabel("Título:");
+                	panelInfoPieza.add(labelTitulo);
+                    JTextField tituloField = new JTextField(20);
+                    panelInfoPieza.add(tituloField);
+                    
+                    JLabel labelArtista = new JLabel("Artista:");
+                    panelInfoPieza.add(labelArtista);
+                    JTextField artistaField = new JTextField(20);
+                    panelInfoPieza.add(artistaField);
+                	
+                	JLabel labelMaterial = new JLabel("Material de construcción:");
+                	panelInfoPieza.add(labelMaterial);
+                    JTextField materialField = new JTextField(20);
+                    panelInfoPieza.add(materialField);
+                	
+                	JLabel labelAlto = new JLabel("Alto:");
+                    panelInfoPieza.add(labelAlto);
+                    JTextField altoField = new JTextField(20);
+                    panelInfoPieza.add(altoField);
+                    
+                    JLabel labelAncho = new JLabel("Ancho:");
+                    panelInfoPieza.add(labelAncho);
+                    JTextField anchoField = new JTextField(20);
+                    panelInfoPieza.add(anchoField);
+                    
+                    JLabel labelProfundidad = new JLabel("Profundidad:");
+                    panelInfoPieza.add(labelProfundidad);
+                    JTextField profundidadField = new JTextField(20);
+                    panelInfoPieza.add(profundidadField);
+                }
+                
+                if (tipo == Pieza.FOTOGRAFIA) {
+                	
+                	JLabel labelTitulo = new JLabel("Título:");
+                	panelInfoPieza.add(labelTitulo);
+                    JTextField tituloField = new JTextField(20);
+                    panelInfoPieza.add(tituloField);
+                    
+                    JLabel labelArtista = new JLabel("Artista:");
+                    panelInfoPieza.add(labelArtista);
+                    JTextField artistaField = new JTextField(20);
+                    panelInfoPieza.add(artistaField);
+                	
+                	JLabel labelAlto = new JLabel("Alto:");
+                    panelInfoPieza.add(labelAlto);
+                    JTextField altoField = new JTextField(20);
+                    panelInfoPieza.add(altoField);
+                    
+                    JLabel labelAncho = new JLabel("Ancho:");
+                    panelInfoPieza.add(labelAncho);
+                    JTextField anchoField = new JTextField(20);
+                    panelInfoPieza.add(anchoField);
+                    
+                    JLabel labelColor = new JLabel("Color:");
+                	panelInfoPieza.add(labelColor);
+                    JCheckBox colorField = new JCheckBox();
+                    panelInfoPieza.add(colorField);
+                }
+                
+                if (tipo == Pieza.VIDEO) {
+                	
+                	JLabel labelTitulo = new JLabel("Título:");
+                	panelInfoPieza.add(labelTitulo);
+                    JTextField tituloField = new JTextField(20);
+                    panelInfoPieza.add(tituloField);
+                    
+                    JLabel labelArtista = new JLabel("Artista:");
+                    panelInfoPieza.add(labelArtista);
+                    JTextField artistaField = new JTextField(20);
+                    panelInfoPieza.add(artistaField);
+                	
+                	JLabel labelDuracion = new JLabel("Duración:");
+                    panelInfoPieza.add(labelDuracion);
+                    JTextField duracionField = new JTextField(20);
+                    panelInfoPieza.add(duracionField);
+                    
+                    JLabel labelColor = new JLabel("Color:");
+                	panelInfoPieza.add(labelColor);
+                    JCheckBox colorField = new JCheckBox();
+                    panelInfoPieza.add(colorField);
+                    
+                    JLabel labelMemoria = new JLabel("Memoria:");
+                    panelInfoPieza.add(labelMemoria);
+                    JTextField memoriaField = new JTextField(20);
+                    panelInfoPieza.add(memoriaField);
+                }
+                internalFrame.add(panelInfoPieza, BorderLayout.CENTER);
+                internalFrame.setVisible(true);
+                desktopPane.add(internalFrame);
+                
+            }
+        });
+        panelTipo.add(botonContinuar);
+
+        internalFrame.add(panelTipo, BorderLayout.NORTH);
+
+        internalFrame.setVisible(true);
+        desktopPane.add(internalFrame);
+        try {
+        	internalFrame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
 }
