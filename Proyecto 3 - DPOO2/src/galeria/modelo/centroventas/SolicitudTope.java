@@ -14,7 +14,7 @@ public class SolicitudTope
 	private String loginComprador;
 	private long topeSolicitado;
 
-	SolicitudTope(String loginComprador, long topeSolicitado)
+	public SolicitudTope(String loginComprador, long topeSolicitado)
 	{
 		this.loginComprador = loginComprador;
 		this.topeSolicitado = topeSolicitado;

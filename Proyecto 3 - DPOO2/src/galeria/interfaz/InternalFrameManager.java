@@ -11,9 +11,13 @@ import java.util.List;
 
 import galeria.modelo.centroventas.Pago;
 import galeria.modelo.centroventas.SolicitudTope;
+import galeria.modelo.inventario.Escultura;
+import galeria.modelo.inventario.Fotografia;
 import galeria.modelo.inventario.Galeria;
+import galeria.modelo.inventario.Impresion;
 import galeria.modelo.inventario.Pieza;
 import galeria.modelo.inventario.Pintura;
+import galeria.modelo.inventario.Video;
 import galeria.modelo.usuarios.Cliente;
 
 public class InternalFrameManager {
@@ -576,7 +580,7 @@ public class InternalFrameManager {
         }
     }
 
-    private void mostrarInternalFrameHistorialCliente(String loginCliente) {
+    protected void mostrarInternalFrameHistorialCliente(String loginCliente) {
         Cliente cliente = galeria.getCliente(loginCliente);
 
         if (!cliente.isVerificado()) {
@@ -754,10 +758,10 @@ public class InternalFrameManager {
     
     public void mostrarInternalFrameRegistrarNuevaPieza(String loginPropietario) {
     	JInternalFrame internalFrame = new JInternalFrame("Registrar nueva pieza", true, true, true, true);
-        internalFrame.setSize(400, 300);
+        internalFrame.setSize(200, 100);
         internalFrame.setLayout(new BorderLayout());
 
-        JPanel panelTipo = new JPanel(new GridLayout(2, 2));
+        JPanel panelTipo = new JPanel(new GridLayout(1, 2));
         
         JLabel labelRol = new JLabel("Seleccione el tipo de pieza:");
         panelTipo.add(labelRol);
@@ -770,6 +774,14 @@ public class InternalFrameManager {
         botonContinuar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int tipo = comboBoxTipo.getSelectedIndex();
+                
+                if (tipo != -1) {
+                	
+                internalFrame.dispose();
+                
+                JInternalFrame infoFrame = new JInternalFrame("Información nueva pieza", true, true, true, true);
+                infoFrame.setSize(400, 300);
+                infoFrame.setLayout(new BorderLayout());
                 
                 JPanel panelInfoPieza = new JPanel(new GridLayout(6, 2));
                 
@@ -809,15 +821,16 @@ public class InternalFrameManager {
                         	}
                         	else {
                         		
-                        		Float alto = new Float(altoField.getText());
-                        		Float ancho = new Float(anchoField.getText());
+                        		Float alto = Float.parseFloat(altoField.getText());
+                        		Float ancho = Float.parseFloat(anchoField.getText());
                         		
                         		Pintura pieza = new Pintura(tituloField.getText(), artistaField.getText(), loginPropietario, estiloField.getText(), alto, ancho);
                         		galeria.agregarPiezaNueva(pieza);
+                        		JOptionPane.showMessageDialog(internalFrame, "Pieza registrada.");
                         	}
                         }
                     });
-                    internalFrame.add(botonFinalizar, BorderLayout.SOUTH);
+                    infoFrame.add(botonFinalizar, BorderLayout.SOUTH);
                     
                 }
                 
@@ -852,6 +865,26 @@ public class InternalFrameManager {
                     panelInfoPieza.add(labelAncho);
                     JTextField anchoField = new JTextField(20);
                     panelInfoPieza.add(anchoField);
+                    
+                    JButton botonFinalizar = new JButton("Finalizar");
+                    botonFinalizar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                        	
+                        	if (galeria.existePieza(tituloField.getText())) {
+                        		JOptionPane.showMessageDialog(internalFrame, "La pieza ingresada ya existe.");
+                        	}
+                        	else {
+                        		
+                        		Float alto = Float.parseFloat(altoField.getText());
+                        		Float ancho = Float.parseFloat(anchoField.getText());
+                        		
+                        		Impresion pieza = new Impresion(tituloField.getText(), artistaField.getText(), loginPropietario, originalField.isSelected(), metodoField.getText(), alto, ancho);
+                        		galeria.agregarPiezaNueva(pieza);
+                        		JOptionPane.showMessageDialog(internalFrame, "Pieza registrada.");
+                        	}
+                        }
+                    });
+                    infoFrame.add(botonFinalizar, BorderLayout.SOUTH);
                 }
                 
                 if (tipo == Pieza.ESCULTURA) {
@@ -885,6 +918,27 @@ public class InternalFrameManager {
                     panelInfoPieza.add(labelProfundidad);
                     JTextField profundidadField = new JTextField(20);
                     panelInfoPieza.add(profundidadField);
+                    
+                    JButton botonFinalizar = new JButton("Finalizar");
+                    botonFinalizar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                        	
+                        	if (galeria.existePieza(tituloField.getText())) {
+                        		JOptionPane.showMessageDialog(internalFrame, "La pieza ingresada ya existe.");
+                        	}
+                        	else {
+                        		
+                        		Float alto = Float.parseFloat(altoField.getText());
+                        		Float ancho = Float.parseFloat(anchoField.getText());
+                        		Float profundidad = Float.parseFloat(profundidadField.getText());
+                        		
+                        		Escultura pieza = new Escultura(tituloField.getText(), artistaField.getText(), loginPropietario, materialField.getText(), alto, ancho, profundidad);
+                        		galeria.agregarPiezaNueva(pieza);
+                        		JOptionPane.showMessageDialog(internalFrame, "Pieza registrada.");
+                        	}
+                        }
+                    });
+                    infoFrame.add(botonFinalizar, BorderLayout.SOUTH);
                 }
                 
                 if (tipo == Pieza.FOTOGRAFIA) {
@@ -913,6 +967,26 @@ public class InternalFrameManager {
                 	panelInfoPieza.add(labelColor);
                     JCheckBox colorField = new JCheckBox();
                     panelInfoPieza.add(colorField);
+                    
+                    JButton botonFinalizar = new JButton("Finalizar");
+                    botonFinalizar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                        	
+                        	if (galeria.existePieza(tituloField.getText())) {
+                        		JOptionPane.showMessageDialog(internalFrame, "La pieza ingresada ya existe.");
+                        	}
+                        	else {
+                        		
+                        		Float alto = Float.parseFloat(altoField.getText());
+                        		Float ancho = Float.parseFloat(anchoField.getText());
+                        		
+                        		Fotografia pieza = new Fotografia(tituloField.getText(), artistaField.getText(), loginPropietario, alto, ancho, colorField.isSelected());
+                        		galeria.agregarPiezaNueva(pieza);
+                        		JOptionPane.showMessageDialog(internalFrame, "Pieza registrada.");
+                        	}
+                        }
+                    });
+                    infoFrame.add(botonFinalizar, BorderLayout.SOUTH);
                 }
                 
                 if (tipo == Pieza.VIDEO) {
@@ -941,16 +1015,44 @@ public class InternalFrameManager {
                     panelInfoPieza.add(labelMemoria);
                     JTextField memoriaField = new JTextField(20);
                     panelInfoPieza.add(memoriaField);
+                    
+                    JButton botonFinalizar = new JButton("Finalizar");
+                    botonFinalizar.addActionListener(new ActionListener() {
+                        public void actionPerformed(ActionEvent e) {
+                        	
+                        	if (galeria.existePieza(tituloField.getText())) {
+                        		JOptionPane.showMessageDialog(internalFrame, "La pieza ingresada ya existe.");
+                        	}
+                        	else {
+                        		
+                        		Float duracion = Float.parseFloat(duracionField.getText());
+                        		Double memoria = Double.parseDouble(memoriaField.getText());
+                        		
+                        		Video pieza = new Video(tituloField.getText(), artistaField.getText(), loginPropietario, duracion, colorField.isSelected(), memoria);
+                        		galeria.agregarPiezaNueva(pieza);
+                        		JOptionPane.showMessageDialog(internalFrame, "Pieza registrada.");
+                        	}
+                        }
+                    });
+                    infoFrame.add(botonFinalizar, BorderLayout.SOUTH);
                 }
-                internalFrame.add(panelInfoPieza, BorderLayout.CENTER);
-                internalFrame.setVisible(true);
-                desktopPane.add(internalFrame);
                 
+                
+                infoFrame.add(panelInfoPieza, BorderLayout.CENTER);
+                
+                infoFrame.setVisible(true);
+                desktopPane.add(infoFrame);
+                try {
+                	internalFrame.setSelected(true);
+                } catch (java.beans.PropertyVetoException ex) {
+                    ex.printStackTrace();
+                }
+            }  
             }
         });
-        panelTipo.add(botonContinuar);
 
-        internalFrame.add(panelTipo, BorderLayout.NORTH);
+        internalFrame.add(panelTipo, BorderLayout.CENTER);
+        internalFrame.add(botonContinuar, BorderLayout.SOUTH);
 
         internalFrame.setVisible(true);
         desktopPane.add(internalFrame);
@@ -959,5 +1061,145 @@ public class InternalFrameManager {
         } catch (java.beans.PropertyVetoException e) {
             e.printStackTrace();
         }
+    }
+    
+    
+    public void mostrarInternalFrameConsignarNuevaPieza(String loginPropietario, List<Pieza> piezasPorConsignar) {
+    	JInternalFrame internalFrame = new JInternalFrame("Registrar nueva pieza", true, true, true, true);
+        internalFrame.setSize(400, 300);
+        internalFrame.setLayout(new BorderLayout());
+        
+        String[] tituloPiezas = new String[piezasPorConsignar.size()];
+        
+        Iterator<Pieza> it = piezasPorConsignar.iterator();
+        
+        for (int i = 0; it.hasNext(); i++) {
+        	Pieza pieza = it.next();
+        	tituloPiezas[i] = pieza.getTitulo();
+        }
+        
+
+        JPanel panelConsignacion = new JPanel(new GridLayout(5, 2));
+        
+        JLabel labelPieza = new JLabel("Seleccione la pieza que desea consignar:");
+        panelConsignacion.add(labelPieza);
+        JComboBox<String> comboBoxPieza = new JComboBox<>(tituloPiezas);
+        panelConsignacion.add(comboBoxPieza);
+        
+        JLabel labelFecha = new JLabel("Fecha hasta la cual desea consignar (formato: DD/MM/AAAA):");
+        panelConsignacion.add(labelFecha);
+        JTextField fechaField = new JTextField(20);
+        panelConsignacion.add(fechaField);
+        
+        JLabel labelDirecta = new JLabel("Valor por venta directa (si no desea que se permita la venta directa, deje este espacio en blanco):");
+        panelConsignacion.add(labelDirecta);
+        JTextField directaField = new JTextField(20);
+        panelConsignacion.add(directaField);
+        
+        JLabel labelInicio = new JLabel("Valor de inicio de subasta:");
+        panelConsignacion.add(labelInicio);
+        JTextField inicioField = new JTextField(20);
+        panelConsignacion.add(inicioField);
+        
+        JLabel labelMinimo = new JLabel("Valor mínimo para cierre de subasta:");
+        panelConsignacion.add(labelMinimo);
+        JTextField minimoField = new JTextField(20);
+        panelConsignacion.add(minimoField);
+        
+        
+        
+        JButton botonConsignar = new JButton("Consignar");
+        botonConsignar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	int indexPieza = comboBoxPieza.getSelectedIndex();
+                
+                if (indexPieza != -1) {
+                	String tituloPieza = tituloPiezas[indexPieza];
+                	Pieza piezaSeleccionada = galeria.getPieza(tituloPieza);
+                	
+                	Pieza piezaPorConsignar = null;
+					
+					if ( piezaSeleccionada.getTipo() == Pieza.PINTURA ) {
+						piezaPorConsignar = new Pintura((Pintura) piezaSeleccionada);
+					}
+					if ( piezaSeleccionada.getTipo() == Pieza.IMPRESION ) {
+						piezaPorConsignar = new Impresion((Impresion) piezaSeleccionada);
+					}
+					if ( piezaSeleccionada.getTipo() == Pieza.ESCULTURA ) {
+						piezaPorConsignar = new Escultura((Escultura) piezaSeleccionada);
+					}
+					if ( piezaSeleccionada.getTipo() == Pieza.FOTOGRAFIA ) {
+						piezaPorConsignar = new Fotografia((Fotografia) piezaSeleccionada);
+					}
+					if ( piezaSeleccionada.getTipo() == Pieza.VIDEO ) {
+						piezaPorConsignar = new Video((Video) piezaSeleccionada);
+					}
+					
+					Long directa;
+					if ( directaField.getText().equals("") ) {
+						directa = (long) -1;
+					}
+					else {
+						directa = Long.parseLong(directaField.getText());
+					}
+					
+            		Long inicio = Long.parseLong(inicioField.getText());
+            		Long minimo = Long.parseLong(minimoField.getText());
+					
+					piezaPorConsignar.setFechaTerminoConsignacion(fechaField.getText());
+					piezaPorConsignar.setPrecioVentaDirecta(directa);
+					piezaPorConsignar.setPrecioInicioSubasta(inicio);
+					piezaPorConsignar.setPrecioMinimoSubasta(minimo);
+					
+					MenuAdministrador.listaPiezasPorIngresar.add(piezaPorConsignar);
+					JOptionPane.showMessageDialog(internalFrame, "Solicitud de consignación registrada");
+                }
+            }
+        });
+                
+         
+
+        internalFrame.add(panelConsignacion, BorderLayout.CENTER);
+        internalFrame.add(botonConsignar, BorderLayout.SOUTH);
+
+        internalFrame.setVisible(true);
+        desktopPane.add(internalFrame);
+        try {
+        	internalFrame.setSelected(true);
+        } catch (java.beans.PropertyVetoException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    
+    public void mostrarInternalFrameAmpliarTope(String loginPropietario) {
+    	JInternalFrame internalFrame = new JInternalFrame("Registrar nueva pieza", true, true, true, true);
+        internalFrame.setSize(400, 300);
+        internalFrame.setLayout(new BorderLayout());
+        
+        JPanel panelConsignacion = new JPanel(new GridLayout(1, 2));
+        
+        JLabel labelTope = new JLabel("Nuevo tope deseado. Debe ser mayor al tope actual (" + Long.toString(galeria.getCliente(loginPropietario).getTopeCompras()) + "):");
+        panelConsignacion.add(labelTope);
+        JTextField topeField = new JTextField(20);
+        panelConsignacion.add(topeField);
+        
+        JButton botonConfirmar = new JButton("Consignar");
+        botonConfirmar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	
+            	if ( galeria.getCliente(loginPropietario).getTopeCompras() >= Long.parseLong(topeField.getText()) ) {
+            		JOptionPane.showMessageDialog(internalFrame, "El valor ingresado es menor al tope actual.");
+            	}
+            	else {
+	            	SolicitudTope sol = new SolicitudTope( loginPropietario, Long.parseLong(topeField.getText()) );
+	            	MenuAdministrador1.listaSolicitudesTope.add(sol);
+            	}
+            }
+        });
+        
+        internalFrame.add(panelConsignacion, BorderLayout.CENTER);
+        internalFrame.add(botonConfirmar, BorderLayout.SOUTH);
+        
     }
 }

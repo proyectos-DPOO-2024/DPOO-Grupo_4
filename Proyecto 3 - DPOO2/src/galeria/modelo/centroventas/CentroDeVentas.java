@@ -20,7 +20,7 @@ public class CentroDeVentas
 
 	/**
 	 * El mapa de historial de pagos por piezas relaciona el nombre de una pieza con
-	 * la lista de pagos donde la pieza sse ha visto involucrada. El mapa de piezas
+	 * la lista de pagos donde la pieza se ha visto involucrada. El mapa de piezas
 	 * actuales de propietarios relaciona el login de un cliente con la lista del
 	 * nombre de las piezas que posee actualmente. El mapa de piezas pasadas de
 	 * propietarios relaciona el login de un cliente con la lista del nombre de las

@@ -33,7 +33,7 @@ public class MenuPrincipal1 extends JFrame {
                     archivos[0] = "./datos/galeria.json";
                     archivos[1] = "./datos/centro_ventas.json";
                     Galeria galeria = persistencia.cargarPrograma(archivos);
-                    List<Pieza> listaPiezasPorIngresar = new LinkedList<>();
+                    List<Pieza> listaPiezasPorIngresar = MenuAdministrador1.listaPiezasPorIngresar;
                     MenuPrincipal1 frame = new MenuPrincipal1(galeria, listaPiezasPorIngresar);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -109,11 +109,11 @@ public class MenuPrincipal1 extends JFrame {
             System.out.println("Texto ingresado en el campo 1: " + usu);
             System.out.println("Texto ingresado en el campo 2: " + con);
             // Si el tipo de usuario es 1 (administrador), abrir el menú de administrador
-            if (tipoUsuario == 1) {
+            if (tipoUsuario == Usuario.ADMINISTRADOR) {
                 MenuAdministrador1 menuAdmin = new MenuAdministrador1(galeria, listaPiezasPorIngresar);
                 menuAdmin.setVisible(true);
             }
-            if (tipoUsuario == 2) {
+            if (tipoUsuario == Usuario.CAJERO) {
                 MenuCajero1 menuCajero = new MenuCajero1(galeria, listaPiezasPorIngresar);
                 menuCajero.setVisible(true);
             }
@@ -121,7 +121,7 @@ public class MenuPrincipal1 extends JFrame {
 				MenuOperador menuOp = new MenuOperador(this);
 			}
 			if (tipoUsuario == Usuario.CLIENTE) {
-				MenuCliente menuCli = new MenuCliente(this, usu);
+				MenuCliente1 menuCli = new MenuCliente1(galeria, listaPiezasPorIngresar, usu);
 			}
         }
     }

@@ -70,6 +70,7 @@ public class MenuAdministrador1 extends JFrame {
                     }
                 });
                 panel.add(verificarCompradorButton);
+                
                 JButton verHistorialClienteButton = new JButton("Ver Historial de Cliente");
                 verHistorialClienteButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {

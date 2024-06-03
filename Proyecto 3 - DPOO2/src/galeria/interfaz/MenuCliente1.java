@@ -8,12 +8,15 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -60,7 +63,7 @@ public class MenuCliente1 extends JFrame {
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(lblNewLabel);
 
-        JLabel lblNewLabel_1 = new JLabel("¿En que te podemos ayudar?");
+        JLabel lblNewLabel_1 = new JLabel("Tope de Compras: " + Long.toString(esteCliente.getTopeCompras()));
         lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(lblNewLabel_1);
         
@@ -72,6 +75,77 @@ public class MenuCliente1 extends JFrame {
 	            }
 	        });
 	        panel.add(confirmarPieza);
+	        
+	        JButton consignarPieza = new JButton("Consignar pieza");
+	        confirmarPieza.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	            	
+	            	List<String> piezasCliente = galeria.getPiezasActuales(esteCliente.getLogin());
+	        		List<Pieza> piezasPorConsignar = new LinkedList<Pieza>();
+	        		
+	        		Iterator<String> it = piezasCliente.iterator();
+	        		
+	        		if ( piezasCliente.isEmpty() ) {
+	        			JOptionPane.showMessageDialog(panel, "No tiene piezas por consignar");
+	        		}
+	        		else {
+	        			while ( it.hasNext() ) {
+	        				String tituloPieza = it.next();
+	        				Pieza pieza = galeria.getPieza(tituloPieza);
+	        				if ( !pieza.isEnPosesion() ) {
+	        					piezasPorConsignar.add(pieza);
+	        				}
+	        			}
+	        			internalFrameManager.mostrarInternalFrameConsignarNuevaPieza(esteCliente.getLogin(), piezasPorConsignar);
+	        		}
+	            }
+	        });
+	        panel.add(consignarPieza);
+	        
+	        JButton verificacionComprador = new JButton("Aplicar para verificación de comprador");
+	        verificacionComprador.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                if ( esteCliente.isVerificado() ) {
+	                	JOptionPane.showMessageDialog(panel, "Usted ya está verificado");
+	                }
+	                else {
+	                	MenuAdministrador1.listaCompradores.add(esteCliente.getLogin());
+	                	JOptionPane.showMessageDialog(panel, "Solicitud de verificación enviada con éxito.");
+	                }
+	            }
+	        });
+	        panel.add(verificacionComprador);
+	        
+	        JButton ampliarTope = new JButton("Aplicar para ampliación de tope de compras");
+	        confirmarPieza.addActionListener(new ActionListener() {
+	            public void actionPerformed(ActionEvent e) {
+	                internalFrameManager.mostrarInternalFrameAmpliarTope(esteCliente.getLogin());
+	            }
+	        });
+	        panel.add(ampliarTope);
+	        
+	        JButton verHistorialClienteButton = new JButton("Ver Historial de Cliente");
+            verHistorialClienteButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    internalFrameManager.mostrarInternalFrameHistorialCliente(esteCliente.getLogin());
+                }
+            });
+	        
+	        JButton verHistorialArtistaButton = new JButton("Ver Historial de Artista");
+            verHistorialArtistaButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    internalFrameManager.mostrarInternalFrameVerHistorialArtista();
+                }
+            });
+            panel.add(verHistorialArtistaButton);
+            
+            JButton verHistorialPiezaButton = new JButton("Ver Historial de Pieza");
+            verHistorialPiezaButton.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    internalFrameManager.mostrarInternalFrameVerHistorialPieza();
+                }
+            });
+            panel.add(verHistorialPiezaButton);
 
     }
 }
