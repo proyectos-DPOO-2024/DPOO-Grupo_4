@@ -21,11 +21,18 @@ public abstract class MenuUsuario extends MenuBasico
 
 	MenuPrincipal menuPrincipal;
 	Galeria galeria;
+	private MenuPrincipal1 menuPrincipal1;
 
 	protected MenuUsuario(MenuPrincipal menuPrincipal)
 	{
 		this.menuPrincipal = menuPrincipal;
 		galeria = menuPrincipal.galeria;
+	}
+
+	public MenuUsuario(MenuPrincipal1 menuPrincipal1)
+	{
+		this.menuPrincipal1 = menuPrincipal1;
+		galeria = menuPrincipal1.galeria;
 	}
 
 	protected void verHistoriaPieza() {

@@ -31,6 +31,12 @@ public class MenuCajero extends MenuEmpleado
 		this.mostrarMenuCajero();
 	}
 
+	public MenuCajero(MenuPrincipal1 menuPrincipal1)
+	{
+		super(menuPrincipal1);
+		this.mostrarMenuCajero();
+	}
+
 	/**
 	 * Esta función muestra el menú del cajero y ejecuta las funciones
 	 * correspondientes según la respuesta del usuario.

@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import galeria.modelo.inventario.Galeria;
 import galeria.modelo.inventario.Pieza;
+import galeria.modelo.usuarios.Usuario;
 import galeria.persistencia.CentralPersistencia;
 
 import java.awt.*;
@@ -19,8 +20,9 @@ public class MenuPrincipal1 extends JFrame {
     private JPanel contentPane;
     private JTextField usuario;
     private JTextField contraseña;
-    protected Galeria galeria;
+    public Galeria galeria;
     protected List<Pieza> listaPiezasPorIngresar;
+    
 
     public static void main(String[] args) throws IOException {
         EventQueue.invokeLater(new Runnable() {
@@ -115,6 +117,12 @@ public class MenuPrincipal1 extends JFrame {
                 MenuCajero1 menuCajero = new MenuCajero1(galeria, listaPiezasPorIngresar);
                 menuCajero.setVisible(true);
             }
+			if (tipoUsuario == Usuario.OPERADOR) {
+				MenuOperador menuOp = new MenuOperador(this);
+			}
+			if (tipoUsuario == Usuario.CLIENTE) {
+				MenuCliente menuCli = new MenuCliente(this, usu);
+			}
         }
     }
 

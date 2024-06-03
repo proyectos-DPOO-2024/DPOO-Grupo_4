@@ -32,6 +32,15 @@ public class MenuCliente extends MenuUsuario
 		this.mostrarMenuCliente();
 	}
 
+	public MenuCliente(MenuPrincipal1 menuPrincipal1, String usu)
+	{
+		super(menuPrincipal1);
+
+		esteCliente = menuPrincipal1.galeria.getCliente(usu);
+
+		this.mostrarMenuCliente();
+	}
+
 	private void mostrarMenuCliente() {
 
 		String[] opciones = new String[10];
