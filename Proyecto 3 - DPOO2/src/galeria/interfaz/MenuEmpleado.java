@@ -16,6 +16,12 @@ public abstract class MenuEmpleado extends MenuUsuario
 		super(menuPrincipal);
 	}
 
+	public MenuEmpleado(MenuPrincipal1 menuPrincipal1)
+	{
+		super(menuPrincipal1);
+
+	}
+
 	/**
 	 * Este método pasa una pieza (que está siendo exhibida) a la bodega
 	 */

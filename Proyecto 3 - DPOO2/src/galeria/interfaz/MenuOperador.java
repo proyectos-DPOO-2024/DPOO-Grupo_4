@@ -27,6 +27,13 @@ public class MenuOperador extends MenuEmpleado
 		this.mostrarMenuOperador();
 	}
 
+	public MenuOperador(MenuPrincipal1 menuPrincipal1)
+	{
+		super(menuPrincipal1);
+
+		this.mostrarMenuOperador();
+	}
+
 	/**
 	 * Esta función muestra el menú del operador y ejecuta las funciones
 	 * correspondientes según la respuesta del usuario.

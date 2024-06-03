@@ -15,6 +15,7 @@ import java.util.List;
 public class MenuAdministrador1 extends JFrame {
 
     private static final long serialVersionUID = 1L;
+    private CalendarFrame almanaque;
     private JPanel contentPane;
     private JDesktopPane desktopPane;
     private InternalFrameManager internalFrameManager;
@@ -151,6 +152,15 @@ public class MenuAdministrador1 extends JFrame {
                 cerrarSesion();
             }
         });
+        
+        JButton calendario = new JButton("Número de ventas por dia");
+        calendario.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	CalendarFrame almanaque = new CalendarFrame(listaPagos);
+                almanaque.setVisible(true);
+            }
+        });
+        panel.add(calendario);
         panel.add(cerrarSesion);
     }
 

@@ -1,12 +1,16 @@
 package galeria.interfaz;
 
 import javax.swing.*;
+
+import galeria.modelo.centroventas.Fecha;
+import galeria.modelo.centroventas.Pago;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.Random;
+import java.util.List;
 
 public class CalendarFrame extends JFrame {
     private JPanel calendarPanel;
@@ -14,11 +18,15 @@ public class CalendarFrame extends JFrame {
     private JComboBox<String> monthComboBox;
     private JComboBox<Integer> yearComboBox;
     private JButton updateButton;
+    private List<Pago> listaPagos;
 
     private int currentYear;
     private int currentMonth;
 
-    public CalendarFrame() {
+    public CalendarFrame(List<Pago> listaPagos) {
+    	
+    	this.listaPagos = listaPagos;
+    	
         setTitle("Calendario");
         setSize(400, 450);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -85,8 +93,8 @@ public class CalendarFrame extends JFrame {
 
     private Integer[] getYears() {
         Integer[] years = new Integer[100];
-        int startYear = 1924;
-        for (int i = 0; i < 100; i++) {
+        int startYear = 2000;
+        for (int i = 0; i < 25; i++) {
             years[i] = startYear + i;
         }
         return years;
@@ -106,7 +114,7 @@ public class CalendarFrame extends JFrame {
                 if (i == 1 && j < firstDayOfWeek) {
                     dayLabels[i][j].setText("");
                 } else if (dayCounter <= daysInMonth) {
-                    int randomNumber = random.nextInt(100); // Random number between 0 and 99
+                    int randomNumber = numeroVentas(dayCounter); // Random number between 0 and 99
                     dayLabels[i][j].setText("<html><div style='text-align: right; font-size: smaller;'>" + dayCounter + "</div><div style='text-align: center; font-size: larger;'>Ventas: " + randomNumber + "</div></html>");
                     dayCounter++;
                 } else {
@@ -116,10 +124,17 @@ public class CalendarFrame extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            CalendarFrame frame = new CalendarFrame();
-            frame.setVisible(true);
-        });
-    }
+    private int numeroVentas(int day) {
+        int ventas = 0;
+
+        // Iterar sobre la lista de pagos y contar las ventas para el día dado
+        for (Pago pago : listaPagos) {
+            Fecha fechaPago = pago.getFecha(); // Suponiendo que la clase Pago tiene un método getFecha() que devuelve la fecha del pago
+            if (fechaPago != null && fechaPago.getDia() == day) {
+                ventas++;
+        
+            }}
+        return ventas;
+        }
+    
 }
